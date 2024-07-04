@@ -15,6 +15,7 @@ import (
 const (
 	GOOGLE_DEVICE_CODE_URL = "https://oauth2.googleapis.com/device/code"
 	GOOGLE_TOKEN_POLL_URL  = "https://oauth2.googleapis.com/token"
+	GOOGLE_DEVICE_SCOPE    = "email%20profile%20openid"
 )
 
 var (
@@ -30,7 +31,8 @@ type DeviceCode struct {
 }
 
 func GetDeviceCode() (DeviceCode, error) {
-	req, err := http.NewRequest(http.MethodPost, GOOGLE_DEVICE_CODE_URL, strings.NewReader(fmt.Sprintf("client_id=%s&scope=email%%20profile", os.Getenv("GOOGLE_CLIENT_ID"))))
+	req, err := http.NewRequest(http.MethodPost, GOOGLE_DEVICE_CODE_URL,
+		strings.NewReader(fmt.Sprintf("client_id=%s&scope=%s", os.Getenv("GOOGLE_CLIENT_ID"), GOOGLE_DEVICE_SCOPE)))
 	if err != nil {
 		log.Println("error creating google auth request")
 		return DeviceCode{}, err
@@ -63,6 +65,7 @@ func GetDeviceCode() (DeviceCode, error) {
 type AccessToken struct {
 	AccessToken  string `json:access_token`
 	ExpiresIn    int    `json:expires_in`
+	IdToken      string `json: id_token`
 	Scope        string `json:scope`
 	TokenType    string `json:token_type`
 	RefreshToken string `json:refresh_token`
