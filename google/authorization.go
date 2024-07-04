@@ -19,7 +19,7 @@ const (
 )
 
 var (
-	ErrAuthorizationPending = errors.New("pending user authorization")
+	ErrAuthorizationPending = errors.New("authorization_pending")
 )
 
 type DeviceCode struct {
@@ -71,6 +71,19 @@ type AccessToken struct {
 	RefreshToken string `json:refresh_token`
 }
 
+type AuthError struct {
+	Error_           string `json:error`
+	ErrorDescription string `json:error_description`
+}
+
+func (e AuthError) Error() string {
+	return e.Error_
+}
+
+func (e AuthError) ToString() string {
+	return e.Error_ + "." + e.ErrorDescription
+}
+
 func PollAuthorization(deviceCode string) (AccessToken, error) {
 	reqBody := fmt.Sprintf(
 		`
@@ -87,8 +100,7 @@ func PollAuthorization(deviceCode string) (AccessToken, error) {
 
 	req.Header.Add("Content-Type", "application/json")
 	res, err := http.DefaultClient.Do(req)
-
-	if err != nil || res.StatusCode != http.StatusOK {
+	if err != nil {
 		log.Printf("error requesting google token id. status code: %d. status: %s", res.StatusCode, res.Status)
 		return AccessToken{}, nil
 	}
@@ -97,6 +109,19 @@ func PollAuthorization(deviceCode string) (AccessToken, error) {
 	if err != nil {
 		log.Println("error reading google token response body" + err.Error())
 		return AccessToken{}, err
+	}
+
+	// https://developers.google.com/identity/protocols/oauth2/limited-input-device#step-6:-handle-responses-to-polling-requests
+	// handle auth errors
+	if res.StatusCode != http.StatusOK {
+		var authError AuthError
+		err = json.NewDecoder(bytes.NewReader(resBytes)).Decode(&authError)
+		if err != nil {
+			log.Println("error decoding google error response" + err.Error())
+			return AccessToken{}, err
+		}
+		log.Println("google token response not OK. " + authError.ToString())
+		return AccessToken{}, authError
 	}
 
 	var accessToken AccessToken
