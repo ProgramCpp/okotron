@@ -14,6 +14,13 @@ make build
 make test
 ```
 
+### Configure
+set the below environment variables
+```
+TELEGRAM_BOT_TOKEN=<your-secret-token>
+ENABLE_DEBUG_LOGS=true
+```
+
 ### Run
 ```
 make run
