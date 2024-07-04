@@ -9,9 +9,20 @@ import (
 	"strconv"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/programcpp/oktron/okto"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
+
+var oauthConfig = oauth2.Config{
+	RedirectURL:  "http://localhost:3000/",
+	ClientID:     os.Getenv("GOOGLE_CLIENT_ID"),
+	ClientSecret: os.Getenv("GOOGLE_CLIENT_SECRET"),
+	Scopes: []string{
+		"https://www.googleapis.com/auth/userinfo.profile",
+	},
+	Endpoint: google.Endpoint,
+}
 
 func main() {
 	go auth()
@@ -58,22 +69,20 @@ func auth() {
 		// https://pkg.go.dev/google.golang.org/api@v0.186.0/oauth2/v2
 
 		code := r.URL.Query().Get("code")
-
-		oauthConfig := oauth2.Config{
-			RedirectURL:  "http://localhost:3000/",
-			ClientID:     os.Getenv("GOOGLE_CLIENT_ID"),
-			ClientSecret: os.Getenv("GOOGLE_CLIENT_SECRET"),
-			Scopes: []string{
-				"https://www.googleapis.com/auth/userinfo.profile",
-			},
-			Endpoint: google.Endpoint,
-		}
 		token, err := oauthConfig.Exchange(context.Background(), code)
 		if err != nil {
 			log.Println("error fetching google auth token " + err.Error())
 		}
 
-		_ = token
+		idToken := token.Extra("id_token").(string) 
+
+		// authenticate with okto
+		oktoToken, err := okto.Authenticate(idToken)
+		if err != nil {
+			log.Println("authenticaiton with okto failed")
+		}
+
+		_ = oktoToken
 	})
 
 	if err := http.ListenAndServe(":3000", mux); err != nil {
