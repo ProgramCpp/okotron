@@ -28,6 +28,9 @@ downside: security concerns since this is not the standard oauth 2.0 flow. enfor
 ### Approach 2: [device authorization flow](https://www.oauth.com/oauth2-servers/device-flow/user-flow/)
 downside: not the best UX
 
-### Conclusion: Approach 2 is the reccomended flow for clients with limited input functionality
+References:
+[limited input device](https://developers.google.com/identity/protocols/oauth2/limited-input-device)
+
+### Conclusion: Approach 2 is the reccomended flow for clients with limited input functionality. 
 
 
