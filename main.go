@@ -1,15 +1,20 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"strconv"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/google"
 )
 
 func main() {
+	go auth()
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
 	if err != nil {
 		log.Panic(err)
@@ -33,7 +38,7 @@ func main() {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
 			reply := "hello " + "first_name"
-			if(update.Message.Text == "/auth"){
+			if update.Message.Text == "/auth" {
 				reply = fmt.Sprintf("https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=%s&redirect_uri=http://localhost:3000/&scope=https://www.googleapis.com/auth/userinfo.profile&state=123&access_type=offline", os.Getenv("GOOGLE_CLIENT_ID"))
 			}
 
@@ -42,5 +47,36 @@ func main() {
 
 			bot.Send(msg)
 		}
+	}
+}
+
+func auth() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/auth", func(w http.ResponseWriter, r *http.Request) {
+		// todo: verify state
+		// todo: use google auth package
+		// https://pkg.go.dev/google.golang.org/api@v0.186.0/oauth2/v2
+
+		code := r.URL.Query().Get("code")
+
+		oauthConfig := oauth2.Config{
+			RedirectURL:  "http://localhost:3000/",
+			ClientID:     os.Getenv("GOOGLE_CLIENT_ID"),
+			ClientSecret: os.Getenv("GOOGLE_CLIENT_SECRET"),
+			Scopes: []string{
+				"https://www.googleapis.com/auth/userinfo.profile",
+			},
+			Endpoint: google.Endpoint,
+		}
+		token, err := oauthConfig.Exchange(context.Background(), code)
+		if err != nil {
+			log.Println("error fetching google auth token " + err.Error())
+		}
+
+		_ = token
+	})
+
+	if err := http.ListenAndServe(":3000", mux); err != nil {
+		log.Println("auth server shutdown with error " + err.Error())
 	}
 }
