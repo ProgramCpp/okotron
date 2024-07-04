@@ -19,6 +19,8 @@ set the below environment variables
 ```
 TELEGRAM_BOT_TOKEN=<your-secret-token>
 ENABLE_DEBUG_LOGS=true
+GOOGLE_CLIENT_ID=<client-id>
+GOOGLE_CLIENT_SECRET=<secret>
 ```
 
 ### Run
