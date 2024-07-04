@@ -14,13 +14,18 @@ import (
 
 func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
-	deviceCode := google.GetDeviceCode()
+	deviceCode, err := google.GetDeviceCode()
+	if err != nil {
+		log.Printf("error encountered when saving token id %d", id)
+		Send(bot, update, "error authorizing oktron. try again.")
+		return
+	}
 	reply := ""
-	reply += fmt.Sprintf("visit [google authorization page](%s) to authorize oktron. enter device code %s \n", deviceCode.Verification_url, deviceCode.DeviceCode)
+	reply += fmt.Sprintf("visit [google authorization page](%s) to authorize oktron. enter device code %s \n", deviceCode.VerificationUrl, deviceCode.DeviceCode)
 	reply += "return to oktron chat when done"
 	Send(bot, update, reply)
 
-	for {
+	for i := 0; i*deviceCode.Interval <= deviceCode.ExpiresIn; i++ {
 		time.Sleep(time.Duration(deviceCode.Interval) * time.Second)
 		token, err := google.PollAuthorization()
 		if errors.Is(err, google.ErrAuthorizationPending) {
