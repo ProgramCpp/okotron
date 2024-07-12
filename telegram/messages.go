@@ -12,7 +12,7 @@ import (
 func Run() {
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
 	if err != nil {
-		log.Panic(err)
+		log.Panic("telegram bot token missing:", err)
 	}
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 

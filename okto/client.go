@@ -19,16 +19,16 @@ import (
 const BASE_URL = "https://apigw.okto.tech"
 
 type AuthData struct {
-	Token   string `json:token`
-	Message string `json:message`
-	Status  int    `json:status`
-	Action  string `json:action`
-	Code    int    `json:code`
+	Token   string `json:"token"`
+	Message string `json:"message"`
+	Status  int    `json:"status"`
+	Action  string `json:"action"`
+	Code    int    `json:"code"`
 }
 
 type AuthResponse struct {
-	Status string   `json:status`
-	Data   AuthData `json: data`
+	Status string   `json:"status"`
+	Data   AuthData `json:"data"`
 }
 
 func Authenticate(idToken string) (string, error) {

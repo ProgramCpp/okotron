@@ -23,11 +23,11 @@ var (
 )
 
 type DeviceCode struct {
-	DeviceCode      string `json:device_code`
-	ExpiresIn       int    `json:expires_in`
-	Interval        int    `json:interval`
-	UserCode        string `json:user_code`
-	VerificationUrl string `json:verification_url`
+	DeviceCode      string `json:"device_code"`
+	ExpiresIn       int    `json:"expires_in"`
+	Interval        int    `json:"interval"`
+	UserCode        string `json:"user_code"`
+	VerificationUrl string `json:"verification_url"`
 }
 
 func GetDeviceCode() (DeviceCode, error) {
@@ -38,18 +38,28 @@ func GetDeviceCode() (DeviceCode, error) {
 		return DeviceCode{}, err
 	}
 
-	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	res, err := http.DefaultClient.Do(req)
-	// TODO: 403 returns error in response body
-	if err != nil || res.StatusCode != http.StatusOK {
+	if err != nil {
 		log.Printf("error requesting google device code. status code: %d. status: %s", res.StatusCode, res.Status)
-		return DeviceCode{}, nil
+		return DeviceCode{}, err
 	}
 
 	resBytes, err := io.ReadAll(res.Body)
 	if err != nil {
 		log.Println("error reading google device code response body" + err.Error())
 		return DeviceCode{}, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		var authError AuthError
+		err = json.NewDecoder(bytes.NewReader(resBytes)).Decode(&authError)
+		if err != nil {
+			log.Println("error decoding google error response" + err.Error())
+			return DeviceCode{}, err
+		}
+		log.Println("google token response not OK. " + authError.ToString())
+		return DeviceCode{}, authError
 	}
 
 	var deviceCode DeviceCode
@@ -63,17 +73,17 @@ func GetDeviceCode() (DeviceCode, error) {
 }
 
 type AccessToken struct {
-	AccessToken  string `json:access_token`
-	ExpiresIn    int    `json:expires_in`
-	IdToken      string `json: id_token`
-	Scope        string `json:scope`
-	TokenType    string `json:token_type`
-	RefreshToken string `json:refresh_token`
+	AccessToken  string `json:"access_token"`
+	ExpiresIn    int    `json:"expires_in"`
+	IdToken      string `json:"id_token"`
+	Scope        string `json:"scope"`
+	TokenType    string `json:"token_type"`
+	RefreshToken string `json:"refresh_token"`
 }
 
 type AuthError struct {
-	Error_           string `json:error`
-	ErrorDescription string `json:error_description`
+	Error_           string `json:"error"`
+	ErrorDescription string `json:"error_description"`
 }
 
 func (e AuthError) Error() string {
@@ -98,11 +108,11 @@ func PollAuthorization(deviceCode string) (AccessToken, error) {
 		return AccessToken{}, err
 	}
 
-	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Printf("error requesting google token id. status code: %d. status: %s", res.StatusCode, res.Status)
-		return AccessToken{}, nil
+		return AccessToken{}, err
 	}
 
 	resBytes, err := io.ReadAll(res.Body)
