@@ -43,6 +43,7 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			}
 
 			Send(bot, update, "Authorization success")
+			break
 		}
 	}
 }

@@ -96,6 +96,10 @@ func (e AuthError) ToString() string {
 	return e.Error_ + "." + e.ErrorDescription
 }
 
+func (e AuthError) Is(target error) bool {
+	return e.Error() == target.Error()
+}
+
 func PollAuthorization(deviceCode string) (AccessToken, error) {
 	data := url.Values{}
 	data.Set("client_id", os.Getenv("GOOGLE_CLIENT_ID")) // TODO: inject config
