@@ -8,14 +8,16 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 )
 
 const (
-	GOOGLE_DEVICE_CODE_URL = "https://oauth2.googleapis.com/device/code"
-	GOOGLE_TOKEN_POLL_URL  = "https://oauth2.googleapis.com/token"
-	GOOGLE_DEVICE_SCOPE    = "email%20profile%20openid"
+	GOOGLE_DEVICE_CODE_URL  = "https://oauth2.googleapis.com/device/code"
+	GOOGLE_TOKEN_POLL_URL   = "https://oauth2.googleapis.com/token"
+	GOOGLE_DEVICE_SCOPE     = "email%20profile%20openid"
+	GOOGLE_OAUTH_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:device_code"
 )
 
 var (
@@ -95,14 +97,13 @@ func (e AuthError) ToString() string {
 }
 
 func PollAuthorization(deviceCode string) (AccessToken, error) {
-	reqBody := fmt.Sprintf(
-		`
-		client_id=%s&
-		client_secret=%s&
-		device_code=%s&
-		grant_type=urn%%3Aietf%%3Aparams%%3Aoauth%%3Agrant-type%%3Adevice_code
-		`, os.Getenv("GOOGLE_CLIENT_ID"), os.Getenv("GOOGLE_CLIENT_SECRET"), deviceCode)
-	req, err := http.NewRequest(http.MethodPost, GOOGLE_TOKEN_POLL_URL, strings.NewReader(reqBody))
+	data := url.Values{}
+	data.Set("client_id", os.Getenv("GOOGLE_CLIENT_ID")) // TODO: inject config
+	data.Set("client_secret", os.Getenv("GOOGLE_CLIENT_SECRET"))
+	data.Set("device_code", deviceCode)
+	data.Set("grant_type", GOOGLE_OAUTH_GRANT_TYPE)
+
+	req, err := http.NewRequest(http.MethodPost, GOOGLE_TOKEN_POLL_URL, strings.NewReader(data.Encode()))
 	if err != nil {
 		log.Println("error creating google auth request")
 		return AccessToken{}, err
@@ -127,7 +128,7 @@ func PollAuthorization(deviceCode string) (AccessToken, error) {
 		var authError AuthError
 		err = json.NewDecoder(bytes.NewReader(resBytes)).Decode(&authError)
 		if err != nil {
-			log.Println("error decoding google error response" + err.Error())
+			log.Println("error decoding google error response. " + string(resBytes) + ". " + err.Error())
 			return AccessToken{}, err
 		}
 		log.Println("google token response not OK. " + authError.ToString())
