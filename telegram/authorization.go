@@ -21,7 +21,7 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 	reply := ""
-	reply += fmt.Sprintf("visit [google authorization page](%s) to authorize oktron. enter device code %s \n", deviceCode.VerificationUrl, deviceCode.DeviceCode)
+	reply += fmt.Sprintf("visit [google authorization page](%s) to authorize oktron. enter device code %s \n", deviceCode.VerificationUrl, deviceCode.UserCode)
 	reply += "return to oktron chat when done"
 	Send(bot, update, reply)
 
