@@ -148,3 +148,6 @@ func PollAuthorization(deviceCode string) (AccessToken, error) {
 
 	return accessToken, nil
 }
+
+// TODO: refresh tokens
+// https://developers.google.com/identity/protocols/oauth2/limited-input-device#displayingthecode

@@ -10,10 +10,19 @@ import (
 
 	"github.com/programcpp/oktron/db"
 	"github.com/programcpp/oktron/google"
+	"github.com/programcpp/oktron/okto"
 )
 
 func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
+	dbKey := fmt.Sprintf("%d", id)
+	token := db.Get(dbKey)
+	// TODO: do proper error check
+	if token != "" {
+		Send(bot, update, "Oktron already authorized")
+		return
+	}
+
 	deviceCode, err := google.GetDeviceCode()
 	if err != nil {
 		log.Printf("error encountered when saving token id %d", id)
@@ -21,7 +30,7 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 	reply := ""
-	reply += fmt.Sprintf("visit [google authorization page](%s) to authorize oktron. enter device code %s \n", deviceCode.VerificationUrl, deviceCode.UserCode)
+	reply += fmt.Sprintf("visit [google authorization page](%s) to authorize oktron and enter device code %s. \n", deviceCode.VerificationUrl, deviceCode.UserCode)
 	reply += "return to oktron chat when done"
 	Send(bot, update, reply)
 
@@ -35,7 +44,7 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			Send(bot, update, "error authorizing oktron. try again.")
 			break
 		} else {
-			err = db.Save(fmt.Sprintf("%d", id), token.AccessToken)
+			err = db.Save(dbKey, token.AccessToken)
 			if err != nil {
 				log.Printf("error encountered when saving token id %d", id)
 				Send(bot, update, "error authorizing oktron. try again.")
