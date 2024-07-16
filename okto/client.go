@@ -16,7 +16,7 @@ import (
 // Sandbox : https://sandbox-api.okto.tech
 // Staging : https://3p-bff.oktostage.com
 // Production : https://apigw.okto.tech
-const BASE_URL = "https://apigw.okto.tech"
+const BASE_URL = "https://sandbox-api.okto.tech" // TODO: make it configurable for different environments
 
 type AuthData struct {
 	Token   string `json:"token"`
@@ -44,7 +44,7 @@ func Authenticate(idToken string) (string, error) {
 	}
 
 	// TODO: init google client id
-	req.Header.Add("x-api-key", os.Getenv("GOOGLE_CLIENT_ID"))
+	req.Header.Add("x-api-key", os.Getenv("OKTO_CLIENT_API_KEY"))
 	req.Header.Add("Content-Type", "application/json")
 
 	res, err := http.DefaultClient.Do(req)
@@ -52,15 +52,16 @@ func Authenticate(idToken string) (string, error) {
 		log.Println("error making http req " + err.Error())
 		return "", err
 	}
-	if res.StatusCode != http.StatusOK {
-		log.Println("okto authenticaiton http req not OK")
-		return "", errors.New("okto authenticaiton http req not OK")
-	}
-
 	resBytes, err := io.ReadAll(res.Body)
 	if err != nil {
 		log.Println("error reading okto auth response body " + err.Error())
 		return "", err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		// TODO: parse error response
+		log.Println("okto authenticaiton http req not OK. " + string(resBytes))
+		return "", errors.New("okto authenticaiton http req not OK")
 	}
 
 	var authRes AuthResponse

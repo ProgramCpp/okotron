@@ -36,7 +36,7 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	for i := 0; i*deviceCode.Interval <= deviceCode.ExpiresIn; i++ {
 		time.Sleep(time.Duration(deviceCode.Interval) * time.Second)
-		token, err := google.PollAuthorization(deviceCode.DeviceCode)
+		googleToken, err := google.PollAuthorization(deviceCode.DeviceCode)
 		if errors.Is(err, google.ErrAuthorizationPending) {
 			continue
 		} else if err != nil {
@@ -44,9 +44,16 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			Send(bot, update, "error authorizing oktron. try again.")
 			break
 		} else {
-			err = db.Save(dbKey, token.AccessToken)
+			token, err = okto.Authenticate(googleToken.IdToken)
 			if err != nil {
-				log.Printf("error encountered when saving token id %d", id)
+				log.Println("error authentication to Okto. " + err.Error())
+				Send(bot, update, "error authorizing oktron. try again.")
+				break
+			}
+
+			err = db.Save(dbKey, token)
+			if err != nil {
+				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
 				Send(bot, update, "error authorizing oktron. try again.")
 				break
 			}
