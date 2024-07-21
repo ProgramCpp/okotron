@@ -12,5 +12,11 @@ func List(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
 	dbKey := fmt.Sprintf("%d", id)
 	authToken := db.Get(dbKey)
-	okto.SupportedTokens(authToken)
+	tokens, _ := okto.SupportedTokens(authToken)
+
+	reply := ""
+	for _, token := range tokens {
+		reply += token.String() + "\n"
+	}
+	Send(bot, update, reply)
 }
