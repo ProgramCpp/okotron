@@ -34,6 +34,8 @@ func Run() {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 			if update.Message.Text == "/authorize" {
 				go Auth(bot, update)
+			}  else if update.Message.Text == "/buy" {
+				go Buy(bot, update)
 			} else {
 				go Greet(bot, update)
 			}
