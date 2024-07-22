@@ -19,7 +19,7 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	token := db.Get(dbKey)
 	// TODO: do proper error check
 	if token != "" {
-		Send(bot, update, "Oktron already authorized")
+		Send(bot, update, "Oktron already authorized.")
 		return
 	}
 

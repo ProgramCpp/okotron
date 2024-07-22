@@ -127,8 +127,8 @@ func SupportedTokens(authToken string) ([]Token, error) {
 
 	if res.StatusCode != http.StatusOK {
 		// TODO: parse error response
-		log.Println("okto authenticaiton http req not OK. " + string(resBytes))
-		return nil, errors.New("okto authenticaiton http req not OK")
+		log.Println("okto supported tokens http req not OK. " + string(resBytes))
+		return nil, errors.New("okto supported tokens http req not OK")
 	}
 
 	var supportedTokensRes SupportedTokensResponse
