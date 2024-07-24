@@ -9,7 +9,7 @@ import (
 
 func Send(bot *tgbotapi.BotAPI, update tgbotapi.Update, reply string) error {
 	const PARSE_MODE = "MarkdownV2"
-	//reply = tgbotapi.EscapeText(PARSE_MODE, reply)
+	//reply = tgbotapi.EscapeText(PARSE_MODE, reply) // doesn't work for links!
 	specialCharacterEscaper := strings.NewReplacer(
 		`_`, "\\_",
 		`*`, "\\*",
