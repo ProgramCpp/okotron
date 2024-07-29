@@ -8,7 +8,7 @@ import (
 	"github.com/programcpp/oktron/okto"
 )
 
-func CreateWallet(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
 	dbKey := fmt.Sprintf("%d", id)
 	authToken := db.Get(dbKey)

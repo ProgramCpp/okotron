@@ -58,7 +58,7 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 				break
 			}
 
-			Send(bot, update, "Authorization success")
+			Send(bot, update, "almost done! set your - 6 digit - PIN to finish setup")
 			break
 		}
 	}

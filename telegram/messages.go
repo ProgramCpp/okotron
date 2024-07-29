@@ -32,11 +32,11 @@ func Run() {
 		// fmt.Printf("%+v", update)
 		if update.Message != nil { // If we got a message
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-			if update.Message.Text == "/authorize" {
+			if update.Message.Text == "/login" {
 				go Auth(bot, update)
-			} else if update.Message.Text == "/create_wallet" {
-				go CreateWallet(bot, update)
-			} else if update.Message.Text == "/list" {
+			} else if update.Message.Text == "/setup_profile" {
+				go SetupProfile(bot, update)
+			} else if update.Message.Text == "/tokens" {
 				go List(bot, update)
 			} else if update.Message.Text == "/buy" {
 				go Buy(bot, update)

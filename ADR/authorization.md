@@ -10,7 +10,6 @@ okto account is managed by user's google account. oktron must request user autho
 ## User flow
 
 ### Approach 1: browser flow
-downside: security concerns since this is not the standard oauth 2.0 flow. enforce best security practices. bot session passed between user client's - bot authorization token is curated in the redirection url. malicious actor can gain control over okto with access to this url. The short lived token can protect the user but it is not a bulletproof solution. Never roll your own security algorithm!
 
 1. user initiates oktron authorization from telegram
 2. a short lived session id is created for the chat_id. the chat_id for the session_id is persisted with a short expiry - time enough to complete authorization.
@@ -20,17 +19,38 @@ downside: security concerns since this is not the standard oauth 2.0 flow. enfor
 6. the user submits both the session id and the google auth code to finish authorization
 7. the user is redrected back to telegram bot chat
 
+downside: security concerns since this is not the standard oauth 2.0 flow. enforce best security practices. bot session passed between user client's - bot authorization token is curated in the redirection url. malicious actor can gain control over okto with access to this url. The short lived token can protect the user but it is not a bulletproof solution. Never roll your own security algorithm!
+
 #### Future Work
 
 - how to pass session information from an app to the browser?
 
 
-### Approach 2: [device authorization flow](https://www.oauth.com/oauth2-servers/device-flow/user-flow/)
-downside: not the best UX
+### Approach 2: [device authorization flow](https://developers.google.com/identity/protocols/oauth2/limited-input-device)
+- user initiates the authorization flow with a command
+- user receives the link and device code to authorize oktron
+- user completes the authorization from the browser 
+- user completes the setup by creating a profile with PIN with another command
 
-References:
-[limited input device](https://developers.google.com/identity/protocols/oauth2/limited-input-device)
+downside: not the best UX. multiple commands required to setup okto. 
 
-### Conclusion: Approach 2 is the reccomended flow for clients with limited input functionality. 
+future work: explore setup a conversational user flow 
+
+[update]
+a simple approach is to track okto token by message id id and setting ForceReply to the message id
+
+references:
+- https://www.oauth.com/oauth2-servers/device-flow/user-flow/
+
+### Approach 3: web server flow - telegram mini apps 
+references:
+- https://developers.google.com/identity/protocols/oauth2/web-server
+- https://core.telegram.org/bots/webapps
+
+downside: there is not enough documentation to integrate oauth flows which requires user session support with redirections
+
+
+### Conclusion: 
+Approach 2 is the reccomended flow for clients with limited input functionality. 
 
 
