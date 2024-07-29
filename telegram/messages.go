@@ -44,9 +44,9 @@ func Run() {
 		if update.Message != nil { // If we got a message
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 			if update.Message.Text == LOGIN {
-				go Auth(bot, update)
-			}else if update.Message.Text == TOKENS {
-				go List(bot, update)
+				go Login(bot, update)
+			} else if update.Message.Text == TOKENS {
+				go Tokens(bot, update)
 			} else if update.Message.Text == BUY {
 				go Buy(bot, update)
 			} else {

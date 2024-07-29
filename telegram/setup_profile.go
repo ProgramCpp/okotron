@@ -41,7 +41,7 @@ func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		Send(bot, update, "error authorizing oktron. try again.")
 		return
 	}
-	reply := "oktron setup is complete"
+	reply := "oktron setup is now complete."
 
 	Send(bot, update, reply)
 }

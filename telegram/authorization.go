@@ -13,7 +13,7 @@ import (
 	"github.com/programcpp/oktron/okto"
 )
 
-func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
 	// dbKey := fmt.Sprintf("%d", id)
 	// token := db.Get(dbKey)
