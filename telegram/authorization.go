@@ -44,6 +44,15 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			Send(bot, update, "error authorizing oktron. try again.")
 			break
 		} else {
+
+			googleIDTokenKey := fmt.Sprintf("google_id_token_%d", id) // TODO: expire tokens
+			err = db.Save(googleIDTokenKey, googleToken.IdToken)
+			if err != nil {
+				log.Printf("error encountered when saving google token id %d. %s", id, err.Error())
+				Send(bot, update, "error authorizing oktron. try again.")
+				break
+			}
+
 			token, err := okto.Authenticate(googleToken.IdToken)
 			if err != nil {
 				log.Println("error authentication to Okto. " + err.Error())
@@ -51,8 +60,8 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 				break
 			}
 
-			dbKey := fmt.Sprintf("okto_token_%d", id) // TODO: expire tokens
-			err = db.Save(dbKey, token)
+			tokenKey := fmt.Sprintf("okto_token_%d", id) // TODO: expire tokens
+			err = db.Save(tokenKey, token)
 			if err != nil {
 				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
 				Send(bot, update, "error authorizing oktron. try again.")
@@ -69,6 +78,7 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			// commands in progress
 			// multi-step commands are sequenced with message id's
 			// save the next command in the sequence
+			// the flow works only if the user replies to the message sent by the bot
 			// this allows the bot to determine the next command based on the user flow instead of the user manually selecting the commands. this improves the UX and simplifies bot usage
 			// TODO: document this user flow in a ADR
 			messageKey := fmt.Sprintf("message_%d", resp.MessageID)
