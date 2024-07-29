@@ -80,7 +80,7 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			// save the next command in the sequence
 			// the flow works only if the user replies to the message sent by the bot
 			// this allows the bot to determine the next command based on the user flow instead of the user manually selecting the commands. this improves the UX and simplifies bot usage
-			// TODO: document this user flow in a ADR
+			// TODO: document this user flow in a ADR. this is not specific to this use case. the same approach can be used for interactive user flows
 			messageKey := fmt.Sprintf("message_%d", resp.MessageID)
 			err = db.Save(messageKey, PIN)
 			if err != nil {

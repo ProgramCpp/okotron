@@ -1,7 +1,10 @@
 package telegram
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/programcpp/oktron/db"
@@ -10,15 +13,35 @@ import (
 
 func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
-	dbKey := fmt.Sprintf("%d", id)
-	authToken := db.Get(dbKey)
-	_, err := okto.CreateWallet(authToken)
-	// TODO: handle authorization failures
+	tokenKey := fmt.Sprintf("okto_token_%d", id)
+	token := db.Get(tokenKey)
+	googleIdTokenKey := fmt.Sprintf("google_id_token_%d", id)
+	idToken := db.Get(googleIdTokenKey)
+	authToken, err := okto.SetPin(idToken, token, update.Message.Text)
 	if err != nil {
-		Send(bot, update, "something went wrong!")
+		log.Println("error setting okto pin" + err.Error())
+		Send(bot, update, "encountered a problem when setting the PIN. try again.")
 		return
 	}
-	reply := "successfully created wallets"
+
+	buffer := bytes.Buffer{}
+	err = json.NewEncoder(&buffer).Encode(authToken)
+	if err != nil {
+		log.Println("error serializing auth token" + err.Error())
+		Send(bot, update, "encountered a problem when setting the PIN. try again.")
+		return
+	}
+
+	authTokenKey := fmt.Sprintf("okto_auth_token_%d", id)
+	db.Save(authTokenKey, buffer.String())
+
+	_, err = okto.CreateWallet(authToken.AuthToken)
+	if err != nil {
+		log.Println("error authentication to Okto. " + err.Error())
+		Send(bot, update, "error authorizing oktron. try again.")
+		return
+	}
+	reply := "oktron setup is complete"
 
 	Send(bot, update, reply)
 }
