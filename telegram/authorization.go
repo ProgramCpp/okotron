@@ -15,13 +15,13 @@ import (
 
 func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
-	dbKey := fmt.Sprintf("%d", id)
-	token := db.Get(dbKey)
-	// TODO: do proper error check
-	if token != "" {
-		Send(bot, update, "Oktron already authorized.")
-		return
-	}
+	// dbKey := fmt.Sprintf("%d", id)
+	// token := db.Get(dbKey)
+	// // TODO: do proper error check. check error from db call
+	// if token != "" {
+	// 	Send(bot, update, "Oktron already authorized.")
+	// 	return
+	// }
 
 	deviceCode, err := google.GetDeviceCode()
 	if err != nil {
@@ -44,13 +44,14 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			Send(bot, update, "error authorizing oktron. try again.")
 			break
 		} else {
-			token, err = okto.Authenticate(googleToken.IdToken)
+			token, err := okto.Authenticate(googleToken.IdToken)
 			if err != nil {
 				log.Println("error authentication to Okto. " + err.Error())
 				Send(bot, update, "error authorizing oktron. try again.")
 				break
 			}
 
+			dbKey := fmt.Sprintf("okto_token_%d", id) // TODO: expire tokens
 			err = db.Save(dbKey, token)
 			if err != nil {
 				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
@@ -58,7 +59,25 @@ func Auth(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 				break
 			}
 
-			Send(bot, update, "almost done! set your - 6 digit - PIN to finish setup")
+			resp, err := SendWithForceReply(bot, update, "almost done! set your - 6 digit - PIN to finish setup", true)
+			if err != nil {
+				log.Printf("error encountered when sending bot message. %s", err.Error())
+				// Send(bot, update, "error authorizing oktron. try again.")
+				break
+			}
+
+			// commands in progress
+			// multi-step commands are sequenced with message id's
+			// save the next command in the sequence
+			// this allows the bot to determine the next command based on the user flow instead of the user manually selecting the commands. this improves the UX and simplifies bot usage
+			// TODO: document this user flow in a ADR
+			messageKey := fmt.Sprintf("message_%d", resp.MessageID)
+			err = db.Save(messageKey, PIN)
+			if err != nil {
+				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
+				Send(bot, update, "error authorizing oktron. try again.")
+				break
+			}
 			break
 		}
 	}
