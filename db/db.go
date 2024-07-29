@@ -1,6 +1,9 @@
 package db
 
-import "os"
+import (
+	"os"
+	"strings"
+)
 
 // TODO: long lived connection
 func Save(key, value string) error {
@@ -8,5 +11,13 @@ func Save(key, value string) error {
 }
 
 func Get(key string) string {
-	return os.Getenv("OKTO_TOKEN")
+	if strings.Contains(key, "message"){
+		return "/pin"
+	} else if strings.Contains(key, "okto_token"){
+		return os.Getenv("OKTO_TOKEN")
+	} else if strings.Contains(key, "okto_auth_token"){
+		return os.Getenv("OKTO_AUTH_TOKEN")
+	}
+		
+	return ""
 }
