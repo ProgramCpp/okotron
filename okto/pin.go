@@ -25,7 +25,7 @@ type AuthTokenResponse struct {
 }
 
 func SetPin(idToken, token, pin string) (AuthToken, error) {
-	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v1/wallet", strings.NewReader(fmt.Sprintf(
+	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v1/set_pin", strings.NewReader(fmt.Sprintf(
 		`
 		{
 		 	"id_token": "%s",
@@ -41,6 +41,7 @@ func SetPin(idToken, token, pin string) (AuthToken, error) {
 
 	req.Header.Add("x-api-key", os.Getenv("OKTO_CLIENT_API_KEY"))
 	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("accept", "*/*")
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
