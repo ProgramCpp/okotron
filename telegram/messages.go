@@ -1,11 +1,13 @@
 package telegram
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strconv"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/programcpp/oktron/db"
 )
 
 type COMMANDS string
@@ -43,13 +45,20 @@ func Run() {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 			if update.Message.Text == LOGIN {
 				go Auth(bot, update)
-			} else if update.Message.Text == "/setup_profile" {
-				go SetupProfile(bot, update)
-			} else if update.Message.Text == TOKENS {
+			}else if update.Message.Text == TOKENS {
 				go List(bot, update)
 			} else if update.Message.Text == BUY {
 				go Buy(bot, update)
 			} else {
+				// handle sub commands
+				if update.Message.ReplyToMessage != nil {
+					messageKey := fmt.Sprintf("message_%d", update.Message.MessageID)
+					command := db.Get(messageKey)
+					if command == PIN {
+						go SetupProfile(bot, update)
+						continue
+					}
+				}
 				go Greet(bot, update)
 			}
 		}
