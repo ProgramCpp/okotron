@@ -32,17 +32,20 @@ downside: security concerns since this is not the standard oauth 2.0 flow. enfor
 - user completes the authorization from the browser 
 - user completes the setup by creating a profile with PIN with another command
 
-downside: not the best UX. multiple commands required to setup okto. 
-
 future work: explore setup a conversational user flow 
 
 [update]
 a simple approach is to track okto token by message id id and setting ForceReply to the message id
 
+downside: 
+- not the best UX. multiple commands required to setup okto. 
+- tight integration with telegram. oktron cannot be extended to webapp, that works from the browser 
+
 references:
 - https://www.oauth.com/oauth2-servers/device-flow/user-flow/
 
 ### Approach 3: web server flow - telegram mini apps 
+the standard browser based oauth flow will be ideal. this will
 references:
 - https://developers.google.com/identity/protocols/oauth2/web-server
 - https://core.telegram.org/bots/webapps
