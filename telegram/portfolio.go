@@ -11,7 +11,7 @@ import (
 	"github.com/programcpp/oktron/okto"
 )
 
-func Tokens(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
 	authTokenKey := fmt.Sprintf("okto_auth_token_%d", id)
 	authTokenStr := db.Get(authTokenKey)

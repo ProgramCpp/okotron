@@ -13,10 +13,10 @@ import (
 type COMMANDS string
 
 const (
-	LOGIN  = "/login"
-	PIN    = "/pin"
-	TOKENS = "/tokens"
-	BUY    = "/buy"
+	LOGIN     = "/login"
+	PIN       = "/pin"
+	PORTFOLIO = "/portfolio"
+	BUY       = "/buy"
 )
 
 // blocking call. reads telegram messages and processes them
@@ -45,8 +45,8 @@ func Run() {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 			if update.Message.Text == LOGIN {
 				go Login(bot, update)
-			} else if update.Message.Text == TOKENS {
-				go Tokens(bot, update)
+			} else if update.Message.Text == PORTFOLIO {
+				go Portfolio(bot, update)
 			} else if update.Message.Text == BUY {
 				go Buy(bot, update)
 			} else {
