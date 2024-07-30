@@ -31,6 +31,7 @@ type SupportedTokensResponse struct {
 	Data   TokensData `json:"data"`
 }
 
+// osmosis and solana has wallet issues. all the supported tokens are not really supported
 func SupportedTokens(authToken string) ([]Token, error) {
 	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/api/v1/supported/tokens?page=1&size=10'", nil)
 	if err != nil {
