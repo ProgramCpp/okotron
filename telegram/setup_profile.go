@@ -43,6 +43,7 @@ func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	}
 	reply := "oktron setup is now complete. fund your wallets to get started \n"
 
+	// display wallets for users to fund them
 	for _, w := range wallets {
 		reply += fmt.Sprintf("network: %s \n wallet address: %s\n\n", w.NetworkName, w.Address)
 	}
