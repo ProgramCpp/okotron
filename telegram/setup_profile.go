@@ -35,13 +35,17 @@ func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	authTokenKey := fmt.Sprintf("okto_auth_token_%d", id)
 	db.Save(authTokenKey, buffer.String())
 
-	_, err = okto.CreateWallet(authToken.AuthToken)
+	wallets, err := okto.CreateWallet(authToken.AuthToken)
 	if err != nil {
 		log.Println("error authentication to Okto. " + err.Error())
 		Send(bot, update, "error authorizing oktron. try again.")
 		return
 	}
-	reply := "oktron setup is now complete."
+	reply := "oktron setup is now complete. fund your wallets to get started \n"
+
+	for _, w := range wallets {
+		reply += fmt.Sprintf("network: %s \n wallet address: %s\n\n", w.NetworkName, w.Address)
+	}
 
 	Send(bot, update, reply)
 }
