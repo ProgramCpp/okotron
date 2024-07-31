@@ -33,6 +33,7 @@ type SupportedTokensResponse struct {
 
 // osmosis and solana has wallet issues. all the supported tokens are not really supported
 func SupportedTokens(authToken string) ([]Token, error) {
+	// TODO: paginate to get all supported tokens
 	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/api/v1/supported/tokens?page=1&size=10'", nil)
 	if err != nil {
 		log.Println("error creating okto supported tokens req " + err.Error())
