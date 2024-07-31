@@ -26,7 +26,7 @@ func (t PortfolioTokenInfo) String() string {
 }
 
 type PortfolioData struct {
-	Total  string               `json:"total"`
+	Total  int               `json:"total"`
 	Tokens []PortfolioTokenInfo `json:"tokens"`
 }
 
@@ -36,7 +36,7 @@ type portfolioReasponse struct {
 }
 
 func Portfolio(authToken string) ([]PortfolioTokenInfo, error) {
-	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v1/portfolio'", nil)
+	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/api/v1/portfolio", nil)
 	if err != nil {
 		log.Println("error creating okto portfolio req " + err.Error())
 		return nil, err
