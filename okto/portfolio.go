@@ -4,13 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
 )
 
-type token struct {
+type PortfolioTokenInfo struct {
 	TokenName    string `json:"token_name"`
 	Quantity     string `json:"quantity"`
 	AmountInInr  string `json:"amount_in_inr"`
@@ -19,9 +20,14 @@ type token struct {
 	NetworkName  string `json:"network_name"`
 }
 
+func (t PortfolioTokenInfo) String() string {
+	return fmt.Sprintf("token: %s. Network: %s. Quantity: %s. amount: %s.",
+		t.TokenName, t.NetworkName, t.Quantity, t.AmountInInr)
+}
+
 type PortfolioData struct {
-	Total  string  `json:"total"`
-	Tokens []token `json:"tokens"`
+	Total  string               `json:"total"`
+	Tokens []PortfolioTokenInfo `json:"tokens"`
 }
 
 type portfolioReasponse struct {
@@ -29,7 +35,7 @@ type portfolioReasponse struct {
 	Data   PortfolioData `json:"data"`
 }
 
-func Portfolio(authToken string) ([]token, error) {
+func Portfolio(authToken string) ([]PortfolioTokenInfo, error) {
 	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v1/portfolio'", nil)
 	if err != nil {
 		log.Println("error creating okto portfolio req " + err.Error())

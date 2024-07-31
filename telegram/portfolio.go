@@ -18,7 +18,7 @@ func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	authToken := okto.AuthToken{}
 	json.NewDecoder(strings.NewReader(authTokenStr)).Decode(&authToken)
-	tokens, err := okto.SupportedTokens(authToken.AuthToken)
+	tokens, err := okto.Portfolio(authToken.AuthToken)
 	// TODO: handle authorization failures. send descriptive message for user
 	if err != nil {
 		log.Printf("error fetching supported tokens. " + err.Error())
