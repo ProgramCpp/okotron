@@ -35,6 +35,7 @@ func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	authTokenKey := fmt.Sprintf("okto_auth_token_%d", id)
 	db.Save(authTokenKey, buffer.String())
 
+	// TODO: create wallets only if not already created. enquire wallets
 	wallets, err := okto.CreateWallet(authToken.AuthToken)
 	if err != nil {
 		log.Println("error authentication to Okto. " + err.Error())

@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-// TODO: long lived connection
+// TODO: long lived connection. which db to use?
 func Save(key, value string) error {
 	return nil
 }

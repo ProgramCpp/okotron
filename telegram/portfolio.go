@@ -15,6 +15,7 @@ func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
 	authTokenKey := fmt.Sprintf("okto_auth_token_%d", id)
 	authTokenStr := db.Get(authTokenKey)
+	// TODO: handle token not found
 
 	authToken := okto.AuthToken{}
 	json.NewDecoder(strings.NewReader(authTokenStr)).Decode(&authToken)

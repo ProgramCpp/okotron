@@ -15,6 +15,7 @@ import (
 
 func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
+	// TODO: validate if already authorized. auth token would be removed after expiry. login again
 	// dbKey := fmt.Sprintf("%d", id)
 	// token := db.Get(dbKey)
 	// // TODO: do proper error check. check error from db call
