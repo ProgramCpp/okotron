@@ -13,10 +13,10 @@ import (
 type COMMANDS string
 
 const (
-	LOGIN     = "/login"
-	PIN       = "/pin"
-	PORTFOLIO = "/portfolio"
-	BUY       = "/buy"
+	LOGIN         = "/login"
+	SETUP_PROFILE = "/setup-profile"
+	PORTFOLIO     = "/portfolio"
+	SWAP          = "/swap"
 )
 
 // blocking call. reads telegram messages and processes them
@@ -41,24 +41,23 @@ func Run() {
 
 	for update := range updates {
 		// fmt.Printf("%+v", update)
+		command := update.Message.Text
+		subCommand := ""
+		if update.Message.ReplyToMessage != nil {
+			messageKey := fmt.Sprintf("message_%d", update.Message.MessageID)
+			subCommand = db.Get(messageKey)
+		}
 		if update.Message != nil { // If we got a message
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-			if update.Message.Text == LOGIN {
+			if command == LOGIN {
 				go Login(bot, update)
-			} else if update.Message.Text == PORTFOLIO {
+			} else if command == PORTFOLIO {
 				go Portfolio(bot, update)
-			} else if update.Message.Text == BUY {
-				go Buy(bot, update)
+			} else if command == SWAP {
+				go Swap(bot, update)
+			} else if subCommand == SETUP_PROFILE {
+				go SetupProfile(bot, update)
 			} else {
-				// handle sub commands
-				if update.Message.ReplyToMessage != nil {
-					messageKey := fmt.Sprintf("message_%d", update.Message.MessageID)
-					command := db.Get(messageKey)
-					if command == PIN {
-						go SetupProfile(bot, update)
-						continue
-					}
-				}
 				go Greet(bot, update)
 			}
 		}

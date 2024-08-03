@@ -11,13 +11,16 @@ import (
 	"github.com/programcpp/oktron/okto"
 )
 
+// sets pin and creates wallets
+// call this command to finish authorization
 func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
+	pin := update.Message.Text
 	tokenKey := fmt.Sprintf("okto_token_%d", id)
 	token := db.Get(tokenKey)
 	googleIdTokenKey := fmt.Sprintf("google_id_token_%d", id)
 	idToken := db.Get(googleIdTokenKey)
-	authToken, err := okto.SetPin(idToken, token, update.Message.Text)
+	authToken, err := okto.SetPin(idToken, token, pin)
 	if err != nil {
 		log.Println("error setting okto pin" + err.Error())
 		Send(bot, update, "encountered a problem when setting the PIN. try again.")

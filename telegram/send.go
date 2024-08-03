@@ -7,6 +7,8 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
+
+// utility to escape special characters before sending the message
 func SendWithForceReply(bot *tgbotapi.BotAPI, update tgbotapi.Update, reply string, forceReply bool) (tgbotapi.Message, error) {
 	const PARSE_MODE = "MarkdownV2"
 	//reply = tgbotapi.EscapeText(PARSE_MODE, reply) // doesn't work for links!

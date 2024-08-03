@@ -83,7 +83,7 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			// this allows the bot to determine the next command based on the user flow instead of the user manually selecting the commands. this improves the UX and simplifies bot usage
 			// TODO: document this user flow in a ADR. this is not specific to this use case. the same approach can be used for interactive user flows
 			messageKey := fmt.Sprintf("message_%d", resp.MessageID)
-			err = db.Save(messageKey, PIN)
+			err = db.Save(messageKey, SETUP_PROFILE)
 			if err != nil {
 				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
 				Send(bot, update, "error authorizing oktron. try again.")
