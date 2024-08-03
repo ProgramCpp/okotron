@@ -12,11 +12,18 @@ import (
 
 type COMMANDS string
 
+// primary commands
 const (
-	LOGIN         = "/login"
-	SETUP_PROFILE = "/setup-profile"
-	PORTFOLIO     = "/portfolio"
-	SWAP          = "/swap"
+	CMD_LOGIN     = "/login"
+	CMD_PORTFOLIO = "/portfolio"
+	CMD_SWAP      = "/swap"
+)
+
+// sub commands that can be executed after the primary commands
+const (
+	// TODO: fix the weird naming convention to connect commands and sub commands
+	CMD_LOGIN_CMD_SETUP_PROFILE = "/login/setup-profile"
+	CMD_SWAP_CMD_SELECT_SOURCE  = "/swap/select-source"
 )
 
 // blocking call. reads telegram messages and processes them
@@ -41,24 +48,29 @@ func Run() {
 
 	for update := range updates {
 		// fmt.Printf("%+v", update)
-		command := update.Message.Text
-		subCommand := ""
-		if update.Message.ReplyToMessage != nil {
-			messageKey := fmt.Sprintf("message_%d", update.Message.MessageID)
-			subCommand = db.Get(messageKey)
-		}
 		if update.Message != nil { // If we got a message
+			command := update.Message.Text
+			subCommand := ""
+			if update.Message.ReplyToMessage != nil {
+				messageKey := fmt.Sprintf("message_%d", update.Message.MessageID)
+				subCommand = db.Get(messageKey)
+			}
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-			if command == LOGIN {
+			if command == CMD_LOGIN {
 				go Login(bot, update)
-			} else if command == PORTFOLIO {
+			} else if command == CMD_PORTFOLIO {
 				go Portfolio(bot, update)
-			} else if command == SWAP {
+			} else if command == CMD_SWAP {
 				go Swap(bot, update)
-			} else if subCommand == SETUP_PROFILE {
+			} else if subCommand == CMD_LOGIN_CMD_SETUP_PROFILE {
 				go SetupProfile(bot, update)
 			} else {
 				go Greet(bot, update)
+			}
+		} else if update.CallbackQuery != nil {
+			// todo: command to go back
+			if update.CallbackQuery.Data == CMD_SWAP_CMD_SELECT_SOURCE {
+				go SwapSourceNetwork(bot, update)
 			}
 		}
 	}

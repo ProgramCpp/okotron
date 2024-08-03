@@ -1,7 +1,11 @@
 package telegram
 
 import (
+	"fmt"
+	"log"
+
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/programcpp/oktron/db"
 )
 
 var (
@@ -22,12 +26,23 @@ func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	var networkKeyboard = tgbotapi.NewInlineKeyboardMarkup(
 		tgbotapi.NewInlineKeyboardRow(keyboardButtons...),
 	)
-
-	bot.Send(tgbotapi.MessageConfig{
+	// TODO: handle error
+	resp, _ := bot.Send(tgbotapi.MessageConfig{
 		BaseChat: tgbotapi.BaseChat{
-			ChatID : update.Message.Chat.ID,
+			ChatID:      update.Message.Chat.ID,
 			ReplyMarkup: networkKeyboard,
 		},
 		Text: "select the source network",
 	})
+
+	messageKey := fmt.Sprintf("message_%d", resp.MessageID)
+	err := db.Save(messageKey, CMD_SWAP_CMD_SELECT_SOURCE)
+	if err != nil {
+		log.Printf("error encountered when saving swap message id. %s", err.Error())
+		Send(bot, update, "somethign went wrong. try again.")
+	}
+}
+
+func SwapSourceNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+	
 }
