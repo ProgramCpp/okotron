@@ -6,6 +6,4 @@ package okto
 // Production : https://apigw.okto.tech
 const BASE_URL = "https://sandbox-api.okto.tech" // TODO: make it configurable for different environments
 
-
-
-
+// TODO: init client wuth auth token for all calls
