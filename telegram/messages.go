@@ -23,7 +23,8 @@ const (
 const (
 	// TODO: fix the weird naming convention to connect commands and sub commands
 	CMD_LOGIN_CMD_SETUP_PROFILE = "/login/setup-profile"
-	CMD_SWAP_CMD_SELECT_SOURCE  = "/swap/select-source"
+	CMD_SWAP_CMD_SOURCE_TOKEN   = "/swap/source-token"
+	CMD_SWAP_CMD_SOURCE_NETWORk = "/swap/source-network"
 )
 
 // blocking call. reads telegram messages and processes them
@@ -55,7 +56,7 @@ func Run() {
 				messageKey := fmt.Sprintf("message_%d", update.Message.MessageID)
 				subCommand = db.Get(messageKey)
 			}
-			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+
 			if command == CMD_LOGIN {
 				go Login(bot, update)
 			} else if command == CMD_PORTFOLIO {
@@ -69,8 +70,10 @@ func Run() {
 			}
 		} else if update.CallbackQuery != nil {
 			// todo: command to go back
-			if update.CallbackQuery.Data == CMD_SWAP_CMD_SELECT_SOURCE {
-				go SwapSourceNetwork(bot, update)
+			messageKey := fmt.Sprintf("message_%d", update.Message.MessageID)
+			subCommand := db.Get(messageKey)
+			if subCommand == CMD_SWAP_CMD_SOURCE_TOKEN {
+				go SwapSourceToken(bot, update)
 			}
 		}
 	}
