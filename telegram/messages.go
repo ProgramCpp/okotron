@@ -21,10 +21,12 @@ const (
 
 // sub commands that can be executed after the primary commands
 const (
-	// TODO: fix the weird naming convention to connect commands and sub commands
+	// TODO: fix the weird naming convention to pass context from commands and sub commands
 	CMD_LOGIN_CMD_SETUP_PROFILE = "/login/setup-profile"
-	CMD_SWAP_CMD_SOURCE_TOKEN   = "/swap/source-token"
-	CMD_SWAP_CMD_SOURCE_NETWORk = "/swap/source-network"
+	CMD_SWAP_CMD_FROM_TOKEN     = "/swap/from-token"
+	CMD_SWAP_CMD_FROM_NETWORK   = "/swap/from-network"
+	CMD_SWAP_CMD_TO_TOKEN       = "/swap/to-token"
+	CMD_SWAP_CMD_TO_NETWORK     = "/swap/to-network"
 )
 
 // blocking call. reads telegram messages and processes them
@@ -70,10 +72,12 @@ func Run() {
 			}
 		} else if update.CallbackQuery != nil {
 			// todo: command to go back
-			messageKey := fmt.Sprintf("message_%d", update.Message.MessageID)
+			messageKey := fmt.Sprintf("message_%d", update.CallbackQuery.Message.MessageID)
 			subCommand := db.Get(messageKey)
-			if subCommand == CMD_SWAP_CMD_SOURCE_TOKEN {
-				go SwapSourceToken(bot, update)
+			if subCommand == CMD_SWAP_CMD_FROM_TOKEN {
+				go SwapFromToken(bot, update)
+			} else if subCommand == CMD_SWAP_CMD_FROM_NETWORK {
+				go SwapFromNetwork(bot, update)
 			}
 		}
 	}

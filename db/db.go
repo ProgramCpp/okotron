@@ -11,15 +11,15 @@ func Save(key, value string) error {
 }
 
 func Get(key string) string {
-	if strings.Contains(key, "message"){
-		return "/setup-profile"
-	} else if strings.Contains(key, "okto_token"){
+	if strings.Contains(key, "message") {
+		return "/swap/source-token" // "/setup-profile"
+	} else if strings.Contains(key, "okto_token") {
 		return os.Getenv("OKTO_TOKEN")
-	} else if strings.Contains(key, "okto_auth_token"){
+	} else if strings.Contains(key, "okto_auth_token") {
 		return os.Getenv("OKTO_AUTH_TOKEN")
-	} else if strings.Contains(key, "google_id_token"){
+	} else if strings.Contains(key, "google_id_token") {
 		return os.Getenv("GOOGLE_TOKEN")
 	}
-		
+
 	return ""
 }
