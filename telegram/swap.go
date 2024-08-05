@@ -72,7 +72,7 @@ func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	messageKey := fmt.Sprintf("message_%d", resp.MessageID)
 	err := db.RedisClient().Set(context.Background(), messageKey, CMD_SWAP_CMD_FROM_TOKEN,
-		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap message id. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
@@ -84,7 +84,7 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.CallbackQuery.Message.MessageID
 	requestKey := fmt.Sprintf("swap_%d", id)
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_TOKEN_KEY, fromToken,
-		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap request payload while selecting token. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
@@ -109,7 +109,7 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	messageKey := fmt.Sprintf("message_%d", resp.MessageID)
 	err = db.RedisClient().Set(context.Background(), messageKey, CMD_SWAP_CMD_FROM_NETWORK,
-		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap network command. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
@@ -127,7 +127,7 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	requestKey := fmt.Sprintf("swap_%d", id)
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_NETWORK, fromNetwork,
-		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap request payload while selecting token. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
@@ -152,7 +152,7 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	messageKey := fmt.Sprintf("message_%d", resp.MessageID)
 	err = db.RedisClient().Set(context.Background(), messageKey, CMD_SWAP_CMD_TO_TOKEN,
-		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap target network command. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
