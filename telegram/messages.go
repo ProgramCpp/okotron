@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -73,7 +74,11 @@ func Run() {
 		} else if update.CallbackQuery != nil {
 			// todo: command to go back
 			messageKey := fmt.Sprintf("message_%d", update.CallbackQuery.Message.MessageID)
-			subCommand := db.Get(messageKey)
+			subCommand, err := db.RedisClient().Get(context.Background(), messageKey).Result()
+			if err != nil {
+				Send(bot, update, "something went wrong. try again")
+				continue
+			}
 			if subCommand == CMD_SWAP_CMD_FROM_TOKEN {
 				go SwapFromToken(bot, update)
 			} else if subCommand == CMD_SWAP_CMD_FROM_NETWORK {
