@@ -27,6 +27,7 @@ downsides:
 - choosing redis. supports,
     - key-value store
     - simple client interface
+    - partial updates with HMSET
     - updates with json merging/ partial json updates
     - expiry
     - caching

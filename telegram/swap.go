@@ -1,19 +1,20 @@
 package telegram
 
 import (
-	"bufio"
-	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
-	"strings"
 	"time"
 
 	"github.com/spf13/viper"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/programcpp/oktron/db"
+)
+
+const (
+	CMD_SWAP_FROM_TOKEN_KEY = "from-token"
+	CMD_SWAP_FROM_NETWORK   = "from-network"
 )
 
 var (
@@ -82,10 +83,7 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	fromToken := update.CallbackQuery.Data
 	id := update.CallbackQuery.Message.MessageID
 	requestKey := fmt.Sprintf("swap_%d", id)
-	var buf bytes.Buffer
-	// TODO:handle error
-	_ = json.NewEncoder(bufio.NewWriter(&buf)).Encode(SwapRequest{FromToken: fromToken})
-	err := db.RedisClient().Set(context.Background(), requestKey, buf.String(),
+	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_TOKEN_KEY, fromToken,
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap request payload while selecting token. %s", err.Error())
@@ -128,21 +126,7 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.CallbackQuery.Message.MessageID
 
 	requestKey := fmt.Sprintf("swap_%d", id)
-	reqStr := db.Get(requestKey)
-	reqBuf := strings.NewReader(reqStr)
-	var swapReq SwapRequest
-	err := json.NewDecoder(reqBuf).Decode(&swapReq)
-	if err != nil {
-		log.Printf("error encountered when saving swap request payload while selecting token. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
-		return
-	}
-
-	swapReq.FromNetwork = fromNetwork
-	var buf bytes.Buffer
-	// TODO:handle error
-	_ = json.NewEncoder(bufio.NewWriter(&buf)).Encode(swapReq)
-	err = db.RedisClient().Set(context.Background(), requestKey, buf.String(),
+	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_NETWORK, fromNetwork,
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap request payload while selecting token. %s", err.Error())
