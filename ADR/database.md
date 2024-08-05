@@ -32,3 +32,6 @@ downsides:
     - expiry
     - caching
     - persistence
+
+# Future work
+- is it economical? Do you need enterprise?

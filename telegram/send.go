@@ -33,8 +33,13 @@ func SendWithForceReply(bot *tgbotapi.BotAPI, update tgbotapi.Update, reply stri
 		`!`, "\\!",
 	)
 	reply = specialCharacterEscaper.Replace(reply)
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, reply)
-	msg.ReplyToMessageID = update.Message.MessageID
+	msg := tgbotapi.NewMessage(update.FromChat().ID, reply)
+	if forceReply && update.Message != nil {
+		msg.ReplyToMessageID = update.Message.MessageID
+	} else if forceReply && update.CallbackQuery != nil {
+		msg.ReplyToMessageID = update.CallbackQuery.Message.MessageID
+	}
+	
 	// https://core.telegram.org/bots/api#formatting-options
 	msg.ParseMode = PARSE_MODE
 	msg.ReplyMarkup = tgbotapi.ForceReply{

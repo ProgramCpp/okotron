@@ -83,12 +83,16 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	fromToken := update.CallbackQuery.Data
 	id := update.CallbackQuery.Message.MessageID
 	requestKey := fmt.Sprintf("swap_%d", id)
-	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_TOKEN_KEY, fromToken,
-		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
+	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_TOKEN_KEY, fromToken).Err()
 	if err != nil {
-		log.Printf("error encountered when saving swap request payload while selecting token. %s", err.Error())
+		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
 		return
+	}
+	_, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
+	if err != nil {
+		// just logging for now. this will result in stale values. do not stop user flow
+		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
 	}
 
 	keyboardButtons := []tgbotapi.InlineKeyboardButton{
@@ -126,12 +130,16 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.CallbackQuery.Message.MessageID
 
 	requestKey := fmt.Sprintf("swap_%d", id)
-	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_NETWORK, fromNetwork,
-		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
+	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_NETWORK, fromNetwork).Err()
 	if err != nil {
-		log.Printf("error encountered when saving swap request payload while selecting token. %s", err.Error())
+		log.Printf("error encountered when saving swap request payload while selecting from-network. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
 		return
+	}
+	_, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
+	if err != nil {
+		// just logging for now. this will result in stale values. do not stop user flow
+		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
 	}
 
 	keyboardButtons := []tgbotapi.InlineKeyboardButton{
