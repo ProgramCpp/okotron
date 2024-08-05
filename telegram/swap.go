@@ -3,10 +3,14 @@ package telegram
 import (
 	"bufio"
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
+	"time"
+
+	"github.com/spf13/viper"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/programcpp/oktron/db"
@@ -66,7 +70,8 @@ func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	resp, _ := bot.Send(msg)
 
 	messageKey := fmt.Sprintf("message_%d", resp.MessageID)
-	err := db.Save(messageKey, CMD_SWAP_CMD_FROM_TOKEN) // TODO: command should replace if already present
+	err := db.RedisClient().Set(context.Background(), messageKey, CMD_SWAP_CMD_FROM_TOKEN,
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap message id. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
@@ -80,7 +85,8 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	var buf bytes.Buffer
 	// TODO:handle error
 	_ = json.NewEncoder(bufio.NewWriter(&buf)).Encode(SwapRequest{FromToken: fromToken})
-	err := db.Save(requestKey, buf.String())
+	err := db.RedisClient().Set(context.Background(), requestKey, buf.String(),
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap request payload while selecting token. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
@@ -104,7 +110,8 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	resp, _ := bot.Send(msg)
 
 	messageKey := fmt.Sprintf("message_%d", resp.MessageID)
-	err = db.Save(messageKey, CMD_SWAP_CMD_FROM_NETWORK)
+	err = db.RedisClient().Set(context.Background(), messageKey, CMD_SWAP_CMD_FROM_NETWORK,
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap network command. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
@@ -135,7 +142,8 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	var buf bytes.Buffer
 	// TODO:handle error
 	_ = json.NewEncoder(bufio.NewWriter(&buf)).Encode(swapReq)
-	err = db.Save(requestKey, buf.String())
+	err = db.RedisClient().Set(context.Background(), requestKey, buf.String(),
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap request payload while selecting token. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
@@ -159,10 +167,10 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	resp, _ := bot.Send(msg)
 
 	messageKey := fmt.Sprintf("message_%d", resp.MessageID)
-	err = db.Save(messageKey, CMD_SWAP_CMD_TO_TOKEN)
+	err = db.RedisClient().Set(context.Background(), messageKey, CMD_SWAP_CMD_TO_TOKEN,
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY"))*time.Minute).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap target network command. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
 	}
-
 }

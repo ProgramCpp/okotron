@@ -3,9 +3,29 @@ package db
 import (
 	"os"
 	"strings"
+
+	"github.com/redis/go-redis/v9"
 )
 
-// TODO: long lived connection. which db to use?
+// TODO: move this to main function with dependency injection
+
+var rdb *redis.Client
+
+func init(){
+	rdb = redis.NewClient(&redis.Options{
+		Addr:           os.Getenv("REDIS_ADDR"),
+		Password:        "",
+		DB:              0,
+		DisableIndentity: true, // Disable set-info on connect
+	})
+}
+
+func RedisClient() *redis.Client {
+	return rdb
+}
+
+// TODO: long lived connection. 
+// TODO: move all save calls to redis client
 func Save(key, value string) error {
 	return nil
 }
