@@ -28,6 +28,7 @@ const (
 	CMD_SWAP_CMD_FROM_NETWORK   = "/swap/from-network"
 	CMD_SWAP_CMD_TO_TOKEN       = "/swap/to-token"
 	CMD_SWAP_CMD_TO_NETWORK     = "/swap/to-network"
+	CMD_SWAP_CMD_TOKENS         = "/swap/tokens"
 )
 
 // blocking call. reads telegram messages and processes them
@@ -79,10 +80,17 @@ func Run() {
 				Send(bot, update, "something went wrong. try again")
 				continue
 			}
+			isBack := update.CallbackQuery.Data == "back"
 			if subCommand == CMD_SWAP_CMD_FROM_TOKEN {
-				go SwapFromToken(bot, update)
+				go SwapFromToken(bot, update, isBack)
 			} else if subCommand == CMD_SWAP_CMD_FROM_NETWORK {
-				go SwapFromNetwork(bot, update)
+				go SwapFromNetwork(bot, update, isBack)
+			} else if subCommand == CMD_SWAP_CMD_TO_TOKEN {
+				go SwapToToken(bot, update, isBack)
+			} else if subCommand == CMD_SWAP_CMD_TO_NETWORK {
+				go SwapToNetwork(bot, update, isBack)
+			} else if subCommand == CMD_SWAP_CMD_TOKENS {
+				go SwapQuantiy(bot, update, isBack)
 			}
 		}
 	}
