@@ -43,18 +43,6 @@ type SwapRequest struct {
 }
 
 func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
-	// TODO: separate UI componets from backend
-	keyboardButtons := []tgbotapi.InlineKeyboardButton{}
-
-	// TODO: see user portfolio for a customized user experience
-	for _, n := range SUPPORTED_TOKENS {
-		keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(n, n))
-	}
-
-	var tokenKeyboard = tgbotapi.NewInlineKeyboardMarkup(
-		tgbotapi.NewInlineKeyboardRow(keyboardButtons...),
-	)
-
 	// first time swap menu or navigated from sub menu
 	var msg tgbotapi.Chattable
 	if update.CallbackQuery == nil {
@@ -104,19 +92,7 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
 	}
 
-	keyboardButtons := []tgbotapi.InlineKeyboardButton{
-		tgbotapi.NewInlineKeyboardButtonData("back", "back"),
-	}
-
-	for _, n := range SUPPORTED_NETWORKS[fromToken] {
-		keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(n, n))
-	}
-
-	var networkKeyboard = tgbotapi.NewInlineKeyboardMarkup(
-		tgbotapi.NewInlineKeyboardRow(keyboardButtons...),
-	)
-
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the source network", networkKeyboard)
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the source network", networkKeyboard(fromToken))
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -145,18 +121,6 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) 
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
-
-	keyboardButtons := []tgbotapi.InlineKeyboardButton{
-		tgbotapi.NewInlineKeyboardButtonData("back", "back"),
-	}
-
-	for _, n := range SUPPORTED_TOKENS {
-		keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(n, n))
-	}
-
-	var tokenKeyboard = tgbotapi.NewInlineKeyboardMarkup(
-		tgbotapi.NewInlineKeyboardRow(keyboardButtons...),
-	)
 
 	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the target token", tokenKeyboard)
 	// TODO: handle error
@@ -188,19 +152,7 @@ func SwapToToken(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 
-	keyboardButtons := []tgbotapi.InlineKeyboardButton{
-		tgbotapi.NewInlineKeyboardButtonData("back", "back"),
-	}
-
-	for _, n := range SUPPORTED_NETWORKS[toToken] {
-		keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(n, n))
-	}
-
-	var networkKeyboard = tgbotapi.NewInlineKeyboardMarkup(
-		tgbotapi.NewInlineKeyboardRow(keyboardButtons...),
-	)
-
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the target network", networkKeyboard)
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the target network", networkKeyboard(toToken))
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -230,29 +182,8 @@ func SwapToNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 
-	var networkKeyboard = tgbotapi.NewInlineKeyboardMarkup(
-		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("7", "7"),
-			tgbotapi.NewInlineKeyboardButtonData("8", "8"),
-			tgbotapi.NewInlineKeyboardButtonData("9", "9"),
-		),
-		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("4", "4"),
-			tgbotapi.NewInlineKeyboardButtonData("5", "5"),
-			tgbotapi.NewInlineKeyboardButtonData("6", "6"),
-		),
-		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("1", "1"),
-			tgbotapi.NewInlineKeyboardButtonData("2", "2"),
-			tgbotapi.NewInlineKeyboardButtonData("3", "3"),
-		),
-		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("0", "0"),
-			tgbotapi.NewInlineKeyboardButtonData("back", "back"),
-		),
-	)
-
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:", networkKeyboard)
+	// TODO: the keyboard is associated with next sub-command. generalize it for all sub commands
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:", numericKeyboard)
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -309,30 +240,7 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 
-	var networkKeyboard = tgbotapi.NewInlineKeyboardMarkup(
-		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("7", "7"),
-			tgbotapi.NewInlineKeyboardButtonData("8", "8"),
-			tgbotapi.NewInlineKeyboardButtonData("9", "9"),
-		),
-		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("4", "4"),
-			tgbotapi.NewInlineKeyboardButtonData("5", "5"),
-			tgbotapi.NewInlineKeyboardButtonData("6", "6"),
-		),
-		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("1", "1"),
-			tgbotapi.NewInlineKeyboardButtonData("2", "2"),
-			tgbotapi.NewInlineKeyboardButtonData("3", "3"),
-		),
-		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("0", "0"),
-			tgbotapi.NewInlineKeyboardButtonData("back", "back"),
-			tgbotapi.NewInlineKeyboardButtonData("enter", "enter"),
-		),
-	)
-
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:"+quantity, networkKeyboard)
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:"+quantity, numericKeyboard)
 	// TODO: handle error
 	bot.Send(msg)
 
