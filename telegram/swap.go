@@ -285,15 +285,28 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 
-	// user has input all the request params. process the request
-	if update.CallbackQuery.Data == "enter" {
-		swapTokens()
-	}
-
 	quantity := update.CallbackQuery.Data
 	id := update.CallbackQuery.Message.MessageID
-
 	requestKey := fmt.Sprintf("swap_%d", id)
+	// user has input all the request params. process the request
+	if update.CallbackQuery.Data == "enter" {
+		res := db.RedisClient().HGetAll(context.Background(), requestKey)
+		if res.Err() != nil {
+			log.Printf("error encountered when fetching swap request payload. %s", res.Err())
+			Send(bot, update, "something went wrong. try again.")
+			return
+		}
+
+		var r SwapRequest
+		if err := res.Scan(&r); err != nil {
+			log.Printf("error parsing swap request payload. %s", err.Error())
+			Send(bot, update, "something went wrong. try again.")
+			return
+		}
+
+		swapTokens(r)
+	}
+
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_TO_QUANTITY_KEY, quantity).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap request payload while setting quantity. %s", err.Error())
@@ -333,10 +346,9 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	// TODO: handle error
 	bot.Send(msg)
 
-	// the next sub command is still quantity. wait until done
+	// the next sub command is still quantity. user completes the command with this subcommand, after pressing "enter"
 }
 
+func swapTokens(r SwapRequest) {
 
-func swapTokens(){
-	
 }
