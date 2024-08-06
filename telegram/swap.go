@@ -56,7 +56,7 @@ func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		}
 	} else {
 		msg = tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, update.CallbackQuery.Message.MessageID,
-			"select the source token", tokenKeyboard)
+			"select the source token", tokenKeyboard())
 	}
 
 	// TODO: handle error
@@ -123,7 +123,7 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) 
 		return
 	}
 
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the target token", tokenKeyboard)
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the target token", tokenKeyboard())
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -184,7 +184,7 @@ func SwapToNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	}
 
 	// TODO: the keyboard is associated with next sub-command. generalize it for all sub commands
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:", numericKeyboard)
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:", numericKeyboard(true))
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -222,7 +222,7 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 			return
 		}
 
-		Send(bot, update, "token swapped!")
+		Send(bot, update, "done!")
 		swapTokens(r)
 		return
 	}
@@ -244,7 +244,7 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:"+quantity, numericKeyboard)
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:"+quantity, numericKeyboard(true))
 	// TODO: handle error
 	bot.Send(msg)
 
