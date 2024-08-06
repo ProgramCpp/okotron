@@ -97,6 +97,7 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
+	// TODO: move this to the primary command -swap. its unintuitive to handle it one of the sub-commands
 	_, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
 	if err != nil {
 		// just logging for now. this will result in stale values. do not stop user flow
@@ -144,11 +145,6 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) 
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
-	_, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
-	if err != nil {
-		// just logging for now. this will result in stale values. do not stop user flow
-		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
-	}
 
 	keyboardButtons := []tgbotapi.InlineKeyboardButton{
 		tgbotapi.NewInlineKeyboardButtonData("back", "back"),
@@ -191,11 +187,6 @@ func SwapToToken(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
-	_, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
-	if err != nil {
-		// just logging for now. this will result in stale values. do not stop user flow
-		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
-	}
 
 	keyboardButtons := []tgbotapi.InlineKeyboardButton{
 		tgbotapi.NewInlineKeyboardButtonData("back", "back"),
@@ -237,11 +228,6 @@ func SwapToNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		log.Printf("error encountered when saving swap request payload while selecting to-network. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
 		return
-	}
-	_, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
-	if err != nil {
-		// just logging for now. this will result in stale values. do not stop user flow
-		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
 	}
 
 	var networkKeyboard = tgbotapi.NewInlineKeyboardMarkup(
@@ -307,16 +293,20 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		swapTokens(r)
 	}
 
+	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_SWAP_TO_QUANTITY_KEY)
+	if res.Err() != nil {
+		log.Printf("error encountered when saving swap request payload while setting quantity. %s", res.Err())
+		Send(bot, update, "something went wrong. try again.")
+		return
+	}
+
+	quantity = res.String() + quantity
+
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_TO_QUANTITY_KEY, quantity).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap request payload while setting quantity. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
 		return
-	}
-	_, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
-	if err != nil {
-		// just logging for now. this will result in stale values. do not stop user flow
-		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
 	}
 
 	var networkKeyboard = tgbotapi.NewInlineKeyboardMarkup(
