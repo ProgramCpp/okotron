@@ -91,11 +91,11 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 	// TODO: move this to the primary command -swap. its unintuitive to handle it one of the sub-commands
-	// _, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
-	// if err != nil {
-	// 	// just logging for now. this will result in stale values. do not stop user flow
-	// 	log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
-	// }
+	_, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
+	if err != nil {
+		// just logging for now. this will result in stale values. do not stop user flow
+		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
+	}
 
 	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the source network", networkKeyboard(fromToken))
 	// TODO: handle error
@@ -259,7 +259,9 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		update.FromChat().ID, id, "enter token quantity:"+quantity,
 		numericKeyboard(true)))
 
-	// the next sub command is still quantity. user completes the command with this subcommand, after pressing "enter"
+	// the next sub command is still quantity. 
+	// user completes the command with this subcommand, after pressing "enter"
+	// requestKey is no more accessed. will be expired by redis
 }
 
 func swapTokens(r SwapRequest) {
