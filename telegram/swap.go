@@ -36,21 +36,24 @@ var (
 	}
 )
 
+// redis tags are defined above as constants. keep in SYNC
 type SwapRequest struct {
-	FromNetwork string `json:"from_network"`
-	ToNetwork   string `json:"to_network"`
-	FromToken   string `json:"from_token"`
-	ToToken     string `json:"to_token"`
+	FromToken   string `json:"from_token" redis:"swap/from-token"`
+	FromNetwork string `json:"from_network" redis:"swap/from-network"`
+	ToToken     string `json:"to_token" redis:"swap/to-token"`
+	ToNetwork   string `json:"to_network" redis:"swap/to-network"`
+	Quantity    string `json:"quantity" redis:"swap/quantity"`
 }
 
 func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	// first time swap menu or navigated from sub menu
+	// show keyboard for the next command
 	var msg tgbotapi.Chattable
 	if update.CallbackQuery == nil {
 		msg = tgbotapi.MessageConfig{
 			BaseChat: tgbotapi.BaseChat{
 				ChatID:      update.FromChat().ID,
-				ReplyMarkup: tokenKeyboard,
+				ReplyMarkup: tokenKeyboard(),
 			},
 			Text: "select the source token",
 		}
@@ -77,8 +80,9 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 
-	fromToken := update.CallbackQuery.Data
 	id := update.CallbackQuery.Message.MessageID
+	fromToken := update.CallbackQuery.Data
+
 	requestKey := fmt.Sprintf("swap_%d", id)
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_TOKEN_KEY, fromToken).Err()
 	if err != nil {
@@ -87,11 +91,11 @@ func SwapFromToken(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 	// TODO: move this to the primary command -swap. its unintuitive to handle it one of the sub-commands
-	_, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
-	if err != nil {
-		// just logging for now. this will result in stale values. do not stop user flow
-		log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
-	}
+	// _, err = db.RedisClient().Expire(context.Background(), requestKey, time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Result()
+	// if err != nil {
+	// 	// just logging for now. this will result in stale values. do not stop user flow
+	// 	log.Printf("error encountered when saving swap request payload while selecting from-token. %s", err.Error())
+	// }
 
 	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the source network", networkKeyboard(fromToken))
 	// TODO: handle error
@@ -112,8 +116,8 @@ func SwapFromNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) 
 		return
 	}
 
-	fromNetwork := update.CallbackQuery.Data
 	id := update.CallbackQuery.Message.MessageID
+	fromNetwork := update.CallbackQuery.Data
 
 	requestKey := fmt.Sprintf("swap_%d", id)
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_FROM_NETWORK_KEY, fromNetwork).Err()
@@ -142,8 +146,8 @@ func SwapToToken(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 
-	toToken := update.CallbackQuery.Data
 	id := update.CallbackQuery.Message.MessageID
+	toToken := update.CallbackQuery.Data
 
 	requestKey := fmt.Sprintf("swap_%d", id)
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_TO_TOKEN_KEY, toToken).Err()
@@ -172,8 +176,8 @@ func SwapToNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 
-	toToken := update.CallbackQuery.Data
 	id := update.CallbackQuery.Message.MessageID
+	toToken := update.CallbackQuery.Data
 
 	requestKey := fmt.Sprintf("swap_%d", id)
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_TO_NETWORK_KEY, toToken).Err()
@@ -203,8 +207,9 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		return
 	}
 
-	quantity := update.CallbackQuery.Data
 	id := update.CallbackQuery.Message.MessageID
+	quantity := update.CallbackQuery.Data
+
 	requestKey := fmt.Sprintf("swap_%d", id)
 	// user has input all the request params. process the request
 	if update.CallbackQuery.Data == "enter" {
@@ -222,14 +227,20 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 			return
 		}
 
-		Send(bot, update, "done!")
+		bot.Send(tgbotapi.NewEditMessageText(
+			update.FromChat().ID,
+			id,
+			fmt.Sprintf("done! swapped %s tokens from %s:%s to %s:%s",
+				r.Quantity, r.FromNetwork, r.FromToken, r.ToNetwork, r.ToToken),
+		))
+
 		swapTokens(r)
 		return
 	}
 
 	// handle first digit of quantity. redis returns Nil error of the field is not found
 	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_SWAP_TO_QUANTITY_KEY)
-	if res.Err() != nil && res.Err() != redis.Nil{
+	if res.Err() != nil && res.Err() != redis.Nil {
 		log.Printf("error encountered when fetching swap request payload while setting quantity. %s", res.Err())
 		Send(bot, update, "something went wrong. try again.")
 		return
@@ -243,10 +254,10 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
-
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:"+quantity, numericKeyboard(true))
 	// TODO: handle error
-	bot.Send(msg)
+	bot.Send(tgbotapi.NewEditMessageTextAndMarkup(
+		update.FromChat().ID, id, "enter token quantity:"+quantity,
+		numericKeyboard(true)))
 
 	// the next sub command is still quantity. user completes the command with this subcommand, after pressing "enter"
 }

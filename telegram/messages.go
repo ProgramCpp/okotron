@@ -15,9 +15,10 @@ type COMMANDS string
 
 // primary commands
 const (
-	CMD_LOGIN     = "/login"
-	CMD_PORTFOLIO = "/portfolio"
-	CMD_SWAP      = "/swap"
+	CMD_LOGIN       = "/login"
+	CMD_PORTFOLIO   = "/portfolio"
+	CMD_SWAP        = "/swap"
+	CMD_LIMIT_ORDER = "/limit-order"
 )
 
 // sub commands that can be executed after the primary commands
