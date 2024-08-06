@@ -57,8 +57,9 @@ var (
 			tgbotapi.NewInlineKeyboardButtonData("3", "3"),
 		),
 		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("0", "0"),
 			tgbotapi.NewInlineKeyboardButtonData("back", "back"),
+			tgbotapi.NewInlineKeyboardButtonData("0", "0"),
+			tgbotapi.NewInlineKeyboardButtonData("enter", "enter"),
 		),
 	)
 )

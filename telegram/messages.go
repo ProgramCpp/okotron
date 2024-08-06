@@ -28,7 +28,7 @@ const (
 	CMD_SWAP_CMD_FROM_NETWORK   = "/swap/from-network"
 	CMD_SWAP_CMD_TO_TOKEN       = "/swap/to-token"
 	CMD_SWAP_CMD_TO_NETWORK     = "/swap/to-network"
-	CMD_SWAP_CMD_TOKENS         = "/swap/tokens"
+	CMD_SWAP_CMD_QUANTITY       = "/swap/quantity"
 )
 
 // blocking call. reads telegram messages and processes them
@@ -89,7 +89,7 @@ func Run() {
 				go SwapToToken(bot, update, isBack)
 			} else if subCommand == CMD_SWAP_CMD_TO_NETWORK {
 				go SwapToNetwork(bot, update, isBack)
-			} else if subCommand == CMD_SWAP_CMD_TOKENS {
+			} else if subCommand == CMD_SWAP_CMD_QUANTITY {
 				go SwapQuantiy(bot, update, isBack)
 			}
 		}

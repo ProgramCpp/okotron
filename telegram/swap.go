@@ -6,6 +6,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -188,7 +189,7 @@ func SwapToNetwork(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	resp, _ := bot.Send(msg)
 
 	messageKey := fmt.Sprintf("message_%d", resp.MessageID)
-	err = db.RedisClient().Set(context.Background(), messageKey, CMD_SWAP_CMD_TOKENS,
+	err = db.RedisClient().Set(context.Background(), messageKey, CMD_SWAP_CMD_QUANTITY,
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap message key tokens command. %s", err.Error())
@@ -221,17 +222,20 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 			return
 		}
 
+		Send(bot, update, "token swapped!")
 		swapTokens(r)
-	}
-
-	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_SWAP_TO_QUANTITY_KEY)
-	if res.Err() != nil {
-		log.Printf("error encountered when saving swap request payload while setting quantity. %s", res.Err())
-		Send(bot, update, "something went wrong. try again.")
 		return
 	}
 
-	quantity = res.String() + quantity
+	// handle first digit of quantity. redis returns Nil error of the field is not found
+	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_SWAP_TO_QUANTITY_KEY)
+	if res.Err() != nil && res.Err() != redis.Nil{
+		log.Printf("error encountered when fetching swap request payload while setting quantity. %s", res.Err())
+		Send(bot, update, "something went wrong. try again.")
+		return
+	} else if res.Err() != redis.Nil {
+		quantity = res.Val() + quantity
+	}
 
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_TO_QUANTITY_KEY, quantity).Err()
 	if err != nil {
