@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/programcpp/oktron/db"
+	"github.com/programcpp/okotron/db"
 )
 
 const (
@@ -24,7 +24,7 @@ var (
 	// TODO: use okto /aupported_tokens and /supported_networks api's
 	// do not hardcode networks and tokens
 	// for now, all networks returnd by /supported_networks do not work. ex: solana, osmosis
-	// an array. do not handle each network separately. do not use enum to treat as first class attributes. oktron is network agnostic
+	// an array. do not handle each network separately. do not use enum to treat as first class attributes. okotron is network agnostic
 	SUPPORTED_TOKENS   = []string{"APT", "ETH", "MATIC", "USDC", "USDT"}
 	SUPPORTED_NETWORKS = map[string][]string{
 		"APT":   {"APTOS"},

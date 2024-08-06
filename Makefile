@@ -9,5 +9,5 @@ test:
 	go test ./... 
 
 run:
-	./build/oktron
+	./build/okotron
 	

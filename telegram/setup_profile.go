@@ -7,8 +7,8 @@ import (
 	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/programcpp/oktron/db"
-	"github.com/programcpp/oktron/okto"
+	"github.com/programcpp/okotron/db"
+	"github.com/programcpp/okotron/okto"
 )
 
 // sets pin and creates wallets
@@ -42,10 +42,10 @@ func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	wallets, err := okto.CreateWallet(authToken.AuthToken)
 	if err != nil {
 		log.Println("error authentication to Okto. " + err.Error())
-		Send(bot, update, "error authorizing oktron. try again.")
+		Send(bot, update, "error authorizing okotron. try again.")
 		return
 	}
-	reply := "oktron setup is now complete. fund your wallets to get started \n"
+	reply := "okotron setup is now complete. fund your wallets to get started \n"
 
 	// display wallets for users to fund them
 	for _, w := range wallets {

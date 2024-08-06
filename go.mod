@@ -1,4 +1,4 @@
-module github.com/programcpp/oktron
+module github.com/programcpp/okotron
 
 go 1.21.3
 

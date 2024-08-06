@@ -1,6 +1,6 @@
 ## okto auhthorization flow.
 
-okto account is managed by user's google account. oktron must request user authorization to access okto API's.
+okto account is managed by user's google account. okotron must request user authorization to access okto API's.
 
 ### requirements
 1. do not expose telegram chat_id. it is not a secret key and not managed by the bot. redact chat_id.
@@ -11,7 +11,7 @@ okto account is managed by user's google account. oktron must request user autho
 
 ### Approach 1: browser flow
 
-1. user initiates oktron authorization from telegram
+1. user initiates okotron authorization from telegram
 2. a short lived session id is created for the chat_id. the chat_id for the session_id is persisted with a short expiry - time enough to complete authorization.
 3. the bot responds with a link to the bot authorization page along with the session_id
 4. user opens the authorization page, which sets the session_id cookie
@@ -28,7 +28,7 @@ downside: security concerns since this is not the standard oauth 2.0 flow. enfor
 
 ### Approach 2: [device authorization flow](https://developers.google.com/identity/protocols/oauth2/limited-input-device)
 - user initiates the authorization flow with a command
-- user receives the link and device code to authorize oktron
+- user receives the link and device code to authorize okotron
 - user completes the authorization from the browser 
 - user completes the setup by creating a profile with PIN with another command
 
@@ -39,7 +39,7 @@ a simple approach is to track okto token by message id id and setting ForceReply
 
 downside: 
 - not the best UX. multiple commands required to setup okto. 
-- tight integration with telegram. oktron cannot be extended to webapp, that works from the browser 
+- tight integration with telegram. okotron cannot be extended to webapp, that works from the browser 
 
 references:
 - https://www.oauth.com/oauth2-servers/device-flow/user-flow/

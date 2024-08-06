@@ -50,7 +50,7 @@ func RefreshTokens(authToken AuthToken) (AuthToken, error) {
 
 	if authTokenRes.Status != "success" {
 		log.Println("okto request to refresh token failed. " + string(resBytes))
-		// TODO: remove the expired auth token, so that user can authorize oktron again
+		// TODO: remove the expired auth token, so that user can authorize okotron again
 		return AuthToken{}, errors.New("okto request failed")
 	}
 	return authTokenRes.Data, nil

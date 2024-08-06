@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/programcpp/oktron/telegram"
+	"github.com/programcpp/okotron/telegram"
 )
 
 func main() {

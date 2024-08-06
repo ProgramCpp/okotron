@@ -1,4 +1,4 @@
-# oktron
+# okotron
 a cross chain telegram trading bot
 
 ### Pre requisites

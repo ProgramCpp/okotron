@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/programcpp/oktron/db"
-	"github.com/programcpp/oktron/okto"
+	"github.com/programcpp/okotron/db"
+	"github.com/programcpp/okotron/okto"
 )
 
 func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {

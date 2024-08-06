@@ -8,9 +8,9 @@ import (
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 
-	"github.com/programcpp/oktron/db"
-	"github.com/programcpp/oktron/google"
-	"github.com/programcpp/oktron/okto"
+	"github.com/programcpp/okotron/db"
+	"github.com/programcpp/okotron/google"
+	"github.com/programcpp/okotron/okto"
 )
 
 func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
@@ -20,19 +20,19 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	// token := db.Get(dbKey)
 	// // TODO: do proper error check. check error from db call
 	// if token != "" {
-	// 	Send(bot, update, "Oktron already authorized.")
+	// 	Send(bot, update, "okotron already authorized.")
 	// 	return
 	// }
 
 	deviceCode, err := google.GetDeviceCode()
 	if err != nil {
 		log.Printf("error encountered when saving token id %d", id)
-		Send(bot, update, "error authorizing oktron. try again.")
+		Send(bot, update, "error authorizing okotron. try again.")
 		return
 	}
 	reply := ""
-	reply += fmt.Sprintf("visit [google authorization page](%s) to authorize oktron and enter device code %s. \n", deviceCode.VerificationUrl, deviceCode.UserCode)
-	reply += "return to oktron chat when done"
+	reply += fmt.Sprintf("visit [google authorization page](%s) to authorize okotron and enter device code %s. \n", deviceCode.VerificationUrl, deviceCode.UserCode)
+	reply += "return to okotron chat when done"
 	Send(bot, update, reply)
 
 	for i := 0; i*deviceCode.Interval <= deviceCode.ExpiresIn; i++ {
@@ -42,7 +42,7 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			continue
 		} else if err != nil {
 			log.Printf("error encountered when polling for token id for user %d", id)
-			Send(bot, update, "error authorizing oktron. try again.")
+			Send(bot, update, "error authorizing okotron. try again.")
 			break
 		} else {
 
@@ -50,14 +50,14 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			err = db.Save(googleIDTokenKey, googleToken.IdToken)
 			if err != nil {
 				log.Printf("error encountered when saving google token id %d. %s", id, err.Error())
-				Send(bot, update, "error authorizing oktron. try again.")
+				Send(bot, update, "error authorizing okotron. try again.")
 				break
 			}
 
 			token, err := okto.Authenticate(googleToken.IdToken)
 			if err != nil {
 				log.Println("error authentication to Okto. " + err.Error())
-				Send(bot, update, "error authorizing oktron. try again.")
+				Send(bot, update, "error authorizing okotron. try again.")
 				break
 			}
 
@@ -65,14 +65,14 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			err = db.Save(tokenKey, token)
 			if err != nil {
 				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
-				Send(bot, update, "error authorizing oktron. try again.")
+				Send(bot, update, "error authorizing okotron. try again.")
 				break
 			}
 
 			resp, err := SendWithForceReply(bot, update, "almost done! set your - 6 digit - PIN to finish setup", true)
 			if err != nil {
 				log.Printf("error encountered when sending bot message. %s", err.Error())
-				// Send(bot, update, "error authorizing oktron. try again.")
+				// Send(bot, update, "error authorizing okotron. try again.")
 				break
 			}
 
@@ -86,7 +86,7 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			err = db.Save(messageKey, CMD_LOGIN_CMD_SETUP_PROFILE)
 			if err != nil {
 				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
-				Send(bot, update, "error authorizing oktron. try again.")
+				Send(bot, update, "error authorizing okotron. try again.")
 				break
 			}
 			break
