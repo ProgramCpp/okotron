@@ -46,7 +46,7 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			break
 		} else {
 
-			googleIDTokenKey := fmt.Sprintf("google_id_token_%d", id) // TODO: expire tokens
+			googleIDTokenKey := fmt.Sprintf(db.GOOGLE_ID_TOKEN_KEY, id) // TODO: expire tokens
 			err = db.Save(googleIDTokenKey, googleToken.IdToken)
 			if err != nil {
 				log.Printf("error encountered when saving google token id %d. %s", id, err.Error())
@@ -61,7 +61,7 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 				break
 			}
 
-			tokenKey := fmt.Sprintf("okto_token_%d", id) // TODO: expire tokens
+			tokenKey := fmt.Sprintf(db.OKTO_TOKEN_KEY, id) // TODO: expire tokens
 			err = db.Save(tokenKey, token)
 			if err != nil {
 				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
@@ -82,7 +82,7 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			// the flow works only if the user replies to the message sent by the bot
 			// this allows the bot to determine the next command based on the user flow instead of the user manually selecting the commands. this improves the UX and simplifies bot usage
 			// TODO: document this user flow in a ADR. this is not specific to this use case. the same approach can be used for interactive user flows
-			messageKey := fmt.Sprintf("message_%d", resp.MessageID)
+			messageKey := fmt.Sprintf(db.MESSAGE_KEY, resp.MessageID)
 			err = db.Save(messageKey, CMD_LOGIN_CMD_SETUP_PROFILE)
 			if err != nil {
 				log.Printf("error encountered when saving token id %d. %s", id, err.Error())

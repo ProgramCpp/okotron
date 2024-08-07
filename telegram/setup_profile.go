@@ -17,9 +17,9 @@ import (
 func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
 	pin := update.Message.Text
-	tokenKey := fmt.Sprintf("okto_token_%d", id)
+	tokenKey := fmt.Sprintf(db.OKTO_TOKEN_KEY, id)
 	token := db.Get(tokenKey)
-	googleIdTokenKey := fmt.Sprintf("google_id_token_%d", id)
+	googleIdTokenKey := fmt.Sprintf(db.GOOGLE_ID_TOKEN_KEY, id)
 	idToken := db.Get(googleIdTokenKey)
 	authToken, err := okto.SetPin(idToken, token, pin)
 	if err != nil {

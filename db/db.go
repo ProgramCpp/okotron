@@ -7,9 +7,19 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
+// all the redis namespaces for keys. equivalent to tables in SQL
 const (
+	// okto
 	OKTO_AUTH_TOKEN_KEY = "okto_auth_token_%d"
+	OKTO_TOKEN_KEY      = "okto_token_%d"
 	OKTO_ADDRESSES_KEY  = "okto_addresses_%d"
+
+	// google
+	GOOGLE_ID_TOKEN_KEY = "google_id_token_%d"
+
+	// telegram
+	MESSAGE_KEY      = "message_%d"
+	SWAP_REQUEST_KEY = "swap_%d"
 )
 
 // TODO: move this to main function with dependency injection

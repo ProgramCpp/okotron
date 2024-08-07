@@ -58,7 +58,7 @@ func Run() {
 			command := update.Message.Text
 			subCommand := ""
 			if update.Message.ReplyToMessage != nil {
-				messageKey := fmt.Sprintf("message_%d", update.Message.MessageID)
+				messageKey := fmt.Sprintf(db.MESSAGE_KEY, update.Message.MessageID)
 				subCommand = db.Get(messageKey)
 			}
 
@@ -75,7 +75,7 @@ func Run() {
 			}
 		} else if update.CallbackQuery != nil {
 			// todo: command to go back
-			messageKey := fmt.Sprintf("message_%d", update.CallbackQuery.Message.MessageID)
+			messageKey := fmt.Sprintf(db.MESSAGE_KEY, update.CallbackQuery.Message.MessageID)
 			subCommand, err := db.RedisClient().Get(context.Background(), messageKey).Result()
 			if err != nil {
 				Send(bot, update, "something went wrong. try again")
