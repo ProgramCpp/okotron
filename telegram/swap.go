@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
@@ -245,7 +246,15 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 			return
 		}
 
-		err := swapTokens(r, tokRes.Val(), addrRes.Val())
+		var wallets []okto.Wallet
+		err := json.NewDecoder(strings.NewReader(addrRes.Val())).Decode(wallets)
+		if addrRes.Err() != nil {
+			log.Printf("error decoding okto wallets. %s", addrRes.Err())
+			Send(bot, update, "something went wrong. try again.")
+			return
+		}
+
+		err = swapTokens(r, tokRes.Val(), addrRes.Val())
 		if err != nil {
 			log.Printf("error executing swap request. %s", err.Error())
 			Send(bot, update, "something went wrong. try again.")

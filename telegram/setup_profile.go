@@ -52,9 +52,19 @@ func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 
-	err = db.RedisClient().Set(context.Background(), fmt.Sprintf(db.OKTO_ADDRESSES_KEY, update.Message.Chat.ID), wallets, 0).Err()
+	buf := bytes.Buffer{}
+	err = json.NewEncoder(&buf).Encode(wallets)
 	if err != nil {
+		log.Println("error encoding Okto wallets. " + err.Error())
+		Send(bot, update, "error authorizing okotron. try again.")
+		return
+	}
 
+	err = db.RedisClient().Set(context.Background(), fmt.Sprintf(db.OKTO_ADDRESSES_KEY, update.Message.Chat.ID), buf.String(), 0).Err()
+	if err != nil {
+		log.Println("error saving okto walletso. " + err.Error())
+		Send(bot, update, "error authorizing okotron. try again.")
+		return
 	}
 
 	reply := "okotron setup is now complete. fund your wallets to get started \n"
