@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -35,8 +36,13 @@ func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 
-	authTokenKey := fmt.Sprintf("okto_auth_token_%d", id)
-	db.Save(authTokenKey, buffer.String())
+	authTokenKey := fmt.Sprintf(db.OKTO_AUTH_TOKEN_KEY, id)
+	err = db.RedisClient().Set(context.Background(), authTokenKey, buffer.String(), 0).Err()
+	if err != nil {
+		log.Println("error saving auth token" + err.Error())
+		Send(bot, update, "encountered a problem when setting the PIN. try again.")
+		return
+	}
 
 	// TODO: create wallets only if not already created. enquire wallets
 	wallets, err := okto.CreateWallet(authToken.AuthToken)
@@ -45,6 +51,12 @@ func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		Send(bot, update, "error authorizing okotron. try again.")
 		return
 	}
+
+	err = db.RedisClient().Set(context.Background(), fmt.Sprintf(db.OKTO_ADDRESSES_KEY, update.Message.Chat.ID), wallets, 0).Err()
+	if err != nil {
+
+	}
+
 	reply := "okotron setup is now complete. fund your wallets to get started \n"
 
 	// display wallets for users to fund them

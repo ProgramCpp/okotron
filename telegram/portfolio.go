@@ -13,7 +13,7 @@ import (
 
 func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
-	authTokenKey := fmt.Sprintf("okto_auth_token_%d", id)
+	authTokenKey := fmt.Sprintf(db.OKTO_AUTH_TOKEN_KEY, id)
 	authTokenStr := db.Get(authTokenKey)
 	// TODO: handle token not found
 

@@ -4,13 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
+	"github.com/pkg/errors"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/programcpp/okotron/db"
+	"github.com/programcpp/okotron/okto"
+	"github.com/programcpp/okotron/okto/lifi"
 )
 
 const (
@@ -37,7 +41,7 @@ var (
 )
 
 // redis tags are defined above as constants. keep in SYNC
-type SwapRequest struct {
+type SwapRequestInput struct {
 	FromToken   string `json:"from_token" redis:"swap/from-token"`
 	FromNetwork string `json:"from_network" redis:"swap/from-network"`
 	ToToken     string `json:"to_token" redis:"swap/to-token"`
@@ -220,9 +224,30 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 			return
 		}
 
-		var r SwapRequest
+		var r SwapRequestInput
 		if err := res.Scan(&r); err != nil {
 			log.Printf("error parsing swap request payload. %s", err.Error())
+			Send(bot, update, "something went wrong. try again.")
+			return
+		}
+
+		tokRes := db.RedisClient().Get(context.Background(), fmt.Sprintf(db.OKTO_AUTH_TOKEN_KEY, update.Message.Chat.ID))
+		if tokRes.Err() != nil {
+			log.Printf("error fetching okto auth token. %s", tokRes.Err())
+			Send(bot, update, "something went wrong. try again.")
+			return
+		}
+
+		addrRes := db.RedisClient().Get(context.Background(), fmt.Sprintf(db.OKTO_ADDRESSES_KEY, update.Message.Chat.ID))
+		if addrRes.Err() != nil {
+			log.Printf("error fetching okto auth token. %s", addrRes.Err())
+			Send(bot, update, "something went wrong. try again.")
+			return
+		}
+
+		err := swapTokens(r, tokRes.Val(), addrRes.Val())
+		if err != nil {
+			log.Printf("error executing swap request. %s", err.Error())
 			Send(bot, update, "something went wrong. try again.")
 			return
 		}
@@ -233,8 +258,6 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 			fmt.Sprintf("done! swapped %s tokens from %s:%s to %s:%s",
 				r.Quantity, r.FromNetwork, r.FromToken, r.ToNetwork, r.ToToken),
 		))
-
-		swapTokens(r)
 		return
 	}
 
@@ -259,11 +282,29 @@ func SwapQuantiy(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 		update.FromChat().ID, id, "enter token quantity:"+quantity,
 		numericKeyboard(true)))
 
-	// the next sub command is still quantity. 
+	// the next sub command is still quantity.
 	// user completes the command with this subcommand, after pressing "enter"
 	// requestKey is no more accessed. will be expired by redis
 }
 
-func swapTokens(r SwapRequest) {
+// TODO: separate telegram and service concerns
+func swapTokens(r SwapRequestInput, authToken string, addr string) error {
+	transactionPayload, err := lifi.GetQuote(lifi.QuoteRequest{
+		FromChain:   r.FromNetwork,
+		FromToken:   r.FromToken,
+		ToChain:     r.ToNetwork,
+		ToToken:     r.ToToken,
+		FromAmount:  r.Quantity,
+		FromAddress: addr,
+	})
+	if err != nil {
+		return errors.Wrap(err, "failed to get a quote for transaction request")
+	}
 
+	_, err = okto.RawTxn(authToken, strings.NewReader(transactionPayload))
+	if err != nil {
+		return errors.Wrap(err, "failed to execute okto transaction")
+	}
+
+	return nil
 }
