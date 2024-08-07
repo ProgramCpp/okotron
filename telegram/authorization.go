@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"log"
@@ -47,7 +48,7 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		} else {
 
 			googleIDTokenKey := fmt.Sprintf(db.GOOGLE_ID_TOKEN_KEY, id) // TODO: expire tokens
-			err = db.Save(googleIDTokenKey, googleToken.IdToken)
+			err = db.RedisClient().Set(context.Background(), googleIDTokenKey, googleToken.IdToken, 0).Err()
 			if err != nil {
 				log.Printf("error encountered when saving google token id %d. %s", id, err.Error())
 				Send(bot, update, "error authorizing okotron. try again.")
@@ -62,7 +63,7 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			}
 
 			tokenKey := fmt.Sprintf(db.OKTO_TOKEN_KEY, id) // TODO: expire tokens
-			err = db.Save(tokenKey, token)
+			err = db.RedisClient().Set(context.Background(), tokenKey, token, 0).Err()
 			if err != nil {
 				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
 				Send(bot, update, "error authorizing okotron. try again.")
@@ -83,7 +84,7 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			// this allows the bot to determine the next command based on the user flow instead of the user manually selecting the commands. this improves the UX and simplifies bot usage
 			// TODO: document this user flow in a ADR. this is not specific to this use case. the same approach can be used for interactive user flows
 			messageKey := fmt.Sprintf(db.MESSAGE_KEY, resp.MessageID)
-			err = db.Save(messageKey, CMD_LOGIN_CMD_SETUP_PROFILE)
+			err = db.RedisClient().Set(context.Background(), messageKey, CMD_LOGIN_CMD_SETUP_PROFILE, 0).Err()
 			if err != nil {
 				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
 				Send(bot, update, "error authorizing okotron. try again.")

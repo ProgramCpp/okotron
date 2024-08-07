@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -14,7 +15,12 @@ import (
 func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
 	authTokenKey := fmt.Sprintf(db.OKTO_AUTH_TOKEN_KEY, id)
-	authTokenStr := db.Get(authTokenKey)
+	authTokenStr, err := db.RedisClient().Get(context.Background(), authTokenKey).Result()
+	if err != nil {
+		log.Printf("error fetching okto auth token. " + err.Error())
+		Send(bot, update, "something went wrong!")
+		return
+	}
 	// TODO: handle token not found
 
 	authToken := okto.AuthToken{}

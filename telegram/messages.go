@@ -59,7 +59,11 @@ func Run() {
 			subCommand := ""
 			if update.Message.ReplyToMessage != nil {
 				messageKey := fmt.Sprintf(db.MESSAGE_KEY, update.Message.MessageID)
-				subCommand = db.Get(messageKey)
+				subCommand, err = db.RedisClient().Get(context.Background(), messageKey).Result()
+				if err != nil {
+					Send(bot, update, "something went wrong. try again")
+					continue
+				}
 			}
 
 			if command == CMD_LOGIN {

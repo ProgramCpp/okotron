@@ -18,9 +18,19 @@ func SetupProfile(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	id := update.Message.Chat.ID
 	pin := update.Message.Text
 	tokenKey := fmt.Sprintf(db.OKTO_TOKEN_KEY, id)
-	token := db.Get(tokenKey)
+	token, err := db.RedisClient().Get(context.Background(), tokenKey).Result()
+	if err != nil {
+		log.Printf("error fetching okto token. " + err.Error())
+		Send(bot, update, "something went wrong!")
+		return
+	}
 	googleIdTokenKey := fmt.Sprintf(db.GOOGLE_ID_TOKEN_KEY, id)
-	idToken := db.Get(googleIdTokenKey)
+	idToken, err := db.RedisClient().Get(context.Background(), googleIdTokenKey).Result()
+	if err != nil {
+		log.Printf("error fetching google id token. " + err.Error())
+		Send(bot, update, "something went wrong!")
+		return
+	}
 	authToken, err := okto.SetPin(idToken, token, pin)
 	if err != nil {
 		log.Println("error setting okto pin" + err.Error())
