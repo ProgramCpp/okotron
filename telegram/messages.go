@@ -74,6 +74,8 @@ func Run() {
 				go Swap(bot, update)
 			} else if subCommand == CMD_LOGIN_CMD_SETUP_PROFILE {
 				go SetupProfile(bot, update)
+			}  else if subCommand == CMD_LIMIT_ORDER {
+				go LimitOrder(bot, update)
 			} else {
 				go Greet(bot, update)
 			}

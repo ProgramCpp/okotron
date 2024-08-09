@@ -6,5 +6,5 @@
 	- by interacting with an inline keyboard. this is identified by `update.CallbackQuery`
 
 ### Future Work:
-why do we need two different ways to handle user input? consolidate into one. the inline keyboard is more intuitive and readable
+- why do we need two different ways to handle user input? consolidate into one. the inline keyboard is more intuitive and readable
 migrate PIN flow to inline keyboard flow.

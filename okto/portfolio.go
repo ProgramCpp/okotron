@@ -26,10 +26,11 @@ func (t PortfolioTokenInfo) String() string {
 }
 
 type PortfolioData struct {
-	Total  int               `json:"total"`
+	Total  int                  `json:"total"`
 	Tokens []PortfolioTokenInfo `json:"tokens"`
 }
 
+// TODO: the portfolio response structure is different from whats docuemnted. this is what the api returns. whath out for breaking changes
 type portfolioReasponse struct {
 	Status string        `json:"status"`
 	Data   PortfolioData `json:"data"`

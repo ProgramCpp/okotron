@@ -42,12 +42,13 @@ var (
 )
 
 // redis tags are defined above as constants. keep in SYNC
+// TODO: the input maybe reused across commands. tags dont have to be specific to swap command. no premature optimization. see command patterns before making the changes
 type SwapRequestInput struct {
 	FromToken   string `json:"from_token" redis:"swap/from-token"`
 	FromNetwork string `json:"from_network" redis:"swap/from-network"`
 	ToToken     string `json:"to_token" redis:"swap/to-token"`
 	ToNetwork   string `json:"to_network" redis:"swap/to-network"`
-	Quantity    string `json:"quantity" redis:"swap/quantity"`
+	Quantity    string `json:"quantity" redis:"swap/quantity"` // use okto terms - quantity. not lifi terms - amount
 }
 
 func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
@@ -57,7 +58,8 @@ func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	if update.CallbackQuery == nil {
 		msg = tgbotapi.MessageConfig{
 			BaseChat: tgbotapi.BaseChat{
-				ChatID:      update.FromChat().ID,
+				ChatID: update.FromChat().ID,
+				// TODO: consolidate all telegram send messages
 				ReplyMarkup: tokenKeyboard(),
 			},
 			Text: "select the source token",
