@@ -310,7 +310,7 @@ func swapTokens(r SwapRequestInput, authToken string, addr string) error {
 		return errors.Wrap(err, "failed to get a quote for transaction request")
 	}
 
-	_, err = okto.RawTxn(authToken, strings.NewReader(transactionPayload))
+	_, err = okto.RawTxn(authToken, strings.NewReader(transactionPayload), r.FromNetwork)
 	if err != nil {
 		return errors.Wrap(err, "failed to execute okto transaction")
 	}

@@ -4,7 +4,7 @@ import tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 
 func tokenKeyboard() tgbotapi.InlineKeyboardMarkup {
 	keyboardButtons := []tgbotapi.InlineKeyboardButton{
-		tgbotapi.NewInlineKeyboardButtonData("back", "back"),
+		tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
 	}
 
 	for _, n := range SUPPORTED_TOKENS {
@@ -20,7 +20,7 @@ func tokenKeyboard() tgbotapi.InlineKeyboardMarkup {
 
 func networkKeyboard(toToken string) tgbotapi.InlineKeyboardMarkup {
 	keyboardButtons := []tgbotapi.InlineKeyboardButton{
-		tgbotapi.NewInlineKeyboardButtonData("back", "back"),
+		tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
 	}
 
 	for _, n := range SUPPORTED_NETWORKS[toToken] {
@@ -38,11 +38,11 @@ func numericKeyboard(back bool) tgbotapi.InlineKeyboardMarkup {
 	var lastRow []tgbotapi.InlineKeyboardButton
 
 	if back {
-		lastRow = append(lastRow, tgbotapi.NewInlineKeyboardButtonData("back", "back"))
+		lastRow = append(lastRow, tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"))
 	}
 	lastRow = append(lastRow,
 		tgbotapi.NewInlineKeyboardButtonData("0", "0"),
-		tgbotapi.NewInlineKeyboardButtonData("enter", "enter"),
+		tgbotapi.NewInlineKeyboardButtonData("enter ↩", "enter"),
 	)
 
 	numericKeyboard := tgbotapi.NewInlineKeyboardMarkup(
