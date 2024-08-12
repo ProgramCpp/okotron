@@ -41,7 +41,7 @@ func RefreshTokens(authToken AuthToken) (AuthToken, error) {
 		return AuthToken{}, errors.New("okto refresh token http req not OK")
 	}
 
-	var authTokenRes AuthTokenResponse
+	var authTokenRes AuthResponse
 	err = json.NewDecoder(bytes.NewReader(resBytes)).Decode(&authTokenRes)
 	if err != nil {
 		log.Println("error decoding okto refresh token response" + err.Error())
