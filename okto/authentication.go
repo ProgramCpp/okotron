@@ -52,6 +52,8 @@ func Authenticate(idToken string) (string, error) {
 		return "", err
 	}
 
+	fmt.Println(string(resBytes))
+
 	if res.StatusCode != http.StatusOK {
 		// TODO: parse error response
 		log.Println("okto authenticaiton http req not OK. " + string(resBytes))

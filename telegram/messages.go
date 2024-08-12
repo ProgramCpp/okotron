@@ -11,27 +11,6 @@ import (
 	"github.com/programcpp/okotron/db"
 )
 
-type COMMANDS string
-
-// primary commands
-const (
-	CMD_LOGIN       = "/login"
-	CMD_PORTFOLIO   = "/portfolio"
-	CMD_SWAP        = "/swap"
-	CMD_LIMIT_ORDER = "/limit-order"
-)
-
-// sub commands that can be executed after the primary commands
-const (
-	// TODO: fix the weird naming convention to pass context from commands and sub commands
-	CMD_LOGIN_CMD_SETUP_PROFILE = "/login/setup-profile"
-	CMD_SWAP_CMD_FROM_TOKEN     = "/swap/from-token"
-	CMD_SWAP_CMD_FROM_NETWORK   = "/swap/from-network"
-	CMD_SWAP_CMD_TO_TOKEN       = "/swap/to-token"
-	CMD_SWAP_CMD_TO_NETWORK     = "/swap/to-network"
-	CMD_SWAP_CMD_QUANTITY       = "/swap/quantity"
-)
-
 // blocking call. reads telegram messages and processes them
 func Run() {
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
@@ -71,10 +50,10 @@ func Run() {
 			} else if command == CMD_PORTFOLIO {
 				go Portfolio(bot, update)
 			} else if command == CMD_SWAP {
-				go Swap(bot, update)
+				go TokenInput(bot, update)
 			} else if subCommand == CMD_LOGIN_CMD_SETUP_PROFILE {
 				go SetupProfile(bot, update)
-			}  else if subCommand == CMD_LIMIT_ORDER {
+			} else if command == CMD_LIMIT_ORDER {
 				go LimitOrder(bot, update)
 			} else {
 				go Greet(bot, update)
@@ -88,16 +67,16 @@ func Run() {
 				continue
 			}
 			isBack := update.CallbackQuery.Data == "back"
-			if subCommand == CMD_SWAP_CMD_FROM_TOKEN {
-				go SwapFromToken(bot, update, isBack)
-			} else if subCommand == CMD_SWAP_CMD_FROM_NETWORK {
-				go SwapFromNetwork(bot, update, isBack)
-			} else if subCommand == CMD_SWAP_CMD_TO_TOKEN {
-				go SwapToToken(bot, update, isBack)
-			} else if subCommand == CMD_SWAP_CMD_TO_NETWORK {
-				go SwapToNetwork(bot, update, isBack)
-			} else if subCommand == CMD_SWAP_CMD_QUANTITY {
-				go SwapQuantiy(bot, update, isBack)
+			if subCommand == CMD_ANY_CMD_FROM_TOKEN {
+				go FromToken(bot, update, isBack)
+			} else if subCommand == CMD_ANY_CMD_FROM_NETWORK {
+				go FromNetwork(bot, update, isBack)
+			} else if subCommand == CMD_ANY_CMD_TO_TOKEN {
+				go ToToken(bot, update, isBack)
+			} else if subCommand == CMD_ANY_CMD_TO_NETWORK {
+				go ToNetwork(bot, update, isBack)
+			} else if subCommand == CMD_ANY_CMD_QUANTITY {
+				go Quantiy(bot, update, isBack)
 			}
 		}
 	}
