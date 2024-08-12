@@ -16,8 +16,8 @@ const (
 	GOOGLE_ID_TOKEN_KEY = "google_id_token_%d"
 
 	// telegram
-	MESSAGE_KEY = "message_%d"
-	REQUEST_KEY = "request_%d"
+	SUB_COMMAND_KEY = "subcommand_%d"
+	REQUEST_KEY     = "request_%d"
 )
 
 // TODO: move this to main function with dependency injection

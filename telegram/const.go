@@ -12,11 +12,11 @@ const (
 const (
 	// TODO: fix the weird naming convention to pass context from commands and sub commands
 	CMD_LOGIN_CMD_SETUP_PROFILE = "/login/setup-profile"
-	CMD_ANY_CMD_FROM_TOKEN      = "/any/from-token"
-	CMD_ANY_CMD_FROM_NETWORK    = "/any/from-network"
-	CMD_ANY_CMD_TO_TOKEN        = "/any/to-token"
-	CMD_ANY_CMD_TO_NETWORK      = "/any/to-network"
-	CMD_ANY_CMD_QUANTITY        = "/any/quantity"
+	CMD_SWAP_CMD_FROM_TOKEN      = "/swap/from-token"
+	CMD_SWAP_CMD_FROM_NETWORK    = "/swap/from-network"
+	CMD_SWAP_CMD_TO_TOKEN        = "/swap/to-token"
+	CMD_SWAP_CMD_TO_NETWORK      = "/swap/to-network"
+	CMD_SWAP_CMD_QUANTITY        = "/swap/quantity"
 )
 
 var (

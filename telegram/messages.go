@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/programcpp/okotron/db"
@@ -41,31 +42,31 @@ func Run() {
 			} else if command == CMD_PORTFOLIO {
 				go Portfolio(bot, update)
 			} else if command == CMD_SWAP {
-				go TokenInput(bot, update)
+				go Swap(bot, update)
 			} else if command == CMD_LIMIT_ORDER {
 				go LimitOrder(bot, update)
 			} else {
 				go Greet(bot, update)
 			}
 		} else if update.CallbackQuery != nil {
-			// todo: command to go back
-			messageKey := fmt.Sprintf(db.MESSAGE_KEY, update.CallbackQuery.Message.MessageID)
-			subCommand, err := db.RedisClient().Get(context.Background(), messageKey).Result()
+			subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, update.CallbackQuery.Message.MessageID)
+			subCommand, err := db.RedisClient().Get(context.Background(), subcommandKey).Result()
 			if err != nil {
 				Send(bot, update, "something went wrong. try again")
 				continue
 			}
-			isBack := update.CallbackQuery.Data == "back"
-			if subCommand == CMD_ANY_CMD_FROM_TOKEN {
-				go FromToken(bot, update, isBack)
-			} else if subCommand == CMD_ANY_CMD_FROM_NETWORK {
-				go FromNetwork(bot, update, isBack)
-			} else if subCommand == CMD_ANY_CMD_TO_TOKEN {
-				go ToToken(bot, update, isBack)
-			} else if subCommand == CMD_ANY_CMD_TO_NETWORK {
-				go ToNetwork(bot, update, isBack)
-			} else if subCommand == CMD_ANY_CMD_QUANTITY {
-				go Quantiy(bot, update, isBack)
+
+			isBack := strings.Contains(update.CallbackQuery.Data, "back")
+			if subCommand == CMD_SWAP_CMD_FROM_TOKEN {
+				go FromTokenInput(bot, update, isBack)
+			} else if subCommand == CMD_SWAP_CMD_FROM_NETWORK {
+				go FromNetworkInput(bot, update, isBack)
+			} else if subCommand == CMD_SWAP_CMD_TO_TOKEN {
+				go ToTokenInput(bot, update, isBack)
+			} else if subCommand == CMD_SWAP_CMD_TO_NETWORK {
+				go ToNetworkInput(bot, update, isBack)
+			} else if subCommand == CMD_SWAP_CMD_QUANTITY {
+				go QuantiyInput(bot, update, isBack)
 			}
 		}
 	}
