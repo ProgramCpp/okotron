@@ -35,15 +35,6 @@ func Run() {
 		// fmt.Printf("%+v", update)
 		if update.Message != nil { // If we got a message
 			command := update.Message.Text
-			subCommand := ""
-			if update.Message.ReplyToMessage != nil {
-				messageKey := fmt.Sprintf(db.MESSAGE_KEY, update.Message.MessageID)
-				subCommand, err = db.RedisClient().Get(context.Background(), messageKey).Result()
-				if err != nil {
-					Send(bot, update, "something went wrong. try again")
-					continue
-				}
-			}
 
 			if command == CMD_LOGIN {
 				go Login(bot, update)
@@ -51,8 +42,6 @@ func Run() {
 				go Portfolio(bot, update)
 			} else if command == CMD_SWAP {
 				go TokenInput(bot, update)
-			} else if subCommand == CMD_LOGIN_CMD_SETUP_PROFILE {
-				go SetupProfile(bot, update)
 			} else if command == CMD_LIMIT_ORDER {
 				go LimitOrder(bot, update)
 			} else {

@@ -10,7 +10,6 @@ import (
 const (
 	// okto
 	OKTO_AUTH_TOKEN_KEY = "okto_auth_token_%d"
-	OKTO_TOKEN_KEY      = "okto_token_%d"
 	OKTO_ADDRESSES_KEY  = "okto_addresses_%d"
 
 	// google

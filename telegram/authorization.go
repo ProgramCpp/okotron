@@ -1,7 +1,9 @@
 package telegram
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -46,51 +48,64 @@ func Login(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			Send(bot, update, "error authorizing okotron. try again.")
 			break
 		} else {
-
-			googleIDTokenKey := fmt.Sprintf(db.GOOGLE_ID_TOKEN_KEY, id) // TODO: expire tokens
-			err = db.RedisClient().Set(context.Background(), googleIDTokenKey, googleToken.IdToken, 0).Err()
-			if err != nil {
-				log.Printf("error encountered when saving google token id %d. %s", id, err.Error())
-				Send(bot, update, "error authorizing okotron. try again.")
-				break
-			}
-
-			token, err := okto.Authenticate(googleToken.IdToken)
-			if err != nil {
-				log.Println("error authentication to Okto. " + err.Error())
-				Send(bot, update, "error authorizing okotron. try again.")
-				break
-			}
-
-			tokenKey := fmt.Sprintf(db.OKTO_TOKEN_KEY, id) // TODO: expire tokens
-			err = db.RedisClient().Set(context.Background(), tokenKey, token, 0).Err()
-			if err != nil {
-				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
-				Send(bot, update, "error authorizing okotron. try again.")
-				break
-			}
-
-			resp, err := SendWithForceReply(bot, update, "almost done! set your - 6 digit - PIN to finish setup", true)
-			if err != nil {
-				log.Printf("error encountered when sending bot message. %s", err.Error())
-				// Send(bot, update, "error authorizing okotron. try again.")
-				break
-			}
-
-			// commands in progress
-			// multi-step commands are sequenced with message id's
-			// save the next command in the sequence
-			// the flow works only if the user replies to the message sent by the bot
-			// this allows the bot to determine the next command based on the user flow instead of the user manually selecting the commands. this improves the UX and simplifies bot usage
-			// TODO: document this user flow in a ADR. this is not specific to this use case. the same approach can be used for interactive user flows
-			messageKey := fmt.Sprintf(db.MESSAGE_KEY, resp.MessageID)
-			err = db.RedisClient().Set(context.Background(), messageKey, CMD_LOGIN_CMD_SETUP_PROFILE, 0).Err()
-			if err != nil {
-				log.Printf("error encountered when saving token id %d. %s", id, err.Error())
-				Send(bot, update, "error authorizing okotron. try again.")
-				break
-			}
+			authenticate(bot, update, googleToken)
 			break
 		}
 	}
+}
+
+func authenticate(bot *tgbotapi.BotAPI, update tgbotapi.Update, googleToken google.AccessToken) {
+	id := update.Message.Chat.ID
+	googleIDTokenKey := fmt.Sprintf(db.GOOGLE_ID_TOKEN_KEY, id) // TODO: expire tokens
+	err := db.RedisClient().Set(context.Background(), googleIDTokenKey, googleToken.IdToken, 0).Err()
+	if err != nil {
+		log.Printf("error encountered when saving google token id %d. %s", id, err.Error())
+		Send(bot, update, "error authorizing okotron. try again.")
+	}
+
+	token, err := okto.Authenticate(googleToken.IdToken)
+	if err != nil {
+		log.Println("error authentication to Okto. " + err.Error())
+		Send(bot, update, "error authorizing okotron. try again.")
+	}
+
+	// TODO: store expiry for refresh
+	tokenKey := fmt.Sprintf(db.OKTO_AUTH_TOKEN_KEY, id)
+	err = db.RedisClient().Set(context.Background(), tokenKey, token, 0).Err()
+	if err != nil {
+		log.Printf("error encountered when saving token id %d. %s", id, err.Error())
+		Send(bot, update, "error authorizing okotron. try again.")
+	}
+
+	// TODO: create wallets only if not already created. enquire wallets
+	wallets, err := okto.CreateWallet(token.AuthToken)
+	if err != nil {
+		log.Println("error authentication to Okto. " + err.Error())
+		Send(bot, update, "error authorizing okotron. try again.")
+		return
+	}
+
+	buf := bytes.Buffer{}
+	err = json.NewEncoder(&buf).Encode(wallets)
+	if err != nil {
+		log.Println("error encoding Okto wallets. " + err.Error())
+		Send(bot, update, "error authorizing okotron. try again.")
+		return
+	}
+
+	err = db.RedisClient().Set(context.Background(), fmt.Sprintf(db.OKTO_ADDRESSES_KEY, update.Message.Chat.ID), buf.String(), 0).Err()
+	if err != nil {
+		log.Println("error saving okto walletso. " + err.Error())
+		Send(bot, update, "error authorizing okotron. try again.")
+		return
+	}
+
+	reply := "okotron setup is now complete. fund your wallets to get started \n"
+
+	// display wallets for users to fund them
+	for _, w := range wallets {
+		reply += fmt.Sprintf("network: %s \n wallet address: %s\n\n", w.NetworkName, w.Address)
+	}
+
+	Send(bot, update, reply)
 }
