@@ -27,7 +27,7 @@ type SwapRequestInput struct {
 	Quantity    string `json:"quantity" redis:"any/quantity"` // use okto terms - quantity. not lifi terms - amount
 }
 
-func TokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+func SwapInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	// first time menu or navigated from sub menu
 	// show keyboard for the next command
 	var msg tgbotapi.Chattable
@@ -36,13 +36,13 @@ func TokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			BaseChat: tgbotapi.BaseChat{
 				ChatID: update.FromChat().ID,
 				// TODO: consolidate all telegram send messages
-				ReplyMarkup: tokenKeyboard(),
+				ReplyMarkup: tokenKeyboard(false),
 			},
 			Text: "select the source token",
 		}
 	} else {
 		msg = tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, update.CallbackQuery.Message.MessageID,
-			"select the source token", tokenKeyboard())
+			"select the source token", tokenKeyboard(false))
 	}
 
 	// TODO: handle error
@@ -57,9 +57,9 @@ func TokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	}
 }
 
-func FromTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+func SwapFromTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
-		TokenInput(bot, update)
+		SwapInput(bot, update)
 		return
 	}
 
@@ -93,9 +93,9 @@ func FromTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	}
 }
 
-func FromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+func SwapFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
-		FromTokenInput(bot, update, false)
+		SwapFromTokenInput(bot, update, false)
 		return
 	}
 
@@ -110,7 +110,7 @@ func FromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool)
 		return
 	}
 
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the target token", tokenKeyboard())
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the target token", tokenKeyboard(true))
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -123,9 +123,9 @@ func FromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool)
 	}
 }
 
-func ToTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+func SwapToTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
-		FromNetworkInput(bot, update, false)
+		SwapFromNetworkInput(bot, update, false)
 		return
 	}
 
@@ -153,9 +153,9 @@ func ToTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	}
 }
 
-func ToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+func SwapToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
-		ToTokenInput(bot, update, false)
+		SwapToTokenInput(bot, update, false)
 		return
 	}
 
@@ -171,7 +171,7 @@ func ToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	}
 
 	// TODO: the keyboard is associated with next sub-command. generalize it for all sub commands
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:", numericKeyboard(true))
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:", numericKeyboard())
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -184,9 +184,9 @@ func ToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	}
 }
 
-func QuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+func SwapQuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
-		ToNetworkInput(bot, update, false)
+		SwapToNetworkInput(bot, update, false)
 		return
 	}
 
@@ -219,7 +219,7 @@ func QuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	// TODO: handle error
 	bot.Send(tgbotapi.NewEditMessageTextAndMarkup(
 		update.FromChat().ID, id, "enter token quantity:"+quantity,
-		numericKeyboard(true)))
+		numericKeyboard()))
 
 	// the next sub command is still quantity.
 	// user completes the command with this subcommand, after pressing "enter"
@@ -227,7 +227,7 @@ func QuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 }
 
 func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
-	TokenInput(bot, update)
+	SwapInput(bot, update)
 }
 
 func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {

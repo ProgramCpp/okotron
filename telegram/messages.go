@@ -58,15 +58,29 @@ func Run() {
 
 			isBack := strings.Contains(update.CallbackQuery.Data, "back")
 			if subCommand == CMD_SWAP_CMD_FROM_TOKEN {
-				go FromTokenInput(bot, update, isBack)
+				go SwapFromTokenInput(bot, update, isBack)
 			} else if subCommand == CMD_SWAP_CMD_FROM_NETWORK {
-				go FromNetworkInput(bot, update, isBack)
+				go SwapFromNetworkInput(bot, update, isBack)
 			} else if subCommand == CMD_SWAP_CMD_TO_TOKEN {
-				go ToTokenInput(bot, update, isBack)
+				go SwapToTokenInput(bot, update, isBack)
 			} else if subCommand == CMD_SWAP_CMD_TO_NETWORK {
-				go ToNetworkInput(bot, update, isBack)
+				go SwapToNetworkInput(bot, update, isBack)
 			} else if subCommand == CMD_SWAP_CMD_QUANTITY {
-				go QuantiyInput(bot, update, isBack)
+				go SwapQuantiyInput(bot, update, isBack)
+			}
+
+			if subCommand == CMD_LIMIT_ORDER_CMD_BUY_OR_SELL {
+				go LimitOrderBuyOrSellInput(bot, update, isBack)
+			} else if subCommand == CMD_LIMIT_ORDER_CMD_FROM_TOKEN {
+				go LimitOrderFromTokenInput(bot, update, isBack)
+			} else if subCommand == CMD_LIMIT_ORDER_CMD_FROM_NETWORK {
+				go LimitOrderFromNetworkInput(bot, update, isBack)
+			} else if subCommand == CMD_LIMIT_ORDER_CMD_TO_TOKEN {
+				go LimitOrderToTokenInput(bot, update, isBack)
+			} else if subCommand == CMD_LIMIT_ORDER_CMD_TO_NETWORK {
+				go LimitOrderToNetworkInput(bot, update, isBack)
+			} else if subCommand == CMD_LIMIT_ORDER_CMD_QUANTITY {
+				go LimitOrderQuantiyInput(bot, update, isBack)
 			}
 		}
 	}

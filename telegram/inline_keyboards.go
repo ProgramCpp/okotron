@@ -2,9 +2,22 @@ package telegram
 
 import tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 
-func tokenKeyboard() tgbotapi.InlineKeyboardMarkup {
-	keyboardButtons := []tgbotapi.InlineKeyboardButton{
-		tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
+func BuyOrSellKeyboard() tgbotapi.InlineKeyboardMarkup {
+	tokenKeyboard := tgbotapi.NewInlineKeyboardMarkup(
+		tgbotapi.NewInlineKeyboardRow(
+			tgbotapi.NewInlineKeyboardButtonData("buy", "buy"),
+			tgbotapi.NewInlineKeyboardButtonData("sell", "sell"),
+		),
+	)
+
+	return tokenKeyboard
+}
+
+func tokenKeyboard(back bool) tgbotapi.InlineKeyboardMarkup {
+	keyboardButtons := []tgbotapi.InlineKeyboardButton{}
+
+	if back {
+		keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),)
 	}
 
 	for _, n := range SUPPORTED_TOKENS {
@@ -34,17 +47,7 @@ func networkKeyboard(toToken string) tgbotapi.InlineKeyboardMarkup {
 	return networkKeyboard
 }
 
-func numericKeyboard(back bool) tgbotapi.InlineKeyboardMarkup {
-	var lastRow []tgbotapi.InlineKeyboardButton
-
-	if back {
-		lastRow = append(lastRow, tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"))
-	}
-	lastRow = append(lastRow,
-		tgbotapi.NewInlineKeyboardButtonData("0", "0"),
-		tgbotapi.NewInlineKeyboardButtonData("enter ↩", "enter"),
-	)
-
+func numericKeyboard() tgbotapi.InlineKeyboardMarkup {
 	numericKeyboard := tgbotapi.NewInlineKeyboardMarkup(
 		tgbotapi.NewInlineKeyboardRow(
 			tgbotapi.NewInlineKeyboardButtonData("7", "7"),
@@ -61,7 +64,12 @@ func numericKeyboard(back bool) tgbotapi.InlineKeyboardMarkup {
 			tgbotapi.NewInlineKeyboardButtonData("2", "2"),
 			tgbotapi.NewInlineKeyboardButtonData("3", "3"),
 		),
-		lastRow)
+		tgbotapi.NewInlineKeyboardRow(
+			tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
+			tgbotapi.NewInlineKeyboardButtonData("0", "0"),
+			tgbotapi.NewInlineKeyboardButtonData("enter ↩", "enter"),
+		),
+	)
 
 	return numericKeyboard
 }
