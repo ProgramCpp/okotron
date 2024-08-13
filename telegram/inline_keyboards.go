@@ -14,18 +14,23 @@ func BuyOrSellKeyboard() tgbotapi.InlineKeyboardMarkup {
 }
 
 func tokenKeyboard(back bool) tgbotapi.InlineKeyboardMarkup {
-	keyboardButtons := []tgbotapi.InlineKeyboardButton{}
+	noOfButtonsPerRow := 2
+	keyboardRows := [][]tgbotapi.InlineKeyboardButton{}
 
 	if back {
-		keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),)
+		keyboardRows = append(keyboardRows, []tgbotapi.InlineKeyboardButton{tgbotapi.NewInlineKeyboardButtonData("⬅back", "back")})
 	}
-
-	for _, n := range SUPPORTED_TOKENS {
-		keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(n, n))
+	for i := 0; i < len(SUPPORTED_TOKENS); {
+		keyboardButtons := []tgbotapi.InlineKeyboardButton{}
+		for j := 0; j < noOfButtonsPerRow && i < len(SUPPORTED_TOKENS); j++ {
+			keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(SUPPORTED_TOKENS[i], SUPPORTED_TOKENS[i]))
+			i++
+		}
+		keyboardRows = append(keyboardRows, tgbotapi.NewInlineKeyboardRow(keyboardButtons...))
 	}
 
 	tokenKeyboard := tgbotapi.NewInlineKeyboardMarkup(
-		tgbotapi.NewInlineKeyboardRow(keyboardButtons...),
+		keyboardRows...,
 	)
 
 	return tokenKeyboard

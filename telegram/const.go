@@ -5,7 +5,7 @@ const (
 	CMD_LOGIN       = "/login"
 	CMD_PORTFOLIO   = "/portfolio"
 	CMD_SWAP        = "/swap"
-	CMD_LIMIT_ORDER = "/limit-order"
+	CMD_LIMIT_ORDER = "/limitorder"
 )
 
 // sub commands that can be executed after the primary commands
