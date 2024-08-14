@@ -22,7 +22,7 @@ type LimitOrderRequestInput struct {
 	ToToken     string `json:"to_token" redis:"limit-order/to-token"`
 	ToNetwork   string `json:"to_network" redis:"limit-order/to-network"`
 	Quantity    string `json:"quantity" redis:"limit-order/quantity"`
-	Price       string `json:"price" redis:"limit-order/quantity"`
+	Price       string `json:"price" redis:"limit-order/price"`
 }
 
 func LimitOrderInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
@@ -87,7 +87,6 @@ func LimitOrderBuyOrSellInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 		Send(bot, update, "something went wrong. try again.")
 	}
 }
-
 
 func LimitOrderFromTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
@@ -205,27 +204,36 @@ func LimitOrderToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 	err = db.RedisClient().Set(context.Background(), subcommandKey, CMD_LIMIT_ORDER_CMD_QUANTITY,
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
-		log.Printf("error encountered when saving swap message key tokens command. %s", err.Error())
+		log.Printf("error encountered when saving sub command key quantity command. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
 	}
 }
 
-func LimitOrderQuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+func LimitOrderQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+	id := update.CallbackQuery.Message.MessageID
+	quantity := update.CallbackQuery.Data
+	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
+
 	if isBack {
 		LimitOrderToNetworkInput(bot, update, false)
 		return
 	}
 
 	if strings.Contains(update.CallbackQuery.Data, "enter") {
+		resp, _ := bot.Send(tgbotapi.NewEditMessageTextAndMarkup(
+			update.FromChat().ID, id, "enter token limit price:",
+			numericKeyboard()))
+
+		subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, resp.MessageID)
+		err := db.RedisClient().Set(context.Background(), subcommandKey, CMD_LIMIT_ORDER_CMD_PRICE,
+			time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
+		if err != nil {
+			log.Printf("error encountered when saving sub command key price command. %s", err.Error())
+			Send(bot, update, "something went wrong. try again.")
+		}
 		LimitOrderCallback(bot, update)
 		return
 	}
-
-	id := update.CallbackQuery.Message.MessageID
-	quantity := update.CallbackQuery.Data
-
-	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
-
 	// handle first digit of quantity. redis returns Nil error of the field is not found
 	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY)
 	if res.Err() != nil && res.Err() != redis.Nil {
@@ -248,14 +256,53 @@ func LimitOrderQuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack
 		numericKeyboard()))
 
 	// the next sub command is still quantity.
-	// user completes the command with this subcommand, after pressing "enter"
-	// requestKey is no more accessed. will be expired by redis
+	// user completes this subcommand by pressing "enter"
+}
+
+func LimitOrderPriceInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+	id := update.CallbackQuery.Message.MessageID
+	quantity := update.CallbackQuery.Data
+	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
+
+	if isBack {
+		db.RedisClient().HDel(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY)
+		LimitOrderQuantityInput(bot, update, false)
+		return
+	}
+
+	if strings.Contains(update.CallbackQuery.Data, "enter") {
+		LimitOrderCallback(bot, update)
+		return
+	}
+	// handle first digit of quantity. redis returns Nil error of the field is not found
+	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY)
+	if res.Err() != nil && res.Err() != redis.Nil {
+		log.Printf("error encountered when fetching request payload while setting quantity. %s", res.Err())
+		Send(bot, update, "something went wrong. try again.")
+		return
+	} else if res.Err() != redis.Nil {
+		quantity = res.Val() + quantity
+	}
+
+	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY, quantity).Err()
+	if err != nil {
+		log.Printf("error encountered when saving request payload while setting quantity. %s", err.Error())
+		Send(bot, update, "something went wrong. try again.")
+		return
+	}
+	// TODO: handle error
+	bot.Send(tgbotapi.NewEditMessageTextAndMarkup(
+		update.FromChat().ID, id, "enter token quantity:"+quantity,
+		numericKeyboard()))
+
+	// the next sub command is still price.
+	// user completes this subcommand by pressing "enter"
 }
 
 func LimitOrder(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	LimitOrderInput(bot, update)
 }
 
-func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update){
+func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 }

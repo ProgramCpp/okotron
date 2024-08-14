@@ -80,7 +80,9 @@ func Run() {
 			} else if subCommand == CMD_LIMIT_ORDER_CMD_TO_NETWORK {
 				go LimitOrderToNetworkInput(bot, update, isBack)
 			} else if subCommand == CMD_LIMIT_ORDER_CMD_QUANTITY {
-				go LimitOrderQuantiyInput(bot, update, isBack)
+				go LimitOrderQuantityInput(bot, update, isBack)
+			} else if subCommand == CMD_LIMIT_ORDER_CMD_PRICE {
+				go LimitOrderPriceInput(bot, update, isBack)
 			}
 		}
 	}

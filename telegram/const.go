@@ -25,6 +25,7 @@ const (
 	CMD_LIMIT_ORDER_CMD_TO_TOKEN     = "/limit-order/to-token"
 	CMD_LIMIT_ORDER_CMD_TO_NETWORK   = "/limit-order/to-network"
 	CMD_LIMIT_ORDER_CMD_QUANTITY     = "/limit-order/quantity"
+	CMD_LIMIT_ORDER_CMD_PRICE        = "/limit-order/price"
 )
 
 var (
