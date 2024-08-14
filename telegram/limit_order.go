@@ -221,7 +221,7 @@ func LimitOrderQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBac
 
 	if strings.Contains(update.CallbackQuery.Data, "enter") {
 		resp, _ := bot.Send(tgbotapi.NewEditMessageTextAndMarkup(
-			update.FromChat().ID, id, "enter token limit price:",
+			update.FromChat().ID, id, "enter the token limit price:",
 			numericKeyboard()))
 
 		subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, resp.MessageID)
@@ -261,11 +261,11 @@ func LimitOrderQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBac
 
 func LimitOrderPriceInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	id := update.CallbackQuery.Message.MessageID
-	quantity := update.CallbackQuery.Data
+	price := update.CallbackQuery.Data
 	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
 
 	if isBack {
-		db.RedisClient().HDel(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY)
+		db.RedisClient().HDel(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY, CMD_LIMIT_ORDER_CMD_PRICE)
 		LimitOrderQuantityInput(bot, update, false)
 		return
 	}
@@ -275,24 +275,24 @@ func LimitOrderPriceInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack b
 		return
 	}
 	// handle first digit of quantity. redis returns Nil error of the field is not found
-	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY)
+	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_PRICE)
 	if res.Err() != nil && res.Err() != redis.Nil {
-		log.Printf("error encountered when fetching request payload while setting quantity. %s", res.Err())
+		log.Printf("error encountered when fetching request payload while setting price. %s", res.Err())
 		Send(bot, update, "something went wrong. try again.")
 		return
 	} else if res.Err() != redis.Nil {
-		quantity = res.Val() + quantity
+		price = res.Val() + price
 	}
 
-	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY, quantity).Err()
+	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_PRICE, price).Err()
 	if err != nil {
-		log.Printf("error encountered when saving request payload while setting quantity. %s", err.Error())
+		log.Printf("error encountered when saving request payload while setting price. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
 	// TODO: handle error
 	bot.Send(tgbotapi.NewEditMessageTextAndMarkup(
-		update.FromChat().ID, id, "enter token quantity:"+quantity,
+		update.FromChat().ID, id, "enter the token limit price:"+price,
 		numericKeyboard()))
 
 	// the next sub command is still price.
