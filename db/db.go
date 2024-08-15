@@ -18,6 +18,9 @@ const (
 	// telegram
 	SUB_COMMAND_KEY = "subcommand_%d"
 	REQUEST_KEY     = "request_%d"
+
+	// limit orders. the value is a list of order objects at a given price
+	LIMIT_ORDER_KEY = "limit_order_for_price_%s"
 )
 
 // TODO: move this to main function with dependency injection

@@ -304,5 +304,22 @@ func LimitOrder(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+	id := update.CallbackQuery.Message.MessageID
+	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
+	res := db.RedisClient().HGetAll(context.Background(), requestKey)
+	if res.Err() != nil {
+		log.Printf("error encountered when fetching limit order request payload. %s", res.Err())
+		Send(bot, update, "something went wrong. try again.")
+		return
+	}
 
+	var r LimitOrderRequestInput
+	if err := res.Scan(&r); err != nil {
+		log.Printf("error parsing limit order request payload. %s", err.Error())
+		Send(bot, update, "something went wrong. try again.")
+		return
+	}
+
+	limitOrderKey := fmt.Sprintf(db.LIMIT_ORDER_KEY, r.Price)
+	db.RedisClient().RPush(context.Background(),limitOrderKey, r)
 }
