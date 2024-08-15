@@ -262,14 +262,20 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	}
 
 	var wallets []okto.Wallet
-	err := json.NewDecoder(strings.NewReader(addrRes.Val())).Decode(wallets)
-	if addrRes.Err() != nil {
+	err := json.NewDecoder(strings.NewReader(addrRes.Val())).Decode(&wallets)
+	if err != nil {
 		log.Printf("error decoding okto wallets. %s", addrRes.Err())
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
+	addr := ""
+	for _, w := range wallets {
+		if (w.NetworkName == r.FromNetwork) {
+			addr = w.Address
+		}
+	}	
 
-	err = swapTokens(r, tokRes.Val(), addrRes.Val())
+	err = swapTokens(r, tokRes.Val(), addr)
 	if err != nil {
 		log.Printf("error executing swap request. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
