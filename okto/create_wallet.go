@@ -25,6 +25,12 @@ type CreateWalletResponse struct {
 	Data   WalletsData `json:"data"`
 }
 
+func (w Wallet) MarshalBinary() (data []byte, err error) {
+	buf := bytes.Buffer{}
+	e := json.NewEncoder(&buf).Encode(w)
+	return buf.Bytes(), e
+}
+
 func CreateWallet(authToken string) ([]Wallet, error) {
 	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v1/wallet", nil)
 	if err != nil {

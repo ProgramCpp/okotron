@@ -1,7 +1,9 @@
 package telegram
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
@@ -23,6 +25,12 @@ type LimitOrderRequestInput struct {
 	ToNetwork   string `json:"to_network" redis:"limit-order/to-network"`
 	Quantity    string `json:"quantity" redis:"limit-order/quantity"`
 	Price       string `json:"price" redis:"limit-order/price"`
+}
+
+func (l LimitOrderRequestInput) MarshalBinary() (data []byte, err error) {
+	buf := bytes.Buffer{}
+	e := json.NewEncoder(&buf).Encode(l)
+	return buf.Bytes(), e
 }
 
 func LimitOrderInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {

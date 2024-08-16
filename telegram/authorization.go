@@ -61,12 +61,14 @@ func authenticate(bot *tgbotapi.BotAPI, update tgbotapi.Update, googleToken goog
 	if err != nil {
 		log.Printf("error encountered when saving google token id %d. %s", id, err.Error())
 		Send(bot, update, "error authorizing okotron. try again.")
+		return
 	}
 
 	token, err := okto.Authenticate(googleToken.IdToken)
 	if err != nil {
 		log.Println("error authentication to Okto. " + err.Error())
 		Send(bot, update, "error authorizing okotron. try again.")
+		return
 	}
 
 	// TODO: store expiry for refresh
@@ -75,6 +77,7 @@ func authenticate(bot *tgbotapi.BotAPI, update tgbotapi.Update, googleToken goog
 	if err != nil {
 		log.Printf("error encountered when saving token id %d. %s", id, err.Error())
 		Send(bot, update, "error authorizing okotron. try again.")
+		return
 	}
 
 	// TODO: create wallets only if not already created. enquire wallets
@@ -93,9 +96,10 @@ func authenticate(bot *tgbotapi.BotAPI, update tgbotapi.Update, googleToken goog
 		return
 	}
 
-	err = db.RedisClient().Set(context.Background(), fmt.Sprintf(db.OKTO_ADDRESSES_KEY, update.Message.Chat.ID), buf.String(), 0).Err()
+	addressKey := fmt.Sprintf(db.OKTO_ADDRESSES_KEY, update.Message.Chat.ID)
+	err = db.RedisClient().Set(context.Background(), addressKey, buf.Bytes(), 0).Err()
 	if err != nil {
-		log.Println("error saving okto walletso. " + err.Error())
+		log.Println("error saving okto wallets. " + err.Error())
 		Send(bot, update, "error authorizing okotron. try again.")
 		return
 	}

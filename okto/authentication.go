@@ -24,6 +24,12 @@ type AuthResponse struct {
 	Data   AuthToken `json:"data"`
 }
 
+func (a AuthToken) MarshalBinary() (data []byte, err error) {
+	buf := bytes.Buffer{}
+	e := json.NewEncoder(&buf).Encode(a)
+	return buf.Bytes(), e
+}
+
 func Authenticate(idToken string) (AuthToken, error) {
 	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v1/authenticate", strings.NewReader(fmt.Sprintf(
 		`
