@@ -33,12 +33,11 @@ var (
 	// do not hardcode networks and tokens
 	// for now, all networks returnd by /supported_networks do not work. ex: solana, osmosis
 	// an array. do not handle each network separately. do not use enum to treat as first class attributes. okotron is network agnostic
-	SUPPORTED_TOKENS   = []string{"APT", "ETH", "MATIC", "USDC", "USDT"}
+	SUPPORTED_TOKENS   = []string{"ETH", "MATIC", "USDC", "USDT"}
 	SUPPORTED_NETWORKS = map[string][]string{
-		"APT":   {"APTOS"},
 		"ETH":   {"BASE"},
 		"MATIC": {"POLYGON"},
 		"USDC":  {"BASE", "POLYGON"},
-		"USDT":  {"POLYGON", "APTOS"},
+		"USDT":  {"POLYGON"},
 	}
 )
