@@ -110,7 +110,7 @@ func SwapFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack b
 		return
 	}
 
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the target token", tokenKeyboard(true))
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "c", tokenKeyboard(true))
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -171,7 +171,7 @@ func SwapToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack boo
 	}
 
 	// TODO: the keyboard is associated with next sub-command. generalize it for all sub commands
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter the target token quantity:", numericKeyboard())
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "How much would you like to pay?", numericKeyboard())
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -218,7 +218,7 @@ func SwapQuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool)
 	}
 	// TODO: handle error
 	bot.Send(tgbotapi.NewEditMessageTextAndMarkup(
-		update.FromChat().ID, id, "enter the target token quantity:"+quantity,
+		update.FromChat().ID, id, "How much would you like to pay?"+quantity,
 		numericKeyboard()))
 
 	// the next sub command is still quantity.
