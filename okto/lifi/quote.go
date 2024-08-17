@@ -22,7 +22,7 @@ type QuoteRequest struct {
 }
 
 func GetQuote(r QuoteRequest) (string, error) {
-	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/v1/quote", nil)
+	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/v1/quote", nil)
 	if err != nil {
 		log.Println("error creating lifi get-quote http req " + err.Error())
 		return "", err
@@ -31,13 +31,13 @@ func GetQuote(r QuoteRequest) (string, error) {
 	params := url.Values{}
 	params.Add("fromChain", r.FromChain)
 	params.Add("fromToken", r.FromToken)
-	params.Add("toChain", r.FromChain)
-	params.Add("toToken", r.FromChain)
-	params.Add("fromAddress", r.FromChain)
-	params.Add("fromAmount", r.FromChain)
+	params.Add("toChain", r.ToToken)
+	params.Add("toToken", r.ToChain)
+	params.Add("fromAddress", r.FromAddress)
+	params.Add("fromAmount", r.FromAmount)
 
 	req.URL.RawQuery = params.Encode()
-	req.Header.Add("Content-Type", "application/json")
+	// req.Header.Add("Content-Type", "application/json") // not accepted
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
