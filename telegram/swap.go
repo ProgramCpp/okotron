@@ -18,13 +18,13 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-// redis tags are defined as constants. keep in SYNC. the keys as saved with COMMAND Names and deserialized with redis tags!
+// redis tags are defined as constants. keep in SYNC. the keys are saved with COMMAND Names and deserialized with redis tags!
 type SwapRequestInput struct {
-	FromToken   string `json:"from_token" redis:"any/from-token"`
-	FromNetwork string `json:"from_network" redis:"any/from-network"`
-	ToToken     string `json:"to_token" redis:"any/to-token"`
-	ToNetwork   string `json:"to_network" redis:"any/to-network"`
-	Quantity    string `json:"quantity" redis:"any/quantity"` // use okto terms - quantity. not lifi terms - amount
+	FromToken   string `json:"from_token" redis:"/swap/from-token"`
+	FromNetwork string `json:"from_network" redis:"/swap/from-network"`
+	ToToken     string `json:"to_token" redis:"/swap/to-token"`
+	ToNetwork   string `json:"to_network" redis:"/swap/to-network"`
+	Quantity    string `json:"quantity" redis:"/swap/quantity"` // use okto terms - quantity. not lifi terms - amount
 }
 
 func SwapInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
@@ -171,7 +171,7 @@ func SwapToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack boo
 	}
 
 	// TODO: the keyboard is associated with next sub-command. generalize it for all sub commands
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter token quantity:", numericKeyboard())
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "enter the target token quantity:", numericKeyboard())
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 
@@ -218,7 +218,7 @@ func SwapQuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool)
 	}
 	// TODO: handle error
 	bot.Send(tgbotapi.NewEditMessageTextAndMarkup(
-		update.FromChat().ID, id, "enter token quantity:"+quantity,
+		update.FromChat().ID, id, "enter the target token quantity:"+quantity,
 		numericKeyboard()))
 
 	// the next sub command is still quantity.
@@ -231,8 +231,10 @@ func Swap(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
-	id := update.CallbackQuery.Message.MessageID
-	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
+	requestId := update.CallbackQuery.Message.MessageID
+	chatId := update.FromChat().ID
+	requestKey := fmt.Sprintf(db.REQUEST_KEY, requestId)
+
 	res := db.RedisClient().HGetAll(context.Background(), requestKey)
 	if res.Err() != nil {
 		log.Printf("error encountered when fetching swap request payload. %s", res.Err())
@@ -247,35 +249,38 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 
-	tokRes := db.RedisClient().Get(context.Background(), fmt.Sprintf(db.OKTO_AUTH_TOKEN_KEY, update.Message.Chat.ID))
-	if tokRes.Err() != nil {
-		log.Printf("error fetching okto auth token. %s", tokRes.Err())
+	authTokenKey := fmt.Sprintf(db.OKTO_AUTH_TOKEN_KEY, chatId)
+	authTokenStr, err := db.RedisClient().Get(context.Background(), authTokenKey).Result()
+	if err != nil {
+		log.Printf("error fetching okto auth token. %s", err)
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
+	authToken := getAuthToken(authTokenStr)
 
-	addrRes := db.RedisClient().Get(context.Background(), fmt.Sprintf(db.OKTO_ADDRESSES_KEY, update.Message.Chat.ID))
-	if addrRes.Err() != nil {
-		log.Printf("error fetching okto auth token. %s", addrRes.Err())
+	addressKey := fmt.Sprintf(db.OKTO_ADDRESSES_KEY, chatId)
+	addrRes, err := db.RedisClient().Get(context.Background(), addressKey).Result()
+	if err != nil {
+		log.Printf("error fetching okto auth token. %s", err)
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
 
 	var wallets []okto.Wallet
-	err := json.NewDecoder(strings.NewReader(addrRes.Val())).Decode(&wallets)
+	err = json.NewDecoder(strings.NewReader(addrRes)).Decode(&wallets)
 	if err != nil {
-		log.Printf("error decoding okto wallets. %s", addrRes.Err())
+		log.Printf("error decoding okto wallets. %s", err)
 		Send(bot, update, "something went wrong. try again.")
 		return
 	}
 	addr := ""
 	for _, w := range wallets {
-		if (w.NetworkName == r.FromNetwork) {
+		if w.NetworkName == r.FromNetwork {
 			addr = w.Address
 		}
-	}	
+	}
 
-	err = swapTokens(r, tokRes.Val(), addr)
+	err = swapTokens(r, authToken, addr)
 	if err != nil {
 		log.Printf("error executing swap request. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
@@ -284,7 +289,7 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	bot.Send(tgbotapi.NewEditMessageText(
 		update.FromChat().ID,
-		id,
+		requestId,
 		fmt.Sprintf("done! swapped %s tokens from %s:%s to %s:%s",
 			r.Quantity, r.FromNetwork, r.FromToken, r.ToNetwork, r.ToToken),
 	))

@@ -2,10 +2,8 @@ package telegram
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
-	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/programcpp/okotron/db"
@@ -21,11 +19,8 @@ func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		Send(bot, update, "something went wrong!")
 		return
 	}
-	// TODO: handle token not found
 
-	authToken := okto.AuthToken{}
-	json.NewDecoder(strings.NewReader(authTokenStr)).Decode(&authToken)
-	tokens, err := okto.Portfolio(authToken.AuthToken)
+	tokens, err := okto.Portfolio(getAuthToken(authTokenStr))
 	// TODO: handle authorization failures. send descriptive message for user
 	if err != nil {
 		log.Printf("error fetching supported tokens. " + err.Error())
