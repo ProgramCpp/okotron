@@ -296,11 +296,12 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 // TODO: separate telegram and service concerns
+// TODO: okto would support swap directly. there would not be any need for 
 func swapTokens(r SwapRequestInput, authToken string, addr string) error {
 	transactionPayload, err := lifi.GetQuote(lifi.QuoteRequest{
-		FromChain:   r.FromNetwork,
+		FromChain:   okto.NETWORK_NAME_TO_CHAIN_ID[r.FromNetwork],
 		FromToken:   r.FromToken,
-		ToChain:     r.ToNetwork,
+		ToChain:     okto.NETWORK_NAME_TO_CHAIN_ID[r.ToNetwork],
 		ToToken:     r.ToToken,
 		FromAmount:  r.Quantity,
 		FromAddress: addr,
