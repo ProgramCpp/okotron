@@ -24,10 +24,13 @@ Implementation: A classic case of a task scheduler. instead of time, you act on 
 - save a list of orders for limit prices in redis
 - get live price feeds
 - process orders concurrently. 
+  - keep polling for token price changes
+  - trace a list of orders with the changed token price
+  - process only those orders
 
 request payload:
 to simplify and to be deterministic, accept from-network from user. no need to deduce the balances of tokens from all networks.
-in a conventional limit order, lets say stocks, there is only one accont. in this case there are number of networks, pick the source and target network
+in a conventional limit order, lets say stocks, there is only one account. in this case there are number of networks, pick the source and target network
 
 - buy-or-sell : buy order or sell order
 - from network : the network where the tokens are, that is used to pay/ sell
@@ -36,6 +39,9 @@ in a conventional limit order, lets say stocks, there is only one accont. in thi
 - to token : the token to purchase/ get paid
 - limit price: the target market price of the to-token(for buy orders)/ from-token(for sell orders) in USD at which, the order must execute
 - quantity: the amount of to-token to buy/ from-token to sell
+
+### Future Work
+- should you have a separate map for each token to-token/ from-token. improve this as volume grows
 
 ### References
 - https://gist.github.com/halfelf/db1ae032dc34278968f8bf31ee999a25

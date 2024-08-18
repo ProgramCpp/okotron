@@ -58,6 +58,7 @@ func LimitOrderInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving sub command key from-token. %s", err.Error())
+		// TODO: edit the message to clear previous keyboards
 		Send(bot, update, "something went wrong. try again.")
 	}
 }
