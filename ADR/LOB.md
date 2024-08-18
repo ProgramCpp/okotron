@@ -12,6 +12,7 @@ there is no need for order match making. this is taken care by okto. every order
     - sequentially process all orders, process concurrently
     - slippage not too much, since the order volume is low and orders execute almost instantaneously
 - handle buy and sell limit orders
+- process all orders within the slippage price range
 
 ### Approach
 Handling token denomination:
@@ -19,6 +20,7 @@ Handling token denomination:
 - if the user is paying with another token, the direction of the from-token price doesnt matter. 
 // Wow, this brings out a unique use case where user can trade an unfavorable token for a favorable token at a favorable price, both at once! But only downside of no limits for the payable token. better yet, user can place a buy limit order and a sell limit order
 - user can always choose to use USDT/ USDC for trades for a stable conventional limit order trades
+- for simplicity, only the exact price match is considered. redis support range queries. this can be handled in the next milestone
 
 Implementation: A classic case of a task scheduler. instead of time, you act on price! even simpler, a callback to execute ALL trade transactions at a given limit price.
 - save a list of orders for limit prices in redis

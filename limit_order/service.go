@@ -43,6 +43,7 @@ func ProcessOrders() {
 				orders := []telegram.LimitOrderRequestInput{}
 				ordersResult.ScanSlice(orders)
 
+				// TODO: do not check for a specific match of price, pick order within the slippage price range 
 				for _, o := range orders {
 					if o.BuyOrSell == "buy" && o.ToToken == token {
 						processOrder(o)
