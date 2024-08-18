@@ -146,7 +146,7 @@ func LimitOrderFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, is
 		return
 	}
 
-	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "Which token would you like to buy?", tokenKeyboard(true))
+	msg := tgbotapi.NewEditMessageTextAndMarkup(update.FromChat().ID, id, "select the target token", tokenKeyboard(true))
 	// TODO: handle error
 	resp, _ := bot.Send(msg)
 

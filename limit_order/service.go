@@ -1,18 +1,30 @@
-package limitorder
+package limit_order
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 	"strconv"
 	_ "time"
 
+	"github.com/pkg/errors"
 	cmc "github.com/programcpp/okotron/coin_market_cap"
 	"github.com/programcpp/okotron/db"
-	"github.com/programcpp/okotron/telegram"
+	"github.com/programcpp/okotron/swap"
 	"github.com/redis/go-redis/v9"
 )
+
+type LimitOrderRequest struct {
+	ChatID int64
+	// valid values are "buy" and "sell"
+	BuyOrSell   string `json:"buy_or_sell" redis:"/limit-order/buy-or-sell"`
+	FromToken   string `json:"from_token" redis:"/limit-order/from-token"`
+	FromNetwork string `json:"from_network" redis:"/limit-order/from-network"`
+	ToToken     string `json:"to_token" redis:"/limit-order/to-token"`
+	ToNetwork   string `json:"to_network" redis:"/limit-order/to-network"`
+	Quantity    string `json:"quantity" redis:"/limit-order/quantity"`
+	Price       string `json:"price" redis:"/limit-order/price"`
+}
 
 // TODO. implement error channels for async process
 // when the process stops silently, limit orders will no more be processed
@@ -40,15 +52,18 @@ func ProcessOrders() {
 					continue
 				}
 
-				orders := []telegram.LimitOrderRequestInput{}
+				orders := []LimitOrderRequest{}
 				ordersResult.ScanSlice(orders)
 
-				// TODO: do not check for a specific match of price, pick order within the slippage price range 
+				// TODO: do not check for a specific match of price, pick order within the slippage price range
 				for _, o := range orders {
-					if o.BuyOrSell == "buy" && o.ToToken == token {
-						processOrder(o)
-					} else if o.BuyOrSell == "sell" && o.FromToken == token {
-						processOrder(o)
+					if o.BuyOrSell == "buy" && o.ToToken == token || (o.BuyOrSell == "sell" && o.FromToken == token) {
+						err = processOrder(o)
+						if err != nil {
+							log.Printf("error processing limit order. %s", err.Error())
+							// do not return. the order is still in db. process next order. 
+							// TODO: monitor failures
+						}
 					}
 				}
 			}
@@ -56,7 +71,18 @@ func ProcessOrders() {
 	}()
 }
 
+func processOrder(o LimitOrderRequest) error {
+	err := swap.SwapTokens(o.ChatID, swap.SwapRequest{
+		FromToken:   o.FromToken,
+		FromNetwork: o.FromNetwork,
+		ToToken:     o.ToToken,
+		ToNetwork:   o.ToNetwork,
+		Quantity:    o.Quantity,
+	})
 
-func processOrder(o telegram.LimitOrderRequestInput){
+	if err != nil {
+		return errors.Wrap(err, "error swapping tokens in limit order")
+	}
 
+	return nil
 }

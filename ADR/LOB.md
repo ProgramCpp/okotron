@@ -39,7 +39,7 @@ in a conventional limit order, lets say stocks, there is only one account. in th
 - from token : the token used to pay/ sell
 - to network : the network, where the bought tokens/returns should be trasferred to
 - to token : the token to purchase/ get paid
-- limit price: the target market price of the to-token(for buy orders)/ from-token(for sell orders) in USD at which, the order must execute
+- limit price: the target market price of the to-token(for buy orders)/ from-token(for sell orders) in INR at which, the order must execute
 - quantity: the amount of to-token to buy/ from-token to sell
 
 ### Future Work
