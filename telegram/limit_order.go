@@ -11,6 +11,7 @@ import (
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/programcpp/okotron/db"
+	"github.com/programcpp/okotron/limit_order"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 )
@@ -332,5 +333,13 @@ func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	limitOrderKey := fmt.Sprintf(db.LIMIT_ORDER_KEY, r.Price)
 	// todo: handle error
-	db.RedisClient().RPush(context.Background(), limitOrderKey, r)
+	db.RedisClient().RPush(context.Background(), limitOrderKey, limit_order.LimitOrderRequest{
+		BuyOrSell:   r.BuyOrSell,
+		FromToken:   r.FromToken,
+		FromNetwork: r.FromNetwork,
+		ToToken:     r.ToToken,
+		ToNetwork:   r.ToNetwork,
+		Quantity:    r.Quantity,
+		Price:       r.Price,
+	})
 }

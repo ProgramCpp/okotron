@@ -2,14 +2,12 @@ package telegram
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
 	"time"
 
 	"github.com/programcpp/okotron/db"
-	"github.com/programcpp/okotron/okto"
 	"github.com/programcpp/okotron/swap"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
@@ -248,44 +246,13 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 
-	authTokenKey := fmt.Sprintf(db.OKTO_AUTH_TOKEN_KEY, chatId)
-	authTokenStr, err := db.RedisClient().Get(context.Background(), authTokenKey).Result()
-	if err != nil {
-		log.Printf("error fetching okto auth token. %s", err)
-		Send(bot, update, "something went wrong. try again.")
-		return
-	}
-	authToken := getAuthToken(authTokenStr)
-
-	addressKey := fmt.Sprintf(db.OKTO_ADDRESSES_KEY, chatId)
-	addrRes, err := db.RedisClient().Get(context.Background(), addressKey).Result()
-	if err != nil {
-		log.Printf("error fetching okto auth token. %s", err)
-		Send(bot, update, "something went wrong. try again.")
-		return
-	}
-
-	var wallets []okto.Wallet
-	err = json.NewDecoder(strings.NewReader(addrRes)).Decode(&wallets)
-	if err != nil {
-		log.Printf("error decoding okto wallets. %s", err)
-		Send(bot, update, "something went wrong. try again.")
-		return
-	}
-	addr := ""
-	for _, w := range wallets {
-		if w.NetworkName == r.FromNetwork {
-			addr = w.Address
-		}
-	}
-
-	err = service.SwapTokens(service.SwapRequest{
+	err := swap.SwapTokens(chatId, swap.SwapRequest{
 		FromToken:   r.FromToken,
 		FromNetwork: r.FromNetwork,
 		ToToken:     r.ToToken,
 		ToNetwork:   r.ToNetwork,
 		Quantity:    r.Quantity,
-	}, authToken, addr)
+	})
 	if err != nil {
 		log.Printf("error executing swap request. %s", err.Error())
 		Send(bot, update, "something went wrong. try again.")
