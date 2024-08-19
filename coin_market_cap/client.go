@@ -38,32 +38,36 @@ https://stackoverflow.com/a/70028568/2508038
 CMC quote api:
 https://coinmarketcap.com/api/documentation/v1/#operation/getV2CryptocurrencyQuotesLatest
 */
-func Prices() (PricesData, error) {
-	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/v2/cryptocurrency/quotes/latest", nil)
-	if err != nil {
-		log.Println("error creating cmc quotes http req " + err.Error())
-		return PricesData{}, err
+
+func filterStableCoins(tokens []string) []string {
+	tokenSet := []string{}
+	for _, token := range tokens {
+		if !strings.Contains(token, "USD") {
+			tokenSet = append(tokenSet, token)
+		}
 	}
 
+	return tokenSet
+}
+
+func formatTokenSymbols(tokens []string) string {
+	symbols := ""
+	for _, token := range tokens {
+		symbols += token + ","
+	}
+	return symbols
+}
+
+func getPrices(req *http.Request) (PricesData, error){
 	req.Header.Add("X-CMC_PRO_API_KEY", viper.GetString("CMC_KEY"))
 	req.Header.Add("Accept", "application/json")
 
-	// TODO: this is hardcoded for now. get supported tokens from cmc as you support more tokens
+	// TODO: this is hardcoded for now. get supported tokens from cmc/ okto as you support more tokens
+	tokenSet := filterStableCoins(utils.SUPPORTED_TOKENS)
 
-	tokenSubset := []string{}
-	for _, token := range utils.SUPPORTED_TOKENS {
-		if !strings.Contains(token, "USD") {
-			tokenSubset = append(tokenSubset, token)
-		}
-	}
-	symbols := ""
-	for _, token := range tokenSubset {
-		symbols += token + ","
-	}
-
-	params := url.Values{}
+	symbols := formatTokenSymbols(tokenSet)
+	params := req.URL.Query()
 	params.Add("symbol", symbols)
-	params.Add("convert", "INR")
 
 	req.URL.RawQuery = params.Encode()
 
@@ -85,11 +89,44 @@ func Prices() (PricesData, error) {
 	}
 
 	prices := NewPricesData()
-	for _, t := range tokenSubset {
-		tokenData := gjson.Get(string(resBytes), "data." + t + ".0") // there is only one currency
+	for _, t := range tokenSet {
+		tokenData := gjson.Get(string(resBytes), "data."+t+".0") // there is only one currency
 		price := gjson.Get(tokenData.String(), "quote.INR.price")
 		prices.Tokens[t] = price.Float()
 	}
 
 	return prices, nil
+}
+
+func PricesInCurrency() (PricesData, error) {
+	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/v2/cryptocurrency/quotes/latest", nil)
+	if err != nil {
+		log.Println("error creating cmc quotes http req " + err.Error())
+		return PricesData{}, err
+	}
+
+	params := url.Values{}
+	params.Add("convert", "INR")
+
+	req.URL.RawQuery = params.Encode()
+
+	return getPrices(req)
+}
+
+func PricesInTokens() (PricesData, error) {
+	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/v2/cryptocurrency/quotes/latest", nil)
+	if err != nil {
+		log.Println("error creating cmc quotes http req " + err.Error())
+		return PricesData{}, err
+	}
+
+	tokenSet := filterStableCoins(utils.SUPPORTED_TOKENS)
+	symbols := formatTokenSymbols(tokenSet)
+
+	params := url.Values{}
+	params.Add("convert", symbols)
+
+	req.URL.RawQuery = params.Encode()
+
+	return getPrices(req)
 }
