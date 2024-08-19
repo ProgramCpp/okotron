@@ -31,15 +31,22 @@ type LimitOrderRequest struct {
 func ProcessOrders() {
 	go func() {
 		for {
+			// PLEASE UNCOMMENT!
 			// time.Sleep(5 * 60 * time.Second) // for the free plan, maximum 10K calls per month. poll every 5 minutes
 
-			prices, err := cmc.Prices()
+			pricesInTokens, err := cmc.PricesInTokens()
 			if err != nil {
 				log.Println("error fetching cmc prices")
 				return
 			}
 
-			for token, price := range prices.Tokens {
+			pricesInCurrency, err := cmc.PricesInCurrency()
+			if err != nil {
+				log.Println("error fetching cmc prices")
+				return
+			}
+
+			for token, price := range pricesInCurrency.Tokens {
 
 				priceKey := fmt.Sprintf(db.LIMIT_ORDER_KEY, strconv.Itoa(int(price)))
 				// 0: first element. -1: last element
@@ -58,10 +65,10 @@ func ProcessOrders() {
 				// TODO: do not check for a specific match of price, pick order within the slippage price range
 				for _, o := range orders {
 					if o.BuyOrSell == "buy" && o.ToToken == token || (o.BuyOrSell == "sell" && o.FromToken == token) {
-						err = processOrder(o)
+						err = processOrder(o, pricesInTokens)
 						if err != nil {
 							log.Printf("error processing limit order. %s", err.Error())
-							// do not return. the order is still in db. process next order. 
+							// do not return. the order is still in db. process next order.
 							// TODO: monitor failures
 						}
 					}
@@ -71,13 +78,19 @@ func ProcessOrders() {
 	}()
 }
 
-func processOrder(o LimitOrderRequest) error {
+func processOrder(o LimitOrderRequest, prices cmc.PricesData) error {
+	quantity := o.Quantity
+	// user has entered the quantity of tokens to buy. the swap payload accepts quantity in terms of source token units
+	if o.BuyOrSell == "buy" {
+		quantity = fmt.Sprintf("%d", int(prices.Tokens[o.ToToken]))
+	}
+
 	err := swap.SwapTokens(o.ChatID, swap.SwapRequest{
 		FromToken:   o.FromToken,
 		FromNetwork: o.FromNetwork,
 		ToToken:     o.ToToken,
 		ToNetwork:   o.ToNetwork,
-		Quantity:    o.Quantity,
+		Quantity:    quantity,
 	})
 
 	if err != nil {
