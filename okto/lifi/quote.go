@@ -31,8 +31,8 @@ func GetQuote(r QuoteRequest) (string, error) {
 	params := url.Values{}
 	params.Add("fromChain", r.FromChain)
 	params.Add("fromToken", r.FromToken)
-	params.Add("toChain", r.ToToken)
-	params.Add("toToken", r.ToChain)
+	params.Add("toChain", r.ToChain)
+	params.Add("toToken", r.ToToken)
 	params.Add("fromAddress", r.FromAddress)
 	params.Add("fromAmount", r.FromAmount)
 
@@ -55,7 +55,7 @@ func GetQuote(r QuoteRequest) (string, error) {
 		log.Println("lifi get-quote http req not OK. " + string(resBytes))
 		return "", errors.New("lifi get-quote http req not OK")
 	}
-	
+
 	result := gjson.Get(string(resBytes), "transactionRequest")
 
 	return result.String(), nil
