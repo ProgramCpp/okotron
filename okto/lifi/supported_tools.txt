@@ -1,0 +1,5850 @@
+{
+  "bridges": [
+    {
+      "key": "hop",
+      "name": "Hop",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/hop.png",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 137
+        }
+      ]
+    },
+    {
+      "key": "cbridge",
+      "name": "Celer cBridge",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/cbridge.svg",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 534352
+        }
+      ]
+    },
+    {
+      "key": "hyphen",
+      "name": "Hyphen",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/hyphen.png",
+      "supportedChains": [
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        }
+      ]
+    },
+    {
+      "key": "optimism",
+      "name": "Optimism Gateway",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/optimism.png",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        }
+      ]
+    },
+    {
+      "key": "arbitrum",
+      "name": "Arbitrum Bridge",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/arbitrum.png",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        }
+      ]
+    },
+    {
+      "key": "across",
+      "name": "Across",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/acrossv2.png",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 42161
+        }
+      ]
+    },
+    {
+      "key": "stargate",
+      "name": "Stargate",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/5685c638772f533edad80fcb210b4bb89e30a50f/src/assets/icons/bridges/stargate.png",
+      "supportedChains": [
+        {
+          "fromChainId": 5000,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1
+        }
+      ]
+    },
+    {
+      "key": "gnosis",
+      "name": "Gnosis Bridge",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/gnosis.png",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 100
+        }
+      ]
+    },
+    {
+      "key": "omni",
+      "name": "Omni Bridge",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/omni.png",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 100
+        }
+      ]
+    },
+    {
+      "key": "amarok",
+      "name": "Connext",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/connext.png",
+      "supportedChains": [
+        {
+          "fromChainId": 10,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 100,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 100
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        }
+      ]
+    },
+    {
+      "key": "celercircle",
+      "name": "Circle CCTP",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/circle.png",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 43114
+        }
+      ]
+    },
+    {
+      "key": "allbridge",
+      "name": "Allbridge",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/allbridge.png",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42220
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42220
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 42220
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42220
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 42220
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42220
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42220
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42220
+        }
+      ]
+    },
+    {
+      "key": "celerim",
+      "name": "CelerIM",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/cbridge.svg",
+      "supportedChains": [
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1313161554,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1285
+        },
+        {
+          "fromChainId": 1285,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 1313161554
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1313161554,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1285,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1313161554
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1285
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1313161554
+        },
+        {
+          "fromChainId": 1313161554,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        }
+      ]
+    },
+    {
+      "key": "thorswap",
+      "name": "Thorswap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/thorswap.png",
+      "supportedChains": [
+        {
+          "fromChainId": 43114,
+          "toChainId": 20000000000001
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 20000000000001
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 20000000000001,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 20000000000001,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 20000000000001,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 20000000000001
+        }
+      ]
+    },
+    {
+      "key": "symbiosis",
+      "name": "Symbiosis",
+      "logoURI": "https://avatars.githubusercontent.com/u/84317013?s=200&v=4",
+      "supportedChains": [
+        {
+          "fromChainId": 1,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 34443
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1101,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 34443,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 288,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 30
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 324,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 324
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 288
+        },
+        {
+          "fromChainId": 30,
+          "toChainId": 1101
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 324
+        }
+      ]
+    },
+    {
+      "key": "squid",
+      "name": "Squid",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/squid.png",
+      "supportedChains": [
+        {
+          "fromChainId": 42161,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 1284
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42220,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 250,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1284
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 1284,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1284,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1284,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1284
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1284,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 250
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 81457
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 252
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 1284
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 1284
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 81457,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 252,
+          "toChainId": 137
+        }
+      ]
+    },
+    {
+      "key": "stargateV2",
+      "name": "StargateV2 (Fast mode)",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/5685c638772f533edad80fcb210b4bb89e30a50f/src/assets/icons/bridges/stargate.png",
+      "supportedChains": [
+        {
+          "fromChainId": 43114,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 1
+        }
+      ]
+    },
+    {
+      "key": "mayan",
+      "name": "Mayan",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/bridges/mayan.png",
+      "supportedChains": [
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1151111081099710
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1151111081099710,
+          "toChainId": 56
+        }
+      ]
+    },
+    {
+      "key": "stargateV2Bus",
+      "name": "StargateV2 (Economy mode)",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/5685c638772f533edad80fcb210b4bb89e30a50f/src/assets/icons/bridges/stargate.png",
+      "supportedChains": [
+        {
+          "fromChainId": 8453,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 43114,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 56,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 43114
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 137,
+          "toChainId": 1329
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 1,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1088
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 5000,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 5000
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 534352
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 59144,
+          "toChainId": 8453
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 137
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 56
+        },
+        {
+          "fromChainId": 1329,
+          "toChainId": 10
+        },
+        {
+          "fromChainId": 42161,
+          "toChainId": 59144
+        },
+        {
+          "fromChainId": 8453,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 1088,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 42161
+        },
+        {
+          "fromChainId": 10,
+          "toChainId": 1
+        },
+        {
+          "fromChainId": 534352,
+          "toChainId": 10
+        }
+      ]
+    }
+  ],
+  "exchanges": [
+    {
+      "key": "dodo",
+      "name": "DODO",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/dodo.png",
+      "supportedChains": [
+        1,
+        56,
+        137,
+        43114,
+        1285,
+        1313161554,
+        288
+      ]
+    },
+    {
+      "key": "paraswap",
+      "name": "ParaSwap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/paraswap.png",
+      "supportedChains": [
+        1,
+        42161,
+        10,
+        137,
+        56,
+        43114,
+        250,
+        1101,
+        8453
+      ]
+    },
+    {
+      "key": "enso",
+      "name": "Enso",
+      "logoURI": "https://www.enso.finance/favicon.ico",
+      "supportedChains": [
+        1,
+        10,
+        56,
+        137,
+        42161,
+        100
+      ]
+    },
+    {
+      "key": "odos",
+      "name": "Odos",
+      "logoURI": "https://www.odos.xyz/favicon.ico",
+      "supportedChains": [
+        324,
+        8453,
+        43114,
+        250,
+        59144,
+        34443,
+        5000,
+        534352
+      ]
+    },
+    {
+      "key": "1inch",
+      "name": "1inch",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oneinch.png",
+      "supportedChains": [
+        1,
+        56,
+        137,
+        10,
+        43114,
+        100,
+        250,
+        42161,
+        1313161554,
+        324,
+        8453
+      ]
+    },
+    {
+      "key": "openocean",
+      "name": "OpenOcean",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/openocean.png",
+      "supportedChains": [
+        43114,
+        1313161554,
+        1285,
+        1101,
+        42220,
+        8453,
+        59144,
+        1088,
+        534352,
+        34443,
+        5000,
+        81457,
+        30,
+        1329
+      ]
+    },
+    {
+      "key": "0x",
+      "name": "0x",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/zerox.png",
+      "supportedChains": [
+        1,
+        56,
+        137,
+        250,
+        43114,
+        10,
+        42161,
+        8453
+      ]
+    },
+    {
+      "key": "uniswap",
+      "name": "UniswapV2",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/uniswap.png",
+      "supportedChains": [
+        1
+      ]
+    },
+    {
+      "key": "sushiswap",
+      "name": "SushiSwap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/sushi.png",
+      "supportedChains": [
+        1,
+        137,
+        56,
+        100,
+        250,
+        43114,
+        42161,
+        1285,
+        122,
+        42220
+      ]
+    },
+    {
+      "key": "apeswap",
+      "name": "ApeSwap",
+      "logoURI": "https://apeswap.finance/logo.png",
+      "supportedChains": [
+        1,
+        137,
+        56,
+        42161
+      ]
+    },
+    {
+      "key": "verse",
+      "name": "Verse Dex",
+      "logoURI": "https://analytics.verse.bitcoin.com/logo.png",
+      "supportedChains": [
+        1
+      ]
+    },
+    {
+      "key": "quickswap",
+      "name": "Quickswap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/quick.png",
+      "supportedChains": [
+        137
+      ]
+    },
+    {
+      "key": "honeyswap",
+      "name": "Honeyswap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/honey.png",
+      "supportedChains": [
+        137,
+        100
+      ]
+    },
+    {
+      "key": "lif3swap",
+      "name": "Lif3 Swap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/lif3.png",
+      "supportedChains": [
+        137,
+        56
+      ]
+    },
+    {
+      "key": "pancakeswap",
+      "name": "Pancake",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/pancake.png",
+      "supportedChains": [
+        56
+      ]
+    },
+    {
+      "key": "swapr",
+      "name": "Swapr",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/swapr.png",
+      "supportedChains": [
+        100
+      ]
+    },
+    {
+      "key": "spookyswap",
+      "name": "SpookySwap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/spooky.png",
+      "supportedChains": [
+        250
+      ]
+    },
+    {
+      "key": "spiritswap",
+      "name": "SpiritSwap",
+      "logoURI": "https://github.com/Layer3Org/spiritswap-tokens-list-icon/blob/master/token-list/images/inspirit.png?raw=true",
+      "supportedChains": [
+        250
+      ]
+    },
+    {
+      "key": "soulswap",
+      "name": "SoulSwap",
+      "logoURI": "https://raw.githubusercontent.com/soulswapfinance/assets/prod/blockchains/fantom/assets/0xe2fb177009FF39F52C0134E8007FA0e4BaAcBd07/logo.png",
+      "supportedChains": [
+        250
+      ]
+    },
+    {
+      "key": "tombswap",
+      "name": "Tomb Swap",
+      "logoURI": "https://swap.tomb.com/images/tokens/TOMB.svg",
+      "supportedChains": [
+        250
+      ]
+    },
+    {
+      "key": "arbswap",
+      "name": "Arbswap",
+      "logoURI": "https://arbswap.io/logo.png",
+      "supportedChains": [
+        42161
+      ]
+    },
+    {
+      "key": "solarbeam",
+      "name": "Solarbeam",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/solarbeam.png",
+      "supportedChains": [
+        1285
+      ]
+    },
+    {
+      "key": "stellaswap",
+      "name": "StellaSwap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/stellaswap.png",
+      "supportedChains": [
+        1284
+      ]
+    },
+    {
+      "key": "beamswap",
+      "name": "BeamSwap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/beamswap.png",
+      "supportedChains": [
+        1284
+      ]
+    },
+    {
+      "key": "voltage",
+      "name": "Voltage",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/voltage.png",
+      "supportedChains": [
+        122
+      ]
+    },
+    {
+      "key": "ubeswap",
+      "name": "UbeSwap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/ubeswap.png",
+      "supportedChains": [
+        42220
+      ]
+    },
+    {
+      "key": "oolongswap",
+      "name": "OolongSwap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/oolongswap.png",
+      "supportedChains": [
+        288
+      ]
+    },
+    {
+      "key": "cronus",
+      "name": "Cronus",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/cronus.png",
+      "supportedChains": [
+        9001
+      ]
+    },
+    {
+      "key": "evmoswap",
+      "name": "Evmoswap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/evmoswap.png",
+      "supportedChains": [
+        9001
+      ]
+    },
+    {
+      "key": "trisolaris",
+      "name": "Trisolaris",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/trisolaris.png",
+      "supportedChains": [
+        1313161554
+      ]
+    },
+    {
+      "key": "stable",
+      "name": "Stable AMM",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/stellaswap.png",
+      "supportedChains": [
+        1284
+      ]
+    },
+    {
+      "key": "kyberswap",
+      "name": "Kyberswap",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/kyberswap.png",
+      "supportedChains": [
+        59144,
+        534352,
+        81457,
+        5000
+      ]
+    },
+    {
+      "key": "lifidexaggregator",
+      "name": "LI.FI DEX Aggregator",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/lifidexaggregator.svg",
+      "supportedChains": [
+        137,
+        1,
+        56,
+        250,
+        43114,
+        10,
+        1285,
+        42220,
+        122,
+        1284,
+        1101,
+        59144,
+        8453,
+        1088
+      ]
+    },
+    {
+      "key": "jupiter",
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/exchanges/jupiter.svg",
+      "name": "Jupiter",
+      "webUrl": "https://jup.ag/",
+      "supportedChains": [
+        1151111081099710
+      ]
+    }
+  ]
+}

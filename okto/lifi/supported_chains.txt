@@ -1,0 +1,1046 @@
+{
+  "chains": [
+    {
+      "key": "eth",
+      "chainType": "EVM",
+      "name": "Ethereum",
+      "coin": "ETH",
+      "id": 1,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/ethereum.svg",
+      "tokenlistUrl": "https://gateway.ipfs.io/ipns/tokens.uniswap.org",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x1",
+        "blockExplorerUrls": [
+          "https://etherscan.io/"
+        ],
+        "chainName": "Ethereum Mainnet",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://ethereum-rpc.publicnode.com",
+          "https://eth.drpc.org",
+          "https://eth.public-rpc.com",
+          "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+          "https://rpc.ankr.com/eth"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 1,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "bsc",
+      "chainType": "EVM",
+      "name": "BSC",
+      "coin": "BNB",
+      "id": 56,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/bsc.svg",
+      "tokenlistUrl": "https://tokens.pancakeswap.finance/pancakeswap-extended.json",
+      "faucetUrls": [
+        "https://stakely.io/faucet/bsc-chain-bnb"
+      ],
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x38",
+        "blockExplorerUrls": [
+          "https://bscscan.com/"
+        ],
+        "chainName": "BNB Smart Chain Mainnet",
+        "nativeCurrency": {
+          "name": "BNB",
+          "symbol": "BNB",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://bsc-dataseed.binance.org",
+          "https://bsc-dataseed.bnbchain.org",
+          "https://bsc-rpc.publicnode.com",
+          "https://bsc-dataseed1.defibit.io",
+          "https://bsc-dataseed1.ninicoin.io"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 56,
+        "symbol": "BNB",
+        "decimals": 18,
+        "name": "BNB",
+        "coinKey": "BNB",
+        "logoURI": "https://assets.coingecko.com/coins/images/825/small/binance-coin-logo.png?1547034615",
+        "priceUSD": "555.8"
+      }
+    },
+    {
+      "key": "arb",
+      "chainType": "EVM",
+      "name": "Arbitrum",
+      "coin": "ETH",
+      "id": 42161,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/arbitrum.svg",
+      "tokenlistUrl": "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/arbitrum.json",
+      "faucetUrls": [
+        "https://bridge.arbitrum.io/"
+      ],
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0xa4b1",
+        "blockExplorerUrls": [
+          "https://arbiscan.io/"
+        ],
+        "chainName": "Arbitrum One",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://arb1.arbitrum.io/rpc",
+          "https://arbitrum-one-rpc.publicnode.com",
+          "https://arbitrum.drpc.org",
+          "https://rpc.ankr.com/arbitrum"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 42161,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "bas",
+      "chainType": "EVM",
+      "name": "Base",
+      "coin": "ETH",
+      "id": 8453,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/base.svg",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x2105",
+        "blockExplorerUrls": [
+          "https://basescan.org/"
+        ],
+        "chainName": "Base",
+        "nativeCurrency": {
+          "name": "Ethereum",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://mainnet.base.org",
+          "https://base-rpc.publicnode.com",
+          "https://base.drpc.org",
+          "https://rpc.ankr.com/base"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 8453,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "bls",
+      "chainType": "EVM",
+      "name": "Blast",
+      "coin": "ETH",
+      "id": 81457,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/blast.png",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x13e31",
+        "blockExplorerUrls": [
+          "https://blastscan.io/",
+          "https://blastexplorer.io/"
+        ],
+        "chainName": "Blast",
+        "nativeCurrency": {
+          "name": "Ethereum",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpc.blast.io",
+          "https://blast-rpc.publicnode.com",
+          "https://blast.drpc.org",
+          "https://rpc.ankr.com/blast"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 81457,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "ava",
+      "chainType": "EVM",
+      "name": "Avalanche",
+      "coin": "AVAX",
+      "id": 43114,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/avalanche.svg",
+      "tokenlistUrl": "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/avalanche.json",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0xa86a",
+        "blockExplorerUrls": [
+          "https://snowtrace.io/"
+        ],
+        "chainName": "Avalanche C-Chain",
+        "nativeCurrency": {
+          "name": "AVAX",
+          "symbol": "AVAX",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://api.avax.network/ext/bc/C/rpc",
+          "https://avalanche-c-chain-rpc.publicnode.com",
+          "https://avalanche.drpc.org",
+          "https://avalanche.public-rpc.com",
+          "https://rpc.ankr.com/avalanche"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 43114,
+        "symbol": "AVAX",
+        "decimals": 18,
+        "name": "AVAX",
+        "coinKey": "AVAX",
+        "logoURI": "https://static.debank.com/image/avax_token/logo_url/avax/0b9c84359c84d6bdd5bfda9c2d4c4a82.png",
+        "priceUSD": "23.01"
+      }
+    },
+    {
+      "key": "pol",
+      "chainType": "EVM",
+      "name": "Polygon",
+      "coin": "MATIC",
+      "id": 137,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/polygon.svg",
+      "tokenlistUrl": "https://unpkg.com/quickswap-default-token-list@1.0.71/build/quickswap-default.tokenlist.json",
+      "faucetUrls": [
+        "https://stakely.io/faucet/polygon-matic"
+      ],
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x89",
+        "blockExplorerUrls": [
+          "https://polygonscan.com/"
+        ],
+        "chainName": "Polygon Mainnet",
+        "nativeCurrency": {
+          "name": "MATIC",
+          "symbol": "MATIC",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://polygon-bor-rpc.publicnode.com",
+          "https://polygon.drpc.org",
+          "https://polygon-rpc.com",
+          "https://rpc.ankr.com/polygon"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 137,
+        "symbol": "MATIC",
+        "decimals": 18,
+        "name": "MATIC",
+        "coinKey": "MATIC",
+        "logoURI": "https://static.debank.com/image/matic_token/logo_url/matic/6f5a6b6f0732a7a235131bd7804d357c.png",
+        "priceUSD": "0.4741"
+      }
+    },
+    {
+      "key": "scl",
+      "chainType": "EVM",
+      "name": "Scroll",
+      "coin": "ETH",
+      "id": 534352,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/scroll.png",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x82750",
+        "blockExplorerUrls": [
+          "https://scrollscan.com/"
+        ],
+        "chainName": "Scroll",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpc.scroll.io",
+          "https://scroll.drpc.org",
+          "https://scroll-mainnet.public.blastapi.io",
+          "https://1rpc.io/scroll"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 534352,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "opt",
+      "chainType": "EVM",
+      "name": "Optimism",
+      "coin": "ETH",
+      "id": 10,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/optimism.svg",
+      "tokenlistUrl": "https://static.optimism.io/optimism.tokenlist.json",
+      "faucetUrls": [
+        "https://gateway.optimism.io/"
+      ],
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0xa",
+        "blockExplorerUrls": [
+          "https://optimistic.etherscan.io/"
+        ],
+        "chainName": "OP Mainnet",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://mainnet.optimism.io/",
+          "https://optimism-rpc.publicnode.com",
+          "https://optimism.drpc.org",
+          "https://rpc.ankr.com/optimism"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 10,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "lna",
+      "chainType": "EVM",
+      "name": "Linea",
+      "coin": "ETH",
+      "id": 59144,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/linea.svg",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0xe708",
+        "blockExplorerUrls": [
+          "https://lineascan.build/"
+        ],
+        "chainName": "Linea",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpc.linea.build"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 59144,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "era",
+      "chainType": "EVM",
+      "name": "zkSync",
+      "coin": "ETH",
+      "id": 324,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/zksync.svg",
+      "multicallAddress": "0xF9cda624FBC7e059355ce98a31693d299FACd963",
+      "metamask": {
+        "chainId": "0x144",
+        "blockExplorerUrls": [
+          "https://explorer.zksync.io/"
+        ],
+        "chainName": "zkSync Mainnet",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://mainnet.era.zksync.io"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 324,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "pze",
+      "chainType": "EVM",
+      "name": "Polygon zkEVM",
+      "coin": "ETH",
+      "id": 1101,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/zkevm.png",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x44d",
+        "blockExplorerUrls": [
+          "https://zkevm.polygonscan.com/"
+        ],
+        "chainName": "Polygon zkEVM",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://zkevm-rpc.com",
+          "https://polygon-zkevm.drpc.org"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 1101,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "dai",
+      "chainType": "EVM",
+      "name": "Gnosis",
+      "coin": "DAI",
+      "id": 100,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/gnosis.svg",
+      "tokenlistUrl": "https://tokens.honeyswap.org/",
+      "faucetUrls": [
+        "https://stakely.io/faucet/xdai-chain"
+      ],
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x64",
+        "blockExplorerUrls": [
+          "https://gnosis.blockscout.com/"
+        ],
+        "chainName": "Gnosis",
+        "nativeCurrency": {
+          "name": "XDAI",
+          "symbol": "XDAI",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpc.gnosischain.com",
+          "https://gnosis-rpc.publicnode.com",
+          "https://gnosis.drpc.org",
+          "https://rpc.ankr.com/gnosis"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 100,
+        "symbol": "xDAI",
+        "decimals": 18,
+        "name": "xDAI Native Token",
+        "coinKey": "DAI",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+        "priceUSD": "0.9998"
+      }
+    },
+    {
+      "key": "ftm",
+      "chainType": "EVM",
+      "name": "Fantom",
+      "coin": "FTM",
+      "id": 250,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/fantom.svg",
+      "tokenlistUrl": "https://raw.githubusercontent.com/SpookySwap/spooky-info/master/src/constants/token/spookyswap.json",
+      "faucetUrls": [
+        "https://stakely.io/faucet/fantom-blockchain-ftm",
+        "https://docs.spookyswap.finance/getting-started/how-to-get-fantom-gas"
+      ],
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0xfa",
+        "blockExplorerUrls": [
+          "https://ftmscan.com/"
+        ],
+        "chainName": "Fantom Opera",
+        "nativeCurrency": {
+          "name": "FTM",
+          "symbol": "FTM",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpcapi.fantom.network",
+          "https://rpc.fantom.network",
+          "https://fantom-rpc.publicnode.com",
+          "https://fantom.drpc.org",
+          "https://rpc.ftm.tools"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 250,
+        "symbol": "FTM",
+        "decimals": 18,
+        "name": "FTM",
+        "coinKey": "FTM",
+        "logoURI": "https://static.debank.com/image/ftm_token/logo_url/ftm/33fdb9c5067e94f3a1b9e78f6fa86984.png",
+        "priceUSD": "0.4004"
+      }
+    },
+    {
+      "key": "mor",
+      "chainType": "EVM",
+      "name": "Moonriver",
+      "coin": "MOVR",
+      "id": 1285,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/moonriver.svg",
+      "tokenlistUrl": "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/moonriver.json",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x505",
+        "blockExplorerUrls": [
+          "https://moonriver.moonscan.io/"
+        ],
+        "chainName": "Moonriver",
+        "nativeCurrency": {
+          "name": "Moonriver",
+          "symbol": "MOVR",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpc.api.moonriver.moonbeam.network",
+          "https://moonriver-rpc.publicnode.com",
+          "https://moonriver.drpc.org"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 1285,
+        "symbol": "MOVR",
+        "decimals": 18,
+        "name": "MOVR",
+        "coinKey": "MOVR",
+        "logoURI": "https://assets.coingecko.com/coins/images/17984/small/9285.png",
+        "priceUSD": "8.471"
+      }
+    },
+    {
+      "key": "moo",
+      "chainType": "EVM",
+      "name": "Moonbeam",
+      "coin": "GLMR",
+      "id": 1284,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/moonbeam.svg",
+      "tokenlistUrl": "https://raw.githubusercontent.com/BeamSwap/beamswap-tokenlist/main/tokenlist.json",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x504",
+        "blockExplorerUrls": [
+          "https://moonbeam.moonscan.io/"
+        ],
+        "chainName": "Moonbeam",
+        "nativeCurrency": {
+          "name": "GLMR",
+          "symbol": "GLMR",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpc.api.moonbeam.network",
+          "https://moonbeam-rpc.publicnode.com",
+          "https://moonbeam.drpc.org"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 1284,
+        "symbol": "GLMR",
+        "decimals": 18,
+        "name": "GLMR",
+        "coinKey": "GLMR",
+        "logoURI": "https://s2.coinmarketcap.com/static/img/coins/64x64/6836.png",
+        "priceUSD": "0.1661"
+      }
+    },
+    {
+      "key": "fus",
+      "chainType": "EVM",
+      "name": "FUSE",
+      "coin": "FUSE",
+      "id": 122,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/fuse.svg",
+      "tokenlistUrl": "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/fuse.json",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x7a",
+        "blockExplorerUrls": [
+          "https://explorer.fuse.io/"
+        ],
+        "chainName": "Fuse Mainnet",
+        "nativeCurrency": {
+          "name": "FUSE",
+          "symbol": "FUSE",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpc.fuse.io",
+          "https://fuse.drpc.org"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 122,
+        "symbol": "FUSE",
+        "decimals": 18,
+        "name": "FUSE",
+        "coinKey": "FUSE",
+        "logoURI": "https://s2.coinmarketcap.com/static/img/coins/64x64/5634.png",
+        "priceUSD": "0.03332"
+      }
+    },
+    {
+      "key": "bob",
+      "chainType": "EVM",
+      "name": "Boba",
+      "coin": "ETH",
+      "id": 288,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/boba.png",
+      "tokenlistUrl": "https://raw.githubusercontent.com/OolongSwap/boba-community-token-list/main/build/boba.tokenlist.json",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x120",
+        "blockExplorerUrls": [
+          "https://bobascan.com/"
+        ],
+        "chainName": "Boba Network",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://mainnet.boba.network",
+          "https://replica.boba.network"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 288,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "mod",
+      "chainType": "EVM",
+      "name": "Mode",
+      "coin": "ETH",
+      "id": 34443,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/mode.png",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x868b",
+        "blockExplorerUrls": [
+          "https://explorer.mode.network/",
+          "https://modescan.io/"
+        ],
+        "chainName": "Mode",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://mainnet.mode.network",
+          "https://mode.drpc.org"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 34443,
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "ETH",
+        "coinKey": "ETH",
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "mam",
+      "chainType": "EVM",
+      "name": "Metis",
+      "coin": "METIS",
+      "id": 1088,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/metis.png",
+      "tokenlistUrl": "https://raw.githubusercontent.com/digitalnativeinc/default-token-list/dnf/tokens/metis.json",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x440",
+        "blockExplorerUrls": [
+          "https://andromeda-explorer.metis.io/"
+        ],
+        "chainName": "Metis Andromeda Mainnet",
+        "nativeCurrency": {
+          "name": "METIS",
+          "symbol": "METIS",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://andromeda.metis.io",
+          "https://metis.drpc.org"
+        ]
+      },
+      "nativeToken": {
+        "address": "0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000",
+        "chainId": 1088,
+        "symbol": "METIS",
+        "decimals": 18,
+        "name": "METIS",
+        "coinKey": "METIS",
+        "logoURI": "https://s2.coinmarketcap.com/static/img/coins/64x64/9640.png",
+        "priceUSD": "31.1"
+      }
+    },
+    {
+      "key": "aur",
+      "chainType": "EVM",
+      "name": "Aurora",
+      "coin": "ETH",
+      "id": 1313161554,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/aurora.png",
+      "tokenlistUrl": "https://aurora.dev/tokens.json",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x4e454152",
+        "blockExplorerUrls": [
+          "https://explorer.aurora.dev/"
+        ],
+        "chainName": "Aurora Mainnet",
+        "nativeCurrency": {
+          "name": "ETH",
+          "symbol": "ETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://mainnet.aurora.dev"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 1313161554,
+        "symbol": "AETH",
+        "decimals": 18,
+        "name": "AETH",
+        "coinKey": "AETH",
+        "logoURI": "https://static.debank.com/image/aurora_token/logo_url/aurora/d61441782d4a08a7479d54aea211679e.png",
+        "priceUSD": "2581.5"
+      }
+    },
+    {
+      "key": "sei",
+      "chainType": "EVM",
+      "name": "Sei",
+      "coin": "SEI",
+      "id": 1329,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/sei.svg",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x531",
+        "blockExplorerUrls": [
+          "https://seitrace.com/",
+          "https://seistream.app/"
+        ],
+        "chainName": "Sei Network",
+        "nativeCurrency": {
+          "name": "SEI",
+          "symbol": "SEI",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://evm-rpc.sei-apis.com"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 1329,
+        "symbol": "SEI",
+        "decimals": 18,
+        "name": "SEI",
+        "coinKey": "SEI",
+        "logoURI": "https://cdn.sei.io/sei-app/sei-icon.png",
+        "priceUSD": "0.2656"
+      }
+    },
+    {
+      "key": "fra",
+      "chainType": "EVM",
+      "name": "Fraxtal",
+      "coin": "frxETH",
+      "id": 252,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/fraxtal.svg",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0xfc",
+        "blockExplorerUrls": [
+          "https://fraxscan.com/"
+        ],
+        "chainName": "Fraxtal",
+        "nativeCurrency": {
+          "name": "Frax Ethereum",
+          "symbol": "frxETH",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpc.frax.com"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 252,
+        "symbol": "frxETH",
+        "decimals": 18,
+        "name": "frxETH",
+        "coinKey": "frxETH",
+        "logoURI": "https://assets.coingecko.com/coins/images/28284/standard/frxETH_icon.png",
+        "priceUSD": "2577.6771247699467"
+      }
+    },
+    {
+      "key": "rsk",
+      "chainType": "EVM",
+      "name": "Rootstock",
+      "coin": "RBTC",
+      "id": 30,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/rootstock.svg",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x1e",
+        "blockExplorerUrls": [
+          "https://explorer.rootstock.io/"
+        ],
+        "chainName": "Rootstock Mainnet",
+        "nativeCurrency": {
+          "name": "Rootstock Smart Bitcoin",
+          "symbol": "RBTC",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://public-node.rsk.co",
+          "https://mycrypto.rsk.co"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 30,
+        "symbol": "RBTC",
+        "decimals": 18,
+        "name": "Rootstock Smart Bitcoin",
+        "coinKey": "RBTC",
+        "logoURI": "https://static.debank.com/image/rsk_token/logo_url/0x542fda317318ebf1d3deaf76e0b632741a7e677d/4785a26ef5bb5df987e67ad49fc62137.png",
+        "priceUSD": "59295.99"
+      }
+    },
+    {
+      "key": "cel",
+      "chainType": "EVM",
+      "name": "Celo",
+      "coin": "CELO",
+      "id": 42220,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/celo.svg",
+      "tokenlistUrl": "https://raw.githubusercontent.com/sushiswap/default-token-list/master/tokens/celo.json",
+      "faucetUrls": [
+        "https://stakely.io/faucet/celo-platform",
+        "https://free-online-app.com/faucet-for-eth-evm-chains/"
+      ],
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0xa4ec",
+        "blockExplorerUrls": [
+          "https://celoscan.io/"
+        ],
+        "chainName": "Celo Mainnet",
+        "nativeCurrency": {
+          "name": "CELO",
+          "symbol": "CELO",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://forno.celo.org",
+          "https://celo.drpc.org",
+          "https://rpc.ankr.com/celo"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x471EcE3750Da237f93B8E339c536989b8978a438",
+        "chainId": 42220,
+        "symbol": "CELO",
+        "decimals": 18,
+        "name": "Celo native asset",
+        "coinKey": "CELO",
+        "logoURI": "https://s2.coinmarketcap.com/static/img/coins/64x64/5567.png",
+        "priceUSD": "0.4634"
+      }
+    },
+    {
+      "key": "mnt",
+      "chainType": "EVM",
+      "name": "Mantle",
+      "coin": "MNT",
+      "id": 5000,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/mantle.png",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x1388",
+        "blockExplorerUrls": [
+          "https://explorer.mantle.xyz/",
+          "https://mantlescan.xyz/"
+        ],
+        "chainName": "Mantle",
+        "nativeCurrency": {
+          "name": "Mantle",
+          "symbol": "MNT",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://rpc.mantle.xyz",
+          "https://mantle-rpc.publicnode.com",
+          "https://mantle.drpc.org",
+          "https://mantle.public-rpc.com",
+          "https://rpc.ankr.com/mantle"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 5000,
+        "symbol": "MNT",
+        "decimals": 18,
+        "name": "MNT",
+        "coinKey": "MNT",
+        "logoURI": "https://static.debank.com/image/mnt_token/logo_url/0x78c1b0c915c4faa5fffa6cabf0219da63d7f4cb8/a443c78c33704d48f06e5686bb87f85e.png",
+        "priceUSD": "0.5895"
+      }
+    },
+    {
+      "key": "evm",
+      "chainType": "EVM",
+      "name": "Evmos",
+      "coin": "EVM",
+      "id": 9001,
+      "mainnet": true,
+      "logoURI": "https://raw.githubusercontent.com/lifinance/types/main/src/assets/icons/chains/evmos.svg",
+      "multicallAddress": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "metamask": {
+        "chainId": "0x2329",
+        "blockExplorerUrls": [
+          "https://www.mintscan.io/evmos/"
+        ],
+        "chainName": "Evmos",
+        "nativeCurrency": {
+          "name": "EVMOS",
+          "symbol": "EVMOS",
+          "decimals": 18
+        },
+        "rpcUrls": [
+          "https://evmos.lava.build",
+          "https://evmos-evm-rpc.publicnode.com",
+          "https://evmos.drpc.org"
+        ]
+      },
+      "nativeToken": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chainId": 9001,
+        "symbol": "EVMOS",
+        "decimals": 18,
+        "name": "EVMOS",
+        "coinKey": "EVM",
+        "logoURI": "https://raw.githubusercontent.com/cronus-finance/token-list/main/assets/evmos/0xD4949664cD82660AaE99bEdc034a0deA8A0bd517/logo.png",
+        "priceUSD": "0.0335"
+      }
+    }
+  ]
+}
