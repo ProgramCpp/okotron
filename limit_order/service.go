@@ -29,6 +29,7 @@ type LimitOrderRequest struct {
 // TODO. implement error channels for async process
 // when the process stops silently, limit orders will no more be processed
 func ProcessOrders() {
+	// INSERT GOROUTINE
 	 func() {
 		for {
 			// PLEASE UNCOMMENT!
@@ -37,13 +38,13 @@ func ProcessOrders() {
 			pricesInTokens, err := cmc.PricesInTokens()
 			if err != nil {
 				log.Println("error fetching cmc prices in tokens")
-				return
+				continue
 			}
 
 			pricesInCurrency, err := cmc.PricesInCurrency()
 			if err != nil {
 				log.Println("error fetching cmc prices in currency")
-				return
+				continue
 			}
 
 			for token, price := range pricesInCurrency.Tokens {
@@ -53,14 +54,23 @@ func ProcessOrders() {
 				ordersResult := db.RedisClient().LRange(context.Background(), priceKey, 0, -1)
 				if ordersResult.Err() != nil && !errors.Is(ordersResult.Err(), redis.Nil) {
 					log.Println("error fetching limit orders from redis")
-					return
+					continue
 				} else if errors.Is(ordersResult.Err(), redis.Nil) {
 					// if no orders at this price, move to the next token price
 					continue
 				}
 
 				orders := []LimitOrderRequest{}
-				ordersResult.ScanSlice(orders)
+				err = ordersResult.ScanSlice(&orders)
+				if err != nil {
+					log.Println("error scanning limit orders from redis")
+					continue
+				}
+
+				// no orders at this price
+				if len(orders) == 0{
+					continue
+				}
 
 				// TODO: do not check for a specific match of price, pick order within the slippage price range
 				for _, o := range orders {
