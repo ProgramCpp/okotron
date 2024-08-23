@@ -30,7 +30,7 @@ type LimitOrderRequest struct {
 // when the process stops silently, limit orders will no more be processed
 func ProcessOrders() {
 	// INSERT GOROUTINE
-	 func() {
+	func() {
 		for {
 			// PLEASE UNCOMMENT!
 			// time.Sleep(15 * 60 * time.Second) // for the free plan, maximum 10K calls per month. poll every 15 minutes. 4 calls per cycle
@@ -38,7 +38,7 @@ func ProcessOrders() {
 			pricesInTokens, err := cmc.PricesInTokens()
 			if err != nil {
 				log.Println("error fetching cmc prices in tokens")
-				continue
+				continue 
 			}
 
 			pricesInCurrency, err := cmc.PricesInCurrency()

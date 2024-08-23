@@ -50,7 +50,7 @@ func SwapInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving message key from-token command. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, resp.MessageID, "something went wrong. try again."))
 	}
 }
 
@@ -67,7 +67,7 @@ func SwapFromTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack boo
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_CMD_FROM_TOKEN, fromToken).Err()
 	if err != nil {
 		log.Printf("error encountered when saving request payload while selecting from-token. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 	// TODO: move request key expiry to the primary command. its unintuitive to handle it one of the sub-commands. atleast its in the first sub-command!
@@ -86,7 +86,7 @@ func SwapFromTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack boo
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving message key from-network command. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
 
@@ -103,7 +103,7 @@ func SwapFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack b
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_CMD_FROM_NETWORK, fromNetwork).Err()
 	if err != nil {
 		log.Printf("error encountered when saving request payload while selecting from-network. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
@@ -116,7 +116,7 @@ func SwapFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack b
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving message key to-token command. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
 
@@ -133,7 +133,7 @@ func SwapToTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool)
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_CMD_TO_TOKEN, toToken).Err()
 	if err != nil {
 		log.Printf("error encountered when saving request payload while selecting to-token. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
@@ -146,7 +146,7 @@ func SwapToTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool)
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving message key to-network command. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
 
@@ -163,7 +163,7 @@ func SwapToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack boo
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_CMD_TO_NETWORK, toToken).Err()
 	if err != nil {
 		log.Printf("error encountered when saving request payload while selecting to-network. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
@@ -177,7 +177,7 @@ func SwapToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack boo
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving swap message key tokens command. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
 
@@ -201,7 +201,7 @@ func SwapQuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool)
 	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_SWAP_CMD_QUANTITY)
 	if res.Err() != nil && res.Err() != redis.Nil {
 		log.Printf("error encountered when fetching request payload while setting quantity. %s", res.Err())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	} else if res.Err() != redis.Nil {
 		quantity = res.Val() + quantity
@@ -210,7 +210,7 @@ func SwapQuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool)
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_SWAP_CMD_QUANTITY, quantity).Err()
 	if err != nil {
 		log.Printf("error encountered when saving request payload while setting quantity. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 	// TODO: handle error
@@ -235,14 +235,14 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	res := db.RedisClient().HGetAll(context.Background(), requestKey)
 	if res.Err() != nil {
 		log.Printf("error encountered when fetching swap request payload. %s", res.Err())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
 		return
 	}
 
 	var r SwapRequestInput
 	if err := res.Scan(&r); err != nil {
 		log.Printf("error parsing swap request payload. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
 		return
 	}
 
@@ -255,7 +255,7 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	})
 	if err != nil {
 		log.Printf("error executing swap request. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
 		return
 	}
 

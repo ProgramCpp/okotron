@@ -60,7 +60,7 @@ func LimitOrderInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	if err != nil {
 		log.Printf("error encountered when saving sub command key from-token. %s", err.Error())
 		// TODO: edit the message to clear previous keyboards
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, resp.MessageID, "something went wrong. try again."))
 	}
 }
 
@@ -76,7 +76,7 @@ func LimitOrderBuyOrSellInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_BUY_OR_SELL, buyOrSell).Err()
 	if err != nil {
 		log.Printf("error encountered when saving limit order request payload while selecting buy-or-sell. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 	// TODO: move request key expiry to the primary command. its unintuitive to handle it one of the sub-commands. atleast its in the first sub-command!
@@ -95,7 +95,7 @@ func LimitOrderBuyOrSellInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving sub command key buy-or-sell. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
 
@@ -112,7 +112,7 @@ func LimitOrderFromTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_FROM_TOKEN, fromToken).Err()
 	if err != nil {
 		log.Printf("error encountered when saving limit order request payload while selecting from-token. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
@@ -125,7 +125,7 @@ func LimitOrderFromTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving sub command key from-network. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
 
@@ -142,7 +142,7 @@ func LimitOrderFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, is
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_FROM_NETWORK, fromNetwork).Err()
 	if err != nil {
 		log.Printf("error encountered when saving limit order request payload while selecting from-network. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
@@ -155,7 +155,7 @@ func LimitOrderFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, is
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving message key to-token command. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
 
@@ -172,7 +172,7 @@ func LimitOrderToTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_TO_TOKEN, toToken).Err()
 	if err != nil {
 		log.Printf("error encountered when saving limit order request payload while selecting to-token. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
@@ -185,7 +185,7 @@ func LimitOrderToTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving message key to-network command. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
 
@@ -202,7 +202,7 @@ func LimitOrderToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_TO_NETWORK, toToken).Err()
 	if err != nil {
 		log.Printf("error encountered when saving limit order request payload while selecting to-network. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
@@ -216,7 +216,7 @@ func LimitOrderToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving sub command key quantity command. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
 
@@ -240,7 +240,7 @@ func LimitOrderQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBac
 			time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 		if err != nil {
 			log.Printf("error encountered when saving sub command key price command. %s", err.Error())
-			Send(bot, update, "something went wrong. try again.")
+			bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		}
 
 		return
@@ -249,7 +249,7 @@ func LimitOrderQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBac
 	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY)
 	if res.Err() != nil && res.Err() != redis.Nil {
 		log.Printf("error encountered when fetching request payload while setting quantity. %s", res.Err())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	} else if res.Err() != redis.Nil {
 		quantity = res.Val() + quantity
@@ -258,7 +258,7 @@ func LimitOrderQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBac
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_QUANTITY, quantity).Err()
 	if err != nil {
 		log.Printf("error encountered when saving request payload while setting quantity. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 	// TODO: handle error
@@ -289,7 +289,7 @@ func LimitOrderPriceInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack b
 	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_PRICE)
 	if res.Err() != nil && res.Err() != redis.Nil {
 		log.Printf("error encountered when fetching request payload while setting price. %s", res.Err())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	} else if res.Err() != redis.Nil {
 		price = res.Val() + price
@@ -298,7 +298,7 @@ func LimitOrderPriceInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack b
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_PRICE, price).Err()
 	if err != nil {
 		log.Printf("error encountered when saving request payload while setting price. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 	// TODO: handle error
@@ -320,14 +320,13 @@ func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	res := db.RedisClient().HGetAll(context.Background(), requestKey)
 	if res.Err() != nil {
 		log.Printf("error encountered when fetching limit order request payload. %s", res.Err())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
 	var r LimitOrderRequestInput
 	if err := res.Scan(&r); err != nil {
-		log.Printf("error parsing limit order request payload. %s", err.Error())
-		Send(bot, update, "something went wrong. try again.")
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
@@ -342,4 +341,7 @@ func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		Quantity:    r.Quantity,
 		Price:       r.Price,
 	})
+
+	// TODO: handle error
+	bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "limit order sucess"))
 }

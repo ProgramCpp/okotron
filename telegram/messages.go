@@ -14,7 +14,8 @@ import (
 
 // blocking call. reads telegram messages and processes them
 func Run() {
-	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
+	t := os.Getenv("TELEGRAM_BOT_TOKEN")
+	bot, err := tgbotapi.NewBotAPI(t)
 	if err != nil {
 		log.Panic("telegram bot token missing:", err)
 	}
