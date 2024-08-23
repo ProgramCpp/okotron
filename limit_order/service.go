@@ -29,20 +29,20 @@ type LimitOrderRequest struct {
 // TODO. implement error channels for async process
 // when the process stops silently, limit orders will no more be processed
 func ProcessOrders() {
-	go func() {
+	 func() {
 		for {
 			// PLEASE UNCOMMENT!
-			// time.Sleep(5 * 60 * time.Second) // for the free plan, maximum 10K calls per month. poll every 5 minutes
+			// time.Sleep(15 * 60 * time.Second) // for the free plan, maximum 10K calls per month. poll every 15 minutes. 4 calls per cycle
 
 			pricesInTokens, err := cmc.PricesInTokens()
 			if err != nil {
-				log.Println("error fetching cmc prices")
+				log.Println("error fetching cmc prices in tokens")
 				return
 			}
 
 			pricesInCurrency, err := cmc.PricesInCurrency()
 			if err != nil {
-				log.Println("error fetching cmc prices")
+				log.Println("error fetching cmc prices in currency")
 				return
 			}
 
@@ -78,11 +78,11 @@ func ProcessOrders() {
 	}()
 }
 
-func processOrder(o LimitOrderRequest, prices cmc.PricesData) error {
+func processOrder(o LimitOrderRequest, prices cmc.PricesDataInTokens) error {
 	quantity := o.Quantity
 	// user has entered the quantity of tokens to buy. the swap payload accepts quantity in terms of source token units
 	if o.BuyOrSell == "buy" {
-		quantity = fmt.Sprintf("%d", int(prices.Tokens[o.ToToken]))
+		quantity = fmt.Sprintf("%d", int(prices.Tokens[o.FromToken][o.ToToken]))
 	}
 
 	err := swap.SwapTokens(o.ChatID, swap.SwapRequest{

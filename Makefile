@@ -1,6 +1,6 @@
 .PHONY: build
 
-all: build test
+all: build test build-deb
 
 build: 
 	go build -o ./build/
@@ -11,3 +11,5 @@ test:
 run:
 	./build/okotron
 	
+build-deb:
+	env GOOS=debian GOARCH=x86/64 go build -o ./build/oktron-deb

@@ -1,12 +1,13 @@
 package cmc
 
 import (
-	"errors"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
-	"net/url"
 	"strings"
+
+	"github.com/pkg/errors"
 
 	"github.com/programcpp/okotron/utils"
 	"github.com/spf13/viper"
@@ -26,6 +27,17 @@ type PricesData struct {
 func NewPricesData() PricesData {
 	return PricesData{
 		Tokens: make(map[string]float64),
+	}
+}
+
+type PricesDataInTokens struct {
+	// map from from-token to to-token to price
+	Tokens map[string]map[string]float64
+}
+
+func NewPricesDataInTokens() PricesDataInTokens {
+	return PricesDataInTokens{
+		Tokens: make(map[string]map[string]float64),
 	}
 }
 
@@ -50,6 +62,17 @@ func filterStableCoins(tokens []string) []string {
 	return tokenSet
 }
 
+func filterOutToken(tokens []string, t string) []string {
+	tokenSet := []string{}
+	for _, token := range tokens {
+		if token !=  t{
+			tokenSet = append(tokenSet, token)
+		}
+	}
+
+	return tokenSet
+}
+
 func formatTokenSymbols(tokens []string) string {
 	symbols := ""
 	for _, token := range tokens {
@@ -58,16 +81,25 @@ func formatTokenSymbols(tokens []string) string {
 	return symbols
 }
 
-func getPrices(req *http.Request) (PricesData, error){
+// free tier of CMC support converting to only one currency/ token at a time
+// dont be too smart! getPrices automatically leaves out the token that you are converting to
+func getPrices(convertTo string) (PricesData, error) {
+	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/v2/cryptocurrency/quotes/latest", nil)
+	if err != nil {
+		log.Println("error creating cmc quotes http req " + err.Error())
+		return PricesData{}, err
+	}
+
 	req.Header.Add("X-CMC_PRO_API_KEY", viper.GetString("CMC_KEY"))
 	req.Header.Add("Accept", "application/json")
 
 	// TODO: this is hardcoded for now. get supported tokens from cmc/ okto as you support more tokens
-	tokenSet := filterStableCoins(utils.SUPPORTED_TOKENS)
+	tokenSet := filterStableCoins(filterOutToken(utils.SUPPORTED_TOKENS, convertTo))
 
 	symbols := formatTokenSymbols(tokenSet)
 	params := req.URL.Query()
 	params.Add("symbol", symbols)
+	params.Add("convert", convertTo)
 
 	req.URL.RawQuery = params.Encode()
 
@@ -90,8 +122,8 @@ func getPrices(req *http.Request) (PricesData, error){
 
 	prices := NewPricesData()
 	for _, t := range tokenSet {
-		tokenData := gjson.Get(string(resBytes), "data."+t+".0") // there is only one currency
-		price := gjson.Get(tokenData.String(), "quote.INR.price")
+		tokenData := gjson.Get(string(resBytes), "data."+t+".0") // there is only one currency/ token
+		price := gjson.Get(tokenData.String(), fmt.Sprintf("quote.%s.price", convertTo) )
 		prices.Tokens[t] = price.Float()
 	}
 
@@ -99,34 +131,29 @@ func getPrices(req *http.Request) (PricesData, error){
 }
 
 func PricesInCurrency() (PricesData, error) {
-	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/v2/cryptocurrency/quotes/latest", nil)
-	if err != nil {
-		log.Println("error creating cmc quotes http req " + err.Error())
-		return PricesData{}, err
-	}
-
-	params := url.Values{}
-	params.Add("convert", "INR")
-
-	req.URL.RawQuery = params.Encode()
-
-	return getPrices(req)
+	return getPrices("INR")
 }
 
-func PricesInTokens() (PricesData, error) {
-	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/v2/cryptocurrency/quotes/latest", nil)
-	if err != nil {
-		log.Println("error creating cmc quotes http req " + err.Error())
-		return PricesData{}, err
+// I am in a hurry. this is the most unreadable code ive ever written! I promise
+// the use of map to a map is horrible. need better DS
+func PricesInTokens() (PricesDataInTokens, error) {
+	tokenSet := filterStableCoins(utils.SUPPORTED_TOKENS)
+	prices := NewPricesDataInTokens()
+
+	for _, t := range tokenSet {
+		tprices, err := getPrices(t)
+		if err != nil {
+			return PricesDataInTokens{}, errors.Wrap(err, "error fetching price in " + t)
+		}
+
+		for token, price := range tprices.Tokens {
+			// whatever getPrices returns is for tokens other than target token
+			if _, ok := (prices.Tokens[token]); !ok {
+				prices.Tokens[token] = make(map[string]float64)
+			}
+			prices.Tokens[token][t] = price
+		}
 	}
 
-	tokenSet := filterStableCoins(utils.SUPPORTED_TOKENS)
-	symbols := formatTokenSymbols(tokenSet)
-
-	params := url.Values{}
-	params.Add("convert", symbols)
-
-	req.URL.RawQuery = params.Encode()
-
-	return getPrices(req)
+	return prices, nil
 }
