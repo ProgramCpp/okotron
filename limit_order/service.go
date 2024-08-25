@@ -1,10 +1,13 @@
 package limit_order
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 	_ "time"
 
 	"github.com/pkg/errors"
@@ -15,7 +18,7 @@ import (
 )
 
 type LimitOrderRequest struct {
-	ChatID int64
+	ChatID int64 `json:"chat_id" redis:"/limit-order/chat-id"`
 	// valid values are "buy" and "sell"
 	BuyOrSell   string `json:"buy_or_sell" redis:"/limit-order/buy-or-sell"`
 	FromToken   string `json:"from_token" redis:"/limit-order/from-token"`
@@ -24,6 +27,16 @@ type LimitOrderRequest struct {
 	ToNetwork   string `json:"to_network" redis:"/limit-order/to-network"`
 	Quantity    string `json:"quantity" redis:"/limit-order/quantity"`
 	Price       string `json:"price" redis:"/limit-order/price"`
+}
+
+func (r LimitOrderRequest) ToJson() (string, error) {
+	buf := bytes.Buffer{}
+	e := json.NewEncoder(&buf).Encode(r)
+	return buf.String(), e
+}
+
+func (r *LimitOrderRequest) FromJson(v string) (error) {
+	return json.NewDecoder(strings.NewReader(v)).Decode(&r)
 }
 
 // TODO. implement error channels for async process
@@ -38,52 +51,54 @@ func ProcessOrders() {
 			pricesInTokens, err := cmc.PricesInTokens()
 			if err != nil {
 				log.Println("error fetching cmc prices in tokens")
-				continue 
-			}
-
-			pricesInCurrency, err := cmc.PricesInCurrency()
-			if err != nil {
-				log.Println("error fetching cmc prices in currency")
 				continue
 			}
 
-			for token, price := range pricesInCurrency.Tokens {
+			// pricesInCurrency, err := cmc.PricesInCurrency()
+			// if err != nil {
+			// 	log.Println("error fetching cmc prices in currency")
+			// 	continue
+			// }
 
-				priceKey := fmt.Sprintf(db.LIMIT_ORDER_KEY, strconv.Itoa(int(price)))
-				// 0: first element. -1: last element
-				ordersResult := db.RedisClient().LRange(context.Background(), priceKey, 0, -1)
-				if ordersResult.Err() != nil && !errors.Is(ordersResult.Err(), redis.Nil) {
-					log.Println("error fetching limit orders from redis")
-					continue
-				} else if errors.Is(ordersResult.Err(), redis.Nil) {
-					// if no orders at this price, move to the next token price
-					continue
-				}
+			// for token, price := range pricesInCurrency.Tokens {
+			token := "ETH"
+			price := 200
+			priceKey := fmt.Sprintf(db.LIMIT_ORDER_KEY, strconv.Itoa(int(price)))
+			// 0: first element. -1: last element
+			ordersStr, err := db.RedisClient().LRange(context.Background(), priceKey, 0, -1).Result()
+			if err != nil && !errors.Is(err, redis.Nil) {
+				log.Println("error fetching limit orders from redis")
+				continue
+			} else if errors.Is(err, redis.Nil) {
+				// if no orders at this price, move to the next token price
+				continue
+			}
 
-				orders := []LimitOrderRequest{}
-				err = ordersResult.ScanSlice(&orders)
-				if err != nil {
-					log.Println("error scanning limit orders from redis")
-					continue
-				}
+			var orders []LimitOrderRequest
 
-				// no orders at this price
-				if len(orders) == 0{
-					continue
-				}
+			for _, os := range ordersStr {
+				o := LimitOrderRequest{}
+				o.FromJson(os)
+				orders = append(orders, o)
+			}
 
-				// TODO: do not check for a specific match of price, pick order within the slippage price range
-				for _, o := range orders {
-					if o.BuyOrSell == "buy" && o.ToToken == token || (o.BuyOrSell == "sell" && o.FromToken == token) {
-						err = processOrder(o, pricesInTokens)
-						if err != nil {
-							log.Printf("error processing limit order. %s", err.Error())
-							// do not return. the order is still in db. process next order.
-							// TODO: monitor failures
-						}
+			// no orders at this price
+			if len(orders) == 0 {
+				continue
+			}
+
+			// TODO: do not check for a specific match of price, pick order within the slippage price range
+			for _, o := range orders {
+				if o.BuyOrSell == "buy" && o.ToToken == token || (o.BuyOrSell == "sell" && o.FromToken == token) {
+					err = processOrder(o, pricesInTokens)
+					if err != nil {
+						log.Printf("error processing limit order. %s", err.Error())
+						// do not return. the order is still in db. process next order.
+						// TODO: monitor failures
 					}
 				}
 			}
+			// }
 		}
 	}()
 }

@@ -319,20 +319,22 @@ func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
 	res := db.RedisClient().HGetAll(context.Background(), requestKey)
 	if res.Err() != nil {
-		log.Printf("error encountered when fetching limit order request payload. %s", res.Err())
+		log.Printf("error encountered when fetching limit order request payload from redis. %s", res.Err())
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
 	var r LimitOrderRequestInput
 	if err := res.Scan(&r); err != nil {
+		log.Printf("error scanning limit order request payload from redis. %s", res.Err())
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
 
 	limitOrderKey := fmt.Sprintf(db.LIMIT_ORDER_KEY, r.Price)
 	// todo: handle error
-	db.RedisClient().RPush(context.Background(), limitOrderKey, limit_order.LimitOrderRequest{
+	loReq, _ := limit_order.LimitOrderRequest{
+		ChatID:      update.FromChat().ID,
 		BuyOrSell:   r.BuyOrSell,
 		FromToken:   r.FromToken,
 		FromNetwork: r.FromNetwork,
@@ -340,7 +342,9 @@ func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		ToNetwork:   r.ToNetwork,
 		Quantity:    r.Quantity,
 		Price:       r.Price,
-	})
+	}.ToJson()
+	// todo: handle error
+	db.RedisClient().RPush(context.Background(), limitOrderKey, loReq)
 
 	// TODO: handle error
 	bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "limit order sucess"))
