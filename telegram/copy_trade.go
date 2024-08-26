@@ -13,7 +13,16 @@ import (
 
 func CopyTradeInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	// TODO: handle error
-	resp, _ := SendWithForceReply(bot, update, "enter the address:", true)
+	resp, _ := bot.Send(tgbotapi.MessageConfig{
+		BaseChat: tgbotapi.BaseChat{
+			ChatID: update.FromChat().ID,
+			// TODO: consolidate all telegram send messages
+			ReplyMarkup: tgbotapi.ForceReply{
+				ForceReply: true,
+			},
+		},
+		Text: "enter the address:",
+	})
 	subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, resp.MessageID)
 	err := db.RedisClient().Set(context.Background(), subcommandKey, CMD_COPY_TRADE_CMD_ADDRESS,
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
@@ -24,14 +33,13 @@ func CopyTradeInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 func CopyTradeAddressInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
-	id := update.CallbackQuery.Message.MessageID
-	address := update.CallbackQuery.Data
+	address := update.Message.Text
 
 	copyOrderKey := fmt.Sprintf(db.COPY_ORDER_KEY, address)
 	// TODO: handle error
 	db.RedisClient().RPush(context.Background(), copyOrderKey, fmt.Sprintf("%d", update.FromChat().ID))
 
-	bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "copy trade success"))
+	bot.Send(tgbotapi.NewMessage(update.FromChat().ID, "copy trade success"))
 }
 
 func CopyTrade(bot *tgbotapi.BotAPI, update tgbotapi.Update) {

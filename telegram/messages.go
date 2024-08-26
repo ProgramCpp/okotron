@@ -30,6 +30,7 @@ func Run() {
 
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
+	u.Offset = -1 // ignore offline messages
 
 	updates := bot.GetUpdatesChan(u)
 
@@ -48,6 +49,16 @@ func Run() {
 				go LimitOrder(bot, update)
 			} else if command == CMD_COPY_TRADE {
 				go CopyTrade(bot, update)
+			} else if update.Message.ReplyToMessage != nil  {
+				subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, update.Message.ReplyToMessage.MessageID)
+				subCommand, err := db.RedisClient().Get(context.Background(), subcommandKey).Result()
+				if err != nil {
+					Send(bot, update, "something went wrong. try again")
+					continue
+				}
+				if subCommand == CMD_COPY_TRADE_CMD_ADDRESS {
+					go CopyTradeAddressInput(bot, update, false)
+				} 
 			} else {
 				go Greet(bot, update)
 			}

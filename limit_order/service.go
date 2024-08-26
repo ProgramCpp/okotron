@@ -8,7 +8,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
-	_ "time"
+	"time"
 
 	"github.com/pkg/errors"
 	cmc "github.com/programcpp/okotron/coin_market_cap"
@@ -35,18 +35,16 @@ func (r LimitOrderRequest) ToJson() (string, error) {
 	return buf.String(), e
 }
 
-func (r *LimitOrderRequest) FromJson(v string) (error) {
+func (r *LimitOrderRequest) FromJson(v string) error {
 	return json.NewDecoder(strings.NewReader(v)).Decode(&r)
 }
 
 // TODO. implement error channels for async process
 // when the process stops silently, limit orders will no more be processed
 func ProcessOrders() {
-	// INSERT GOROUTINE
-	func() {
+	go func() {
 		for {
-			// PLEASE UNCOMMENT!
-			// time.Sleep(15 * 60 * time.Second) // for the free plan, maximum 10K calls per month. poll every 15 minutes. 4 calls per cycle
+			time.Sleep(15 * 60 * time.Second) // for the free plan, maximum 10K calls per month. poll every 15 minutes. 4 calls per cycle
 
 			pricesInTokens, err := cmc.PricesInTokens()
 			if err != nil {
@@ -54,51 +52,49 @@ func ProcessOrders() {
 				continue
 			}
 
-			// pricesInCurrency, err := cmc.PricesInCurrency()
-			// if err != nil {
-			// 	log.Println("error fetching cmc prices in currency")
-			// 	continue
-			// }
-
-			// for token, price := range pricesInCurrency.Tokens {
-			token := "ETH"
-			price := 20
-			priceKey := fmt.Sprintf(db.LIMIT_ORDER_KEY, strconv.Itoa(int(price)))
-			// 0: first element. -1: last element
-			ordersStr, err := db.RedisClient().LRange(context.Background(), priceKey, 0, -1).Result()
-			if err != nil && !errors.Is(err, redis.Nil) {
-				log.Println("error fetching limit orders from redis")
-				continue
-			} else if errors.Is(err, redis.Nil) {
-				// if no orders at this price, move to the next token price
+			pricesInCurrency, err := cmc.PricesInCurrency()
+			if err != nil {
+				log.Println("error fetching cmc prices in currency")
 				continue
 			}
 
-			var orders []LimitOrderRequest
+			for token, price := range pricesInCurrency.Tokens {
+				priceKey := fmt.Sprintf(db.LIMIT_ORDER_KEY, strconv.Itoa(int(price)))
+				// 0: first element. -1: last element
+				ordersStr, err := db.RedisClient().LRange(context.Background(), priceKey, 0, -1).Result()
+				if err != nil && !errors.Is(err, redis.Nil) {
+					log.Println("error fetching limit orders from redis")
+					continue
+				} else if errors.Is(err, redis.Nil) {
+					// if no orders at this price, move to the next token price
+					continue
+				}
 
-			for _, os := range ordersStr {
-				o := LimitOrderRequest{}
-				o.FromJson(os)
-				orders = append(orders, o)
-			}
+				var orders []LimitOrderRequest
 
-			// no orders at this price
-			if len(orders) == 0 {
-				continue
-			}
+				for _, os := range ordersStr {
+					o := LimitOrderRequest{}
+					o.FromJson(os)
+					orders = append(orders, o)
+				}
 
-			// TODO: do not check for a specific match of price, pick order within the slippage price range
-			for _, o := range orders {
-				if o.BuyOrSell == "buy" && o.ToToken == token || (o.BuyOrSell == "sell" && o.FromToken == token) {
-					err = processOrder(o, pricesInTokens)
-					if err != nil {
-						log.Printf("error processing limit order. %s", err.Error())
-						// do not return. the order is still in db. process next order.
-						// TODO: monitor failures
+				// no orders at this price
+				if len(orders) == 0 {
+					continue
+				}
+
+				// TODO: do not check for a specific match of price, pick order within the slippage price range
+				for _, o := range orders {
+					if o.BuyOrSell == "buy" && o.ToToken == token || (o.BuyOrSell == "sell" && o.FromToken == token) {
+						err = processOrder(o, pricesInTokens)
+						if err != nil {
+							log.Printf("error processing limit order. %s", err.Error())
+							// do not return. the order is still in db. process next order.
+							// TODO: monitor failures
+						}
 					}
 				}
 			}
-			// }
 		}
 	}()
 }
@@ -112,7 +108,7 @@ func processOrder(o LimitOrderRequest, prices cmc.PricesDataInTokens) error {
 
 	// user has entered the quantity of tokens to buy. the swap payload accepts quantity in terms of source token units
 	if o.BuyOrSell == "buy" {
-		quantity = fmt.Sprintf("%f", prices.Tokens[o.ToToken][o.FromToken] *  qtyFloat)
+		quantity = fmt.Sprintf("%f", prices.Tokens[o.ToToken][o.FromToken]*qtyFloat)
 	}
 
 	err = swap.SwapTokens(o.ChatID, swap.SwapRequest{
