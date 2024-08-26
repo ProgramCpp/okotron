@@ -18,8 +18,8 @@ import (
 type TransferRequestInput struct {
 	FromToken   string `json:"from_token" redis:"/transfer/from-token"`
 	FromNetwork string `json:"from_network" redis:"/transfer/from-network"`
-	Quantity    string `json:"quantity" redis:"/transfer/quantity"` 
-	Address     string `json:"quantity" redis:"/transfer/address"` 
+	Quantity    string `json:"quantity" redis:"/transfer/quantity"`
+	Address     string `json:"quantity" redis:"/transfer/address"`
 }
 
 func TransferInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
@@ -115,15 +115,53 @@ func TransferQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack 
 		return
 	}
 
-	if strings.Contains(update.CallbackQuery.Data, "enter") {
-		TransferCallback(bot, update)
-		return
-	}
-
 	id := update.CallbackQuery.Message.MessageID
 	quantity := update.CallbackQuery.Data
 
 	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
+
+	if strings.Contains(update.CallbackQuery.Data, "enter") {
+		id := update.CallbackQuery.Message.MessageID
+
+		res := db.RedisClient().HGet(context.Background(), requestKey, CMD_TRANSFER_CMD_QUANTITY)
+		if res.Err() != nil && res.Err() != redis.Nil {
+			log.Printf("error encountered when fetching request payload while setting quantity. %s", res.Err())
+			bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
+			return
+		} else if res.Err() != redis.Nil {
+			quantity = res.Val()
+		}
+
+		// TODO: handle error
+		resp, _ := bot.Send(tgbotapi.EditMessageTextConfig{
+			BaseEdit: tgbotapi.BaseEdit{
+				ChatID:      update.FromChat().ID,
+				MessageID:   update.CallbackQuery.Message.MessageID,
+				ReplyMarkup: nil,
+			},
+			Text: "enter token quantity:" + quantity,
+		})
+
+		resp, _ = bot.Send(tgbotapi.MessageConfig{
+			BaseChat: tgbotapi.BaseChat{
+				ChatID:      update.FromChat().ID,
+				ReplyToMessageID:   update.CallbackQuery.Message.MessageID,
+				ReplyMarkup: tgbotapi.ForceReply{
+					ForceReply: true,
+				},
+			},
+			Text: "enter to-address:",
+		})
+
+		subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, resp.MessageID)
+		err := db.RedisClient().Set(context.Background(), subcommandKey, CMD_TRANSFER_CMD_ADDRESS,
+			time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
+		if err != nil {
+			log.Printf("error encountered when saving transfer message key address command. %s", err.Error())
+			bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
+		}
+		return
+	}
 
 	// handle first digit of quantity. redis returns Nil error of the field is not found
 	res := db.RedisClient().HGet(context.Background(), requestKey, CMD_TRANSFER_CMD_QUANTITY)
@@ -151,7 +189,22 @@ func TransferQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack 
 	// requestKey is no more accessed. will be expired by redis
 }
 
-func TransferCallback (bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+func TransferAddressInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+	id := update.Message.ReplyToMessage.ReplyToMessage.MessageID
+	address := update.Message.Text
+
+	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
+	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_TRANSFER_CMD_ADDRESS, address).Err()
+	if err != nil {
+		log.Printf("error encountered when saving request payload while saving address. %s", err.Error())
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
+		return
+	}
+
+	TransferCallback(bot, update)
+}
+
+func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	requestId := update.CallbackQuery.Message.MessageID
 	chatId := update.FromChat().ID
 	requestKey := fmt.Sprintf(db.REQUEST_KEY, requestId)
@@ -171,9 +224,9 @@ func TransferCallback (bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	}
 
 	_, err := okto.TokenTransfer(chatId, okto.TokenTransferRequest{
-		NetworkName: r.FromNetwork,
-		TokenAddress: okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.FromToken][r.FromNetwork],
-		Quantity: r.Quantity,
+		NetworkName:      r.FromNetwork,
+		TokenAddress:     okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.FromToken][r.FromNetwork],
+		Quantity:         r.Quantity,
 		RecipientAddress: r.Address,
 	})
 	if err != nil {
@@ -190,6 +243,6 @@ func TransferCallback (bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	))
 }
 
-func Transfer (bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+func Transfer(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	TransferInput(bot, update)
 }

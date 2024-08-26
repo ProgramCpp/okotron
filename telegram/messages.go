@@ -44,9 +44,9 @@ func Run() {
 			} else if command == CMD_PORTFOLIO {
 				go Portfolio(bot, update)
 			} else if command == CMD_SWAP {
-				go Transfer(bot, update)
-			} else if command == CMD_TRANSFER {
 				go Swap(bot, update)
+			} else if command == CMD_TRANSFER {
+				go Transfer(bot, update)
 			} else if command == CMD_LIMIT_ORDER {
 				go LimitOrder(bot, update)
 			} else if command == CMD_COPY_TRADE {
@@ -60,6 +60,8 @@ func Run() {
 				}
 				if subCommand == CMD_COPY_TRADE_CMD_ADDRESS {
 					go CopyTradeAddressInput(bot, update, false)
+				} else if subCommand == CMD_TRANSFER_CMD_ADDRESS{
+					go TransferAddressInput(bot, update, false)
 				}
 			} else {
 				go Greet(bot, update)
