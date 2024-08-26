@@ -185,7 +185,7 @@ func TransferAddressInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack b
 }
 
 func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
-	requestId := update.CallbackQuery.Message.MessageID
+	requestId := update.Message.ReplyToMessage.MessageID
 	chatId := update.FromChat().ID
 	requestKey := fmt.Sprintf(db.REQUEST_KEY, requestId)
 
