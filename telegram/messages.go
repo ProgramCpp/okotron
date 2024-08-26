@@ -46,6 +46,8 @@ func Run() {
 				go Swap(bot, update)
 			} else if command == CMD_LIMIT_ORDER {
 				go LimitOrder(bot, update)
+			} else if command == CMD_COPY_TRADE {
+				go CopyTrade(bot, update)
 			} else {
 				go Greet(bot, update)
 			}
