@@ -20,9 +20,9 @@ func tokenKeyboard(back bool) tgbotapi.InlineKeyboardMarkup {
 	noOfButtonsPerRow := 2
 	keyboardRows := [][]tgbotapi.InlineKeyboardButton{}
 
-	if back {
-		keyboardRows = append(keyboardRows, []tgbotapi.InlineKeyboardButton{tgbotapi.NewInlineKeyboardButtonData("⬅back", "back")})
-	}
+	// if back {
+	// 	keyboardRows = append(keyboardRows, []tgbotapi.InlineKeyboardButton{tgbotapi.NewInlineKeyboardButtonData("⬅back", "back")})
+	// }
 	for i := 0; i < len(utils.SUPPORTED_TOKENS); {
 		keyboardButtons := []tgbotapi.InlineKeyboardButton{}
 		for j := 0; j < noOfButtonsPerRow && i < len(utils.SUPPORTED_TOKENS); j++ {
@@ -40,9 +40,10 @@ func tokenKeyboard(back bool) tgbotapi.InlineKeyboardMarkup {
 }
 
 func networkKeyboard(toToken string) tgbotapi.InlineKeyboardMarkup {
-	keyboardButtons := []tgbotapi.InlineKeyboardButton{
-		tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
-	}
+	// keyboardButtons := []tgbotapi.InlineKeyboardButton{
+	// 	tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
+	// }
+	keyboardButtons := []tgbotapi.InlineKeyboardButton{}
 
 	for _, n := range utils.SUPPORTED_NETWORKS[toToken] {
 		keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(n, n))
@@ -77,9 +78,9 @@ func numericKeyboard() tgbotapi.InlineKeyboardMarkup {
 			tgbotapi.NewInlineKeyboardButtonData("0", "0"),
 			tgbotapi.NewInlineKeyboardButtonData("enter ↩", "enter"),
 		),
-		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
-		),
+		// tgbotapi.NewInlineKeyboardRow(
+		// 	tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
+		// ),
 	)
 
 	return numericKeyboard

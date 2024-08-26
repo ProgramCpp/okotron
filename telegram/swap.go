@@ -94,7 +94,7 @@ func SwapFromTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack boo
 
 func SwapFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
-		SwapFromTokenInput(bot, update, false)
+		SwapInput(bot, update)
 		return
 	}
 
@@ -124,7 +124,7 @@ func SwapFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack b
 
 func SwapToTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
-		SwapFromNetworkInput(bot, update, false)
+		SwapFromTokenInput(bot, update, false)
 		return
 	}
 
@@ -154,7 +154,7 @@ func SwapToTokenInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool)
 
 func SwapToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
-		SwapToTokenInput(bot, update, false)
+		SwapFromNetworkInput(bot, update, false)
 		return
 	}
 
@@ -185,7 +185,7 @@ func SwapToNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack boo
 
 func SwapQuantiyInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
 	if isBack {
-		SwapToNetworkInput(bot, update, false)
+		SwapToTokenInput(bot, update, false)
 		return
 	}
 
