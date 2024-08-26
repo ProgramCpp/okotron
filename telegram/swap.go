@@ -7,8 +7,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/programcpp/okotron/copy_trade"
 	"github.com/programcpp/okotron/db"
 	"github.com/programcpp/okotron/swap"
+	"github.com/programcpp/okotron/utils"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 
@@ -258,6 +260,21 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
 		return
 	}
+
+	addr, err := utils.GetAddress(chatId, r.FromNetwork)
+	if err != nil {
+		log.Printf("error fetching addresses. %s", err.Error())
+		// not affecting this transaction for copy trade failues. continue and monitor
+	}
+
+	copy_trade.ProcessOrder(copy_trade.Request{
+		FromChain:   r.FromNetwork,
+		FromToken:   r.FromToken,
+		ToChain:     r.ToNetwork,
+		ToToken:     r.ToToken,
+		FromAmount:  r.Quantity,
+		FromAddress: addr,
+	})
 
 	bot.Send(tgbotapi.NewEditMessageText(
 		update.FromChat().ID,

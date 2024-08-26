@@ -11,11 +11,11 @@ import (
 )
 
 type SwapRequest struct {
-	FromToken   string 
-	FromNetwork string 
-	ToToken     string 
-	ToNetwork   string 
-	Quantity    string 
+	FromToken   string
+	FromNetwork string
+	ToToken     string
+	ToNetwork   string
+	Quantity    string
 }
 
 // TODO: okto would support swap directly. there would not be any need for lifi dependability
@@ -29,7 +29,7 @@ func SwapTokens(chatId int64, r SwapRequest) error {
 	if err != nil {
 		return errors.Wrap(err, "error fetching okto address")
 	}
-	
+
 	transactionPayload, err := lifi.GetQuote(lifi.QuoteRequest{
 		FromChain:   okto.NETWORK_NAME_TO_CHAIN_ID[r.FromNetwork],
 		FromToken:   r.FromToken,

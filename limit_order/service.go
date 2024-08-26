@@ -14,6 +14,8 @@ import (
 	cmc "github.com/programcpp/okotron/coin_market_cap"
 	"github.com/programcpp/okotron/db"
 	"github.com/programcpp/okotron/swap"
+	"github.com/programcpp/okotron/copy_trade"
+	"github.com/programcpp/okotron/utils"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -122,6 +124,21 @@ func processOrder(o LimitOrderRequest, prices cmc.PricesDataInTokens) error {
 	if err != nil {
 		return errors.Wrap(err, "error swapping tokens in limit order")
 	}
+
+	addr, err := utils.GetAddress(o.ChatID,o.FromNetwork)
+	if err != nil {
+		log.Printf("error fethching addresses. %s", err.Error())
+		// not affecting this transaction for copy trade failues. continue and monitor
+	}
+
+	copy_trade.ProcessOrder(copy_trade.Request{
+		FromChain:   o.FromNetwork,
+		FromToken:   o.FromToken,
+		ToChain:     o.ToNetwork,
+		ToToken:     o.ToToken,
+		FromAmount:  o.Quantity,
+		FromAddress: addr,
+	})
 
 	return nil
 }
