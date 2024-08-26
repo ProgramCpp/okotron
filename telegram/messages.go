@@ -44,12 +44,14 @@ func Run() {
 			} else if command == CMD_PORTFOLIO {
 				go Portfolio(bot, update)
 			} else if command == CMD_SWAP {
+				go Transfer(bot, update)
+			} else if command == CMD_TRANSFER {
 				go Swap(bot, update)
 			} else if command == CMD_LIMIT_ORDER {
 				go LimitOrder(bot, update)
 			} else if command == CMD_COPY_TRADE {
 				go CopyTrade(bot, update)
-			} else if update.Message.ReplyToMessage != nil  {
+			} else if update.Message.ReplyToMessage != nil {
 				subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, update.Message.ReplyToMessage.MessageID)
 				subCommand, err := db.RedisClient().Get(context.Background(), subcommandKey).Result()
 				if err != nil {
@@ -58,7 +60,7 @@ func Run() {
 				}
 				if subCommand == CMD_COPY_TRADE_CMD_ADDRESS {
 					go CopyTradeAddressInput(bot, update, false)
-				} 
+				}
 			} else {
 				go Greet(bot, update)
 			}
@@ -71,6 +73,15 @@ func Run() {
 			}
 
 			isBack := strings.Contains(update.CallbackQuery.Data, "back")
+
+			if subCommand == CMD_TRANSFER_CMD_FROM_TOKEN {
+				go TransferFromTokenInput(bot, update, isBack)
+			} else if subCommand == CMD_TRANSFER_CMD_FROM_NETWORK {
+				go TransferFromNetworkInput(bot, update, isBack)
+			} else if subCommand == CMD_TRANSFER_CMD_QUANTITY {
+				go TransferQuantityInput(bot, update, isBack)
+			}
+
 			if subCommand == CMD_SWAP_CMD_FROM_TOKEN {
 				go SwapFromTokenInput(bot, update, isBack)
 			} else if subCommand == CMD_SWAP_CMD_FROM_NETWORK {

@@ -4,6 +4,7 @@ package telegram
 const (
 	CMD_LOGIN       = "/login"
 	CMD_PORTFOLIO   = "/portfolio"
+	CMD_TRANSFER    = "/transfer"
 	CMD_SWAP        = "/swap"
 	CMD_LIMIT_ORDER = "/limitorder"
 	CMD_COPY_TRADE  = "/copytrade"
@@ -13,6 +14,11 @@ const (
 const (
 	// TODO: fix the weird naming convention to pass context from commands and sub commands
 	CMD_LOGIN_CMD_SETUP_PROFILE = "/login/setup-profile"
+
+	CMD_TRANSFER_CMD_FROM_TOKEN   = "/transfer/from-token"
+	CMD_TRANSFER_CMD_FROM_NETWORK = "/transfer/from-network"
+	CMD_TRANSFER_CMD_QUANTITY     = "/transfer/quantity"
+	CMD_TRANSFER_CMD_ADDRESS      = "/transfer/address"
 
 	CMD_SWAP_CMD_FROM_TOKEN   = "/swap/from-token"
 	CMD_SWAP_CMD_FROM_NETWORK = "/swap/from-network"
