@@ -261,9 +261,15 @@ func LimitOrderQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBac
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 		return
 	}
+
+	msg := "enter token quantity:"
+	if !strings.Contains(quantity, "back") && !strings.Contains(quantity, "enter") {
+		msg += quantity
+	}
+
 	// TODO: handle error
 	bot.Send(tgbotapi.NewEditMessageTextAndMarkup(
-		update.FromChat().ID, id, "enter token quantity:"+quantity,
+		update.FromChat().ID, id, msg,
 		numericKeyboard()))
 
 	// the next sub command is still quantity.
