@@ -73,9 +73,12 @@ func numericKeyboard() tgbotapi.InlineKeyboardMarkup {
 			tgbotapi.NewInlineKeyboardButtonData("3", "3"),
 		),
 		tgbotapi.NewInlineKeyboardRow(
-			tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
+			tgbotapi.NewInlineKeyboardButtonData(".", "."),
 			tgbotapi.NewInlineKeyboardButtonData("0", "0"),
 			tgbotapi.NewInlineKeyboardButtonData("enter ↩", "enter"),
+		),
+		tgbotapi.NewInlineKeyboardRow(
+			tgbotapi.NewInlineKeyboardButtonData("⬅back", "back"),
 		),
 	)
 

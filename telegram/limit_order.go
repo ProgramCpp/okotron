@@ -353,5 +353,5 @@ func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	db.RedisClient().RPush(context.Background(), limitOrderKey, loReq)
 
 	// TODO: handle error
-	bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "limit order sucess"))
+	bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "limit order success"))
 }
