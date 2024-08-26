@@ -9,8 +9,20 @@ var (
 		"POLYGON": "137",
 	}
 
-	TOKEN_TO_ADDRESS =  map[string]string{
-		"BASE":    "8453",
-		"POLYGON": "137",
+	// see the supported tokens and supported networks
+	TOKEN_TO_NETWORK_TO_ADDRESS = map[string]map[string]string{
+		"ETH": {
+			"BASE": "",
+		},
+		"MATIC": {
+			"POLYGON": "",
+		},
+		"USDC": {
+			"BASE":    "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca",
+			"POLYGON": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+		},
+		"USDT": {
+			"POLYGON": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+		},
 	}
 )

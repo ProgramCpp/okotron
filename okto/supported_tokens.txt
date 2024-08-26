@@ -1,0 +1,97 @@
+{
+    "status": "success",
+    "data": {
+        "tokens": [
+            {
+                "token_name": "APT",
+                "token_address": "0x1::aptos_coin::AptosCoin",
+                "network_name": "APTOS"
+            },
+            {
+                "token_name": "APT_TESTNET",
+                "token_address": "0x1::aptos_coin::AptosCoin",
+                "network_name": "APTOS_TESTNET"
+            },
+            {
+                "token_name": "ETH",
+                "token_address": "",
+                "network_name": "BASE"
+            },
+            {
+                "token_name": "MATIC",
+                "token_address": "",
+                "network_name": "POLYGON_TESTNET_AMOY"
+            },
+            {
+                "token_name": "MATIC",
+                "token_address": "",
+                "network_name": "POLYGON"
+            },
+            {
+                "token_name": "OSMO",
+                "token_address": "uosmo",
+                "network_name": "OSMOSIS"
+            },
+            {
+                "token_name": "SOL",
+                "token_address": "",
+                "network_name": "SOLANA"
+            },
+            {
+                "token_name": "SOL_DEVNET",
+                "token_address": "",
+                "network_name": "SOLANA_DEVNET"
+            },
+            {
+                "token_name": "USDC",
+                "token_address": "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca",
+                "network_name": "BASE"
+            },
+            {
+                "token_name": "USDC",
+                "token_address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                "network_name": "SOLANA"
+            },
+            {
+                "token_name": "USDC",
+                "token_address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+                "network_name": "BASE"
+            },
+            {
+                "token_name": "USDC",
+                "token_address": "ibc/498A0751C798A0D9A389AA3691123DADA57DAA4FE165D5C75894505B876BA6E4",
+                "network_name": "OSMOSIS"
+            },
+            {
+                "token_name": "USDC",
+                "token_address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                "network_name": "POLYGON"
+            },
+            {
+                "token_name": "USDC",
+                "token_address": "0x41e94eb019c0762f9bfcf9fb1e58725bfb0e7582",
+                "network_name": "POLYGON_TESTNET_AMOY"
+            },
+            {
+                "token_name": "USDT",
+                "token_address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                "network_name": "POLYGON"
+            },
+            {
+                "token_name": "USDT",
+                "token_address": "0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT",
+                "network_name": "APTOS"
+            },
+            {
+                "token_name": "USDT",
+                "token_address": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+                "network_name": "SOLANA"
+            },
+            {
+                "token_name": "USDT",
+                "token_address": "ibc/4ABBEF4C8926DDDB320AE5188CFD63267ABBCEFC0583E4AE05D6E5AA2401DDAB",
+                "network_name": "OSMOSIS"
+            }
+        ]
+    }
+}

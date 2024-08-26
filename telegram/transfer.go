@@ -172,7 +172,7 @@ func TransferCallback (bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	_, err := okto.TokenTransfer(chatId, okto.TokenTransferRequest{
 		NetworkName: r.FromNetwork,
-		TokenAddress: r.FromToken,
+		TokenAddress: okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.FromToken][r.FromNetwork],
 		Quantity: r.Quantity,
 		RecipientAddress: r.Address,
 	})
