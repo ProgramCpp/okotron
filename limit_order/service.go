@@ -12,10 +12,10 @@ import (
 
 	"github.com/pkg/errors"
 	cmc "github.com/programcpp/okotron/coin_market_cap"
-	"github.com/programcpp/okotron/db"
-	"github.com/programcpp/okotron/swap"
 	"github.com/programcpp/okotron/copy_trade"
-	"github.com/programcpp/okotron/utils"
+	"github.com/programcpp/okotron/db"
+	"github.com/programcpp/okotron/okto"
+	"github.com/programcpp/okotron/swap"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -125,7 +125,7 @@ func processOrder(o LimitOrderRequest, prices cmc.PricesDataInTokens) error {
 		return errors.Wrap(err, "error swapping tokens in limit order")
 	}
 
-	addr, err := utils.GetAddress(o.ChatID,o.FromNetwork)
+	addr, err := okto.GetAddress(o.ChatID,o.FromNetwork)
 	if err != nil {
 		log.Printf("error fethching addresses. %s", err.Error())
 		// not affecting this transaction for copy trade failues. continue and monitor

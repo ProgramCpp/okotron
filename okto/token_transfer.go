@@ -3,18 +3,19 @@ package okto
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"io"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/pkg/errors"
 )
 
 type TokenTransferRequest struct {
-	NetworkName      string
-	TokenAddress     string
-	Quantity         string
-	RecipientAddress string
+	NetworkName      string `json:"network_name"`
+	TokenAddress     string `json:"token_address"`
+	Quantity         string `json:"quantity"`
+	RecipientAddress string `json:"recipient_address"`
 }
 
 type TransferData struct {
@@ -32,7 +33,12 @@ func (r TokenTransferRequest) ToReader() (*bytes.Reader, error) {
 	return bytes.NewReader(buf.Bytes()), e
 }
 
-func TokenTransfer(authToken string, r TokenTransferRequest) (string, error) {
+func TokenTransfer(chatId int64, r TokenTransferRequest) (string, error) {
+	authToken, err := GetAuthToken(chatId)
+	if err != nil {
+		return "", errors.Wrap(err, "error fetching okto auth token")
+	}
+
 	bodyBytes, err := r.ToReader()
 	if err != nil {
 		log.Println("error serializing okto transfer req " + err.Error())

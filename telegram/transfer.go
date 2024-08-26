@@ -9,9 +9,18 @@ import (
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/programcpp/okotron/db"
+	"github.com/programcpp/okotron/okto"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 )
+
+// redis tags are defined as constants. keep in SYNC. the keys are saved with COMMAND Names and deserialized with redis tags!
+type TransferRequestInput struct {
+	FromToken   string `json:"from_token" redis:"/transfer/from-token"`
+	FromNetwork string `json:"from_network" redis:"/transfer/from-network"`
+	Quantity    string `json:"quantity" redis:"/transfer/quantity"` 
+	Address     string `json:"quantity" redis:"/transfer/address"` 
+}
 
 func TransferInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	// show keyboard for the next command
@@ -143,6 +152,42 @@ func TransferQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack 
 }
 
 func TransferCallback (bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+	requestId := update.CallbackQuery.Message.MessageID
+	chatId := update.FromChat().ID
+	requestKey := fmt.Sprintf(db.REQUEST_KEY, requestId)
+
+	res := db.RedisClient().HGetAll(context.Background(), requestKey)
+	if res.Err() != nil {
+		log.Printf("error encountered when fetching swap request payload. %s", res.Err())
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
+		return
+	}
+
+	var r TransferRequestInput
+	if err := res.Scan(&r); err != nil {
+		log.Printf("error parsing swap request payload. %s", err.Error())
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
+		return
+	}
+
+	_, err := okto.TokenTransfer(chatId, okto.TokenTransferRequest{
+		NetworkName: r.FromNetwork,
+		TokenAddress: r.FromToken,
+		Quantity: r.Quantity,
+		RecipientAddress: r.Address,
+	})
+	if err != nil {
+		log.Printf("error executing swap request. %s", err.Error())
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
+		return
+	}
+
+	bot.Send(tgbotapi.NewEditMessageText(
+		update.FromChat().ID,
+		requestId,
+		fmt.Sprintf("done! transfer %s tokens from %s:%s to %s",
+			r.Quantity, r.FromNetwork, r.FromToken, r.Address),
+	))
 }
 
 func Transfer (bot *tgbotapi.BotAPI, update tgbotapi.Update) {

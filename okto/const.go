@@ -8,4 +8,9 @@ var (
 		"BASE":    "8453",
 		"POLYGON": "137",
 	}
+
+	TOKEN_TO_ADDRESS =  map[string]string{
+		"BASE":    "8453",
+		"POLYGON": "137",
+	}
 )

@@ -1,4 +1,4 @@
-package utils
+package okto
 
 import (
 	"context"
@@ -8,7 +8,6 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/programcpp/okotron/db"
-	"github.com/programcpp/okotron/okto"
 )
 
 func GetAuthToken(chatId int64) (string, error) {
@@ -18,7 +17,7 @@ func GetAuthToken(chatId int64) (string, error) {
 		return "", errors.Wrap(err, "error fetching okto auth token")
 	}
 	// TODO: handle token not found
-	authToken := okto.AuthToken{}
+	authToken := AuthToken{}
 	// TODO: handle decoding error
 	json.NewDecoder(strings.NewReader(authTokenStr)).Decode(&authToken)
 	return authToken.AuthToken, nil
@@ -31,7 +30,7 @@ func GetAddress(chatId int64, network string) (string, error) {
 		return "", errors.Wrap(err, "error getting addresses from redis")
 	}
 
-	var wallets []okto.Wallet
+	var wallets []Wallet
 	err = json.NewDecoder(strings.NewReader(addrRes)).Decode(&wallets)
 	if err != nil {
 		return "", errors.Wrap(err, "error decoding wallets")

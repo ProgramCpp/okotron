@@ -9,8 +9,8 @@ import (
 
 	"github.com/programcpp/okotron/copy_trade"
 	"github.com/programcpp/okotron/db"
+	"github.com/programcpp/okotron/okto"
 	"github.com/programcpp/okotron/swap"
-	"github.com/programcpp/okotron/utils"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 
@@ -261,7 +261,7 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 
-	addr, err := utils.GetAddress(chatId, r.FromNetwork)
+	addr, err := okto.GetAddress(chatId, r.FromNetwork)
 	if err != nil {
 		log.Printf("error fetching addresses. %s", err.Error())
 		// not affecting this transaction for copy trade failues. continue and monitor
