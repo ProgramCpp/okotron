@@ -62,7 +62,7 @@ func ProcessOrders() {
 
 			// for token, price := range pricesInCurrency.Tokens {
 			token := "ETH"
-			price := 200
+			price := 100
 			priceKey := fmt.Sprintf(db.LIMIT_ORDER_KEY, strconv.Itoa(int(price)))
 			// 0: first element. -1: last element
 			ordersStr, err := db.RedisClient().LRange(context.Background(), priceKey, 0, -1).Result()
@@ -105,12 +105,17 @@ func ProcessOrders() {
 
 func processOrder(o LimitOrderRequest, prices cmc.PricesDataInTokens) error {
 	quantity := o.Quantity
-	// user has entered the quantity of tokens to buy. the swap payload accepts quantity in terms of source token units
-	if o.BuyOrSell == "buy" {
-		quantity = fmt.Sprintf("%d", int(prices.Tokens[o.FromToken][o.ToToken]))
+	qtyFloat, err := strconv.ParseFloat(quantity, 64)
+	if err != nil {
+		return errors.Wrap(err, "error parsing token quantity")
 	}
 
-	err := swap.SwapTokens(o.ChatID, swap.SwapRequest{
+	// user has entered the quantity of tokens to buy. the swap payload accepts quantity in terms of source token units
+	if o.BuyOrSell == "buy" {
+		quantity = fmt.Sprintf("%d", int(prices.Tokens[o.ToToken][o.FromToken] *  qtyFloat))
+	}
+
+	err = swap.SwapTokens(o.ChatID, swap.SwapRequest{
 		FromToken:   o.FromToken,
 		FromNetwork: o.FromNetwork,
 		ToToken:     o.ToToken,
