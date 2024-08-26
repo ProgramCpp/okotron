@@ -82,7 +82,7 @@ func RawTxn(authToken string, transaction io.Reader, networkName string) (RawTxn
 	}
 
 	if rawTxnRes.Status != "success" {
-		log.Println("okto request to set raw txn failed. " + string(resBytes))
+		log.Println("okto request to execute raw txn failed. " + string(resBytes))
 		// TODO: extract this error string
 		return RawTxnResponseData{}, errors.New("okto request failed")
 	}
