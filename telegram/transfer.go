@@ -123,32 +123,12 @@ func TransferQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack 
 	if strings.Contains(update.CallbackQuery.Data, "enter") {
 		id := update.CallbackQuery.Message.MessageID
 
-		res := db.RedisClient().HGet(context.Background(), requestKey, CMD_TRANSFER_CMD_QUANTITY)
-		if res.Err() != nil && res.Err() != redis.Nil {
-			log.Printf("error encountered when fetching request payload while setting quantity. %s", res.Err())
-			bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
-			return
-		} else if res.Err() != redis.Nil {
-			quantity = res.Val()
-		}
-
 		// TODO: handle error
 		resp, _ := bot.Send(tgbotapi.EditMessageTextConfig{
 			BaseEdit: tgbotapi.BaseEdit{
 				ChatID:      update.FromChat().ID,
 				MessageID:   update.CallbackQuery.Message.MessageID,
-				ReplyMarkup: nil,
-			},
-			Text: "enter token quantity:" + quantity,
-		})
-
-		resp, _ = bot.Send(tgbotapi.MessageConfig{
-			BaseChat: tgbotapi.BaseChat{
-				ChatID:      update.FromChat().ID,
-				ReplyToMessageID:   update.CallbackQuery.Message.MessageID,
-				ReplyMarkup: tgbotapi.ForceReply{
-					ForceReply: true,
-				},
+				ReplyMarkup: nil, // TODO: how to force reply?
 			},
 			Text: "enter to-address:",
 		})
@@ -190,7 +170,7 @@ func TransferQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack 
 }
 
 func TransferAddressInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
-	id := update.Message.ReplyToMessage.ReplyToMessage.MessageID
+	id := update.Message.ReplyToMessage.MessageID
 	address := update.Message.Text
 
 	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
