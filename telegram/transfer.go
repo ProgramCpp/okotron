@@ -104,7 +104,7 @@ func TransferFromNetworkInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 	err = db.RedisClient().Set(context.Background(), subcommandKey, CMD_TRANSFER_CMD_QUANTITY,
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
-		log.Printf("error encountered when saving swap message key tokens command. %s", err.Error())
+		log.Printf("error encountered when saving transfer message key tokens command. %s", err.Error())
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
 	}
 }
@@ -191,14 +191,14 @@ func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	res := db.RedisClient().HGetAll(context.Background(), requestKey)
 	if res.Err() != nil {
-		log.Printf("error encountered when fetching swap request payload. %s", res.Err())
+		log.Printf("error encountered when fetching transfer request payload. %s", res.Err())
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
 		return
 	}
 
 	var r TransferRequestInput
 	if err := res.Scan(&r); err != nil {
-		log.Printf("error parsing swap request payload. %s", err.Error())
+		log.Printf("error parsing transfer request payload. %s", err.Error())
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
 		return
 	}
@@ -210,7 +210,7 @@ func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		RecipientAddress: r.Address,
 	})
 	if err != nil {
-		log.Printf("error executing swap request. %s", err.Error())
+		log.Printf("error executing transfer request. %s", err.Error())
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
 		return
 	}
