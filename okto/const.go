@@ -9,7 +9,16 @@ var (
 		"POLYGON": "137",
 	}
 
-	// see the supported tokens and supported networks
+	// these values are from lifi supported tokens api
+	TOKEN_TO_DECIMALS = map[string]int{
+		"ETH":   18,
+		"MATIC": 18,
+		"USDC":  6,
+		"USDT":  6,
+	}
+
+	// see the okto supported tokens and supported networks
+	// these values are from okto supported tokens api
 	TOKEN_TO_NETWORK_TO_ADDRESS = map[string]map[string]string{
 		"ETH": {
 			"BASE": "",

@@ -10,9 +10,15 @@ import (
 	"os"
 )
 
+type Transaction struct {
+	From  string `json:"from"`
+	To    string `json:"to"`
+	Data  string `json:"data"`
+	Value string `json:"value"`
+}
 type RawTxPayload struct {
-	NetworkName string `json:"network_name"`
-	Transaction []byte `json:"transaction"`
+	NetworkName string      `json:"network_name"`
+	Transaction Transaction `json:"transaction"`
 }
 
 type RawTxnResponseData struct {
@@ -26,22 +32,9 @@ type RawTxnResponse struct {
 }
 
 // TODO: de-duplicate http handling
-func RawTxn(authToken string, transaction io.Reader, networkName string) (RawTxnResponseData, error) {
-	var transactionBytes []byte
-	_, err := transaction.Read(transactionBytes)
-	if err != nil {
-		log.Println("error reading transaction bytes " + err.Error())
-		return RawTxnResponseData{}, err
-	}
-
-	var rawTxnRes RawTxnResponse
-	rawTxPayload := RawTxPayload{
-		NetworkName: networkName,
-		Transaction: transactionBytes,
-	}
-
+func RawTxn(authToken string, r RawTxPayload) (RawTxnResponseData, error) {
 	bodyBytes := bytes.Buffer{}
-	err = json.NewEncoder(&bodyBytes).Encode(rawTxPayload)
+	err := json.NewEncoder(&bodyBytes).Encode(r)
 	if err != nil {
 		log.Println("error encoding transaction payload " + err.Error())
 		return RawTxnResponseData{}, err
@@ -75,6 +68,7 @@ func RawTxn(authToken string, transaction io.Reader, networkName string) (RawTxn
 		return RawTxnResponseData{}, errors.New("okto raw txn http req not OK")
 	}
 
+	var rawTxnRes RawTxnResponse
 	err = json.NewDecoder(bytes.NewReader(resBytes)).Decode(&rawTxnRes)
 	if err != nil {
 		log.Println("error decoding okto raw txn response" + err.Error())
