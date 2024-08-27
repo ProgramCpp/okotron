@@ -11,5 +11,6 @@ test:
 run:
 	./build/okotron
 	
+# https://gist.github.com/asukakenji/f15ba7e588ac42795f421b48b8aede63
 build-deb:
-	env GOOS=debian GOARCH=x86/64 go build -o ./build/oktron-deb
+	env GOOS=linux GOARCH=amd64 go build -o ./build/oktron-deb
