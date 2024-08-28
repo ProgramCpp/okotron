@@ -33,6 +33,6 @@ make run
 ```
 
 ### Deployment
-- cross compile the binary to target machine. otionally, mordenize the application.
+- cross compile the binary to target machine. optionally, mordenize the application.
     - for example, makefile task compiles to a linux compatible machine
 - run the binary in the production machine
