@@ -8,6 +8,7 @@ const (
 	CMD_SWAP        = "/swap"
 	CMD_LIMIT_ORDER = "/limitorder"
 	CMD_COPY_TRADE  = "/copytrade"
+	CMD_ORDERS      = "/orders"
 )
 
 // sub commands that can be executed after the primary commands

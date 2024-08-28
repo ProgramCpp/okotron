@@ -51,6 +51,8 @@ func Run() {
 				go LimitOrder(bot, update)
 			} else if command == CMD_COPY_TRADE {
 				go CopyTrade(bot, update)
+			} else if command == CMD_ORDERS {
+				go OrderHistory(bot, update)
 			} else if update.Message.ReplyToMessage != nil {
 				subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, update.Message.ReplyToMessage.MessageID)
 				subCommand, err := db.RedisClient().Get(context.Background(), subcommandKey).Result()
