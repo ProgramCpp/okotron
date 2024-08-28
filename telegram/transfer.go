@@ -192,14 +192,14 @@ func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	res := db.RedisClient().HGetAll(context.Background(), requestKey)
 	if res.Err() != nil {
 		log.Printf("error encountered when fetching transfer request payload. %s", res.Err())
-		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
+		bot.Send(tgbotapi.NewMessage(update.FromChat().ID, "something went wrong. try again."))
 		return
 	}
 
 	var r TransferRequestInput
 	if err := res.Scan(&r); err != nil {
 		log.Printf("error parsing transfer request payload. %s", err.Error())
-		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
+		bot.Send(tgbotapi.NewMessage(update.FromChat().ID, "something went wrong. try again."))
 		return
 	}
 
@@ -211,7 +211,7 @@ func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	})
 	if err != nil {
 		log.Printf("error executing transfer request. %s", err.Error())
-		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
+		bot.Send(tgbotapi.NewMessage(update.FromChat().ID, "something went wrong. try again."))
 		return
 	}
 
