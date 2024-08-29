@@ -21,10 +21,10 @@ var (
 	// these values are from okto supported tokens api
 	TOKEN_TO_NETWORK_TO_ADDRESS = map[string]map[string]string{
 		"ETH": {
-			"BASE": "",
+			"BASE": " ", // space input for okto
 		},
 		"MATIC": {
-			"POLYGON": "",
+			"POLYGON": " ",
 		},
 		"USDC": {
 			"BASE":    "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca",

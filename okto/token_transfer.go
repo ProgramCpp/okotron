@@ -45,7 +45,7 @@ func TokenTransfer(chatId int64, r TokenTransferRequest) (string, error) {
 		return "", err
 	}
 
-	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v1/transfers/tokens/execute", bodyBytes)
+	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v1/transfer/tokens/execute", bodyBytes)
 	if err != nil {
 		log.Println("error creating okto transfer req " + err.Error())
 		return "", err

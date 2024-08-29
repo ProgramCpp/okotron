@@ -215,9 +215,8 @@ func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 
-	bot.Send(tgbotapi.NewEditMessageText(
+	bot.Send(tgbotapi.NewMessage(
 		update.FromChat().ID,
-		requestId,
 		fmt.Sprintf("done! transfer %s tokens from %s:%s to %s",
 			r.Quantity, r.FromNetwork, r.FromToken, r.Address),
 	))
