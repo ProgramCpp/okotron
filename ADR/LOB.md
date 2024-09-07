@@ -43,7 +43,8 @@ in a conventional limit order, lets say stocks, there is only one account. in th
 - quantity: the amount of to-token to buy/ from-token to sell
 
 ### Future Work
-- should you have a separate map for each token to-token/ from-token. improve this as volume grows
+- performance improvements: should you have a separate map for each to-token/ from-token. improve this as volume grows
+- execute limit order with slippage
 
 ### References
 - https://gist.github.com/halfelf/db1ae032dc34278968f8bf31ee999a25

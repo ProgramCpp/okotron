@@ -1,5 +1,9 @@
 package okto
 
+const (
+	NATIVE_TOKEN_ADDR = "0x0000000000000000000000000000000000000000"
+)
+
 var (
 	// TODO: use okto /aupported_tokens and /supported_networks api's
 	// do not hardcode networks and tokens
@@ -48,10 +52,10 @@ var (
 	// these values are from okto supported tokens api
 	TOKEN_TO_NETWORK_TO_ADDRESS = map[string]map[string]string{
 		"ETH": {
-			"BASE": "0x0000000000000000000000000000000000000000", // space input for okto
+			"BASE": NATIVE_TOKEN_ADDR,
 		},
 		"MATIC": {
-			"POLYGON": "0x0000000000000000000000000000000000000000",
+			"POLYGON": NATIVE_TOKEN_ADDR,
 		},
 		// "USDC": {
 		// 	"BASE":    "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca",

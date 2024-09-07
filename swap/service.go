@@ -43,9 +43,9 @@ func SwapTokens(chatId int64, r SwapRequest) error {
 
 	transactionPayload, err := lifi.GetQuote(lifi.QuoteRequest{
 		FromChain:   okto.NETWORK_NAME_TO_CHAIN_ID[r.FromNetwork],
-		FromToken:   r.FromToken,
+		FromToken:   okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.FromToken][r.FromNetwork],
 		ToChain:     okto.NETWORK_NAME_TO_CHAIN_ID[r.ToNetwork],
-		ToToken:     r.ToToken,
+		ToToken:     okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.ToToken][r.ToNetwork],
 		FromAmount:  fmt.Sprintf("%.0f", qty),
 		FromAddress: addr,
 	})

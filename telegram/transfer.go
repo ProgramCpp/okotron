@@ -203,9 +203,14 @@ func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 
+	tokAddr := okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.FromToken][r.FromNetwork]
+	if tokAddr == okto.NATIVE_TOKEN_ADDR {
+		tokAddr = " " // empty string for okto transfer
+	}
+
 	_, err := okto.TokenTransfer(chatId, okto.TokenTransferRequest{
 		NetworkName:      r.FromNetwork,
-		TokenAddress:     okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.FromToken][r.FromNetwork],
+		TokenAddress:     tokAddr,
 		Quantity:         r.Quantity,
 		RecipientAddress: r.Address,
 	})
