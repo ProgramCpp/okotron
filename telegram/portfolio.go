@@ -24,7 +24,7 @@ func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		Send(bot, update, "something went wrong!")
 		return
 	}
-	reply := "portfolio:"
+	reply := ""
 	for _, token := range tokens {
 		reply += token.String() + "\n"
 	}

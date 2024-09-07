@@ -2,7 +2,7 @@ package telegram
 
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/programcpp/okotron/utils"
+	"github.com/programcpp/okotron/okto"
 )
 
 func BuyOrSellKeyboard() tgbotapi.InlineKeyboardMarkup {
@@ -23,10 +23,10 @@ func tokenKeyboard(back bool) tgbotapi.InlineKeyboardMarkup {
 	// if back {
 	// 	keyboardRows = append(keyboardRows, []tgbotapi.InlineKeyboardButton{tgbotapi.NewInlineKeyboardButtonData("⬅back", "back")})
 	// }
-	for i := 0; i < len(utils.SUPPORTED_TOKENS); {
+	for i := 0; i < len(okto.SUPPORTED_TOKENS); {
 		keyboardButtons := []tgbotapi.InlineKeyboardButton{}
-		for j := 0; j < noOfButtonsPerRow && i < len(utils.SUPPORTED_TOKENS); j++ {
-			keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(utils.SUPPORTED_TOKENS[i], utils.SUPPORTED_TOKENS[i]))
+		for j := 0; j < noOfButtonsPerRow && i < len(okto.SUPPORTED_TOKENS); j++ {
+			keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(okto.SUPPORTED_TOKENS[i], okto.SUPPORTED_TOKENS[i]))
 			i++
 		}
 		keyboardRows = append(keyboardRows, tgbotapi.NewInlineKeyboardRow(keyboardButtons...))
@@ -45,7 +45,7 @@ func networkKeyboard(toToken string) tgbotapi.InlineKeyboardMarkup {
 	// }
 	keyboardButtons := []tgbotapi.InlineKeyboardButton{}
 
-	for _, n := range utils.SUPPORTED_NETWORKS[toToken] {
+	for _, n := range okto.SUPPORTED_NETWORKS[toToken] {
 		keyboardButtons = append(keyboardButtons, tgbotapi.NewInlineKeyboardButtonData(n, n))
 	}
 

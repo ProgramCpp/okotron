@@ -24,7 +24,7 @@ func OrderHistory(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		Send(bot, update, "something went wrong!")
 		return
 	}
-	reply := "order history:\n"
+	reply := ""
 	for _, job := range jobs {
 		reply += job.String() + "\n"
 	}

@@ -9,7 +9,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/programcpp/okotron/utils"
+	"github.com/programcpp/okotron/okto"
 	"github.com/spf13/viper"
 	"github.com/tidwall/gjson"
 )
@@ -94,7 +94,7 @@ func getPrices(convertTo string) (PricesData, error) {
 	req.Header.Add("Accept", "application/json")
 
 	// TODO: this is hardcoded for now. get supported tokens from cmc/ okto as you support more tokens
-	tokenSet := filterStableCoins(filterOutToken(utils.SUPPORTED_TOKENS, convertTo))
+	tokenSet := filterStableCoins(filterOutToken(okto.SUPPORTED_TOKENS, convertTo))
 
 	symbols := formatTokenSymbols(tokenSet)
 	params := req.URL.Query()
@@ -137,7 +137,7 @@ func PricesInCurrency() (PricesData, error) {
 // I am in a hurry. this is the most unreadable code ive ever written! I promise
 // the use of map to a map is horrible. need better DS
 func PricesInTokens() (PricesDataInTokens, error) {
-	tokenSet := filterStableCoins(utils.SUPPORTED_TOKENS)
+	tokenSet := filterStableCoins(okto.SUPPORTED_TOKENS)
 	prices := NewPricesDataInTokens()
 
 	for _, t := range tokenSet {
