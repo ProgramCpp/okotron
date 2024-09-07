@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"log"
 	"math"
+	"math/big"
 	"strconv"
-	
+
 	"github.com/pkg/errors"
 	"github.com/tidwall/gjson"
 
@@ -41,9 +42,11 @@ func SwapTokens(chatId int64, r SwapRequest) error {
 	decimal := math.Pow10(okto.TOKEN_TO_DECIMALS[r.FromToken])
 	qty *= decimal
 
+	fromTokAddr := okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.FromToken][r.FromNetwork]
+
 	transactionPayload, err := lifi.GetQuote(lifi.QuoteRequest{
 		FromChain:   okto.NETWORK_NAME_TO_CHAIN_ID[r.FromNetwork],
-		FromToken:   okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.FromToken][r.FromNetwork],
+		FromToken:   fromTokAddr,
 		ToChain:     okto.NETWORK_NAME_TO_CHAIN_ID[r.ToNetwork],
 		ToToken:     okto.TOKEN_TO_NETWORK_TO_ADDRESS[r.ToToken][r.ToNetwork],
 		FromAmount:  fmt.Sprintf("%.0f", qty),
@@ -53,6 +56,13 @@ func SwapTokens(chatId int64, r SwapRequest) error {
 		return errors.Wrap(err, "failed to get a quote for transaction request")
 	}
 	log.Println(transactionPayload)
+
+	if fromTokAddr != okto.NATIVE_TOKEN_ADDR {
+		err = okto.ApproveTokenTransfer(authToken, r.FromNetwork, fromTokAddr, gjson.Get(transactionPayload, "to").String(), big.NewInt(int64(qty)), addr)
+		if err != nil {
+			return errors.Wrap(err, "failed to approve transaction")
+		}
+	}
 
 	req := okto.RawTxPayload{
 		NetworkName: r.FromNetwork,
