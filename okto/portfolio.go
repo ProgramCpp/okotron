@@ -32,7 +32,7 @@ type PortfolioData struct {
 }
 
 // TODO: the portfolio response structure is different from whats docuemnted. this is what the api returns. whath out for breaking changes
-type portfolioReasponse struct {
+type portfolioResponse struct {
 	Status string        `json:"status"`
 	Data   PortfolioData `json:"data"`
 }
@@ -65,7 +65,7 @@ func Portfolio(authToken string) ([]PortfolioTokenInfo, error) {
 		return nil, errors.New("okto portfolio http req not OK")
 	}
 
-	var portfolioRes portfolioReasponse
+	var portfolioRes portfolioResponse
 	err = json.NewDecoder(bytes.NewReader(resBytes)).Decode(&portfolioRes)
 	if err != nil {
 		log.Println("error decoding okto response  " + err.Error())

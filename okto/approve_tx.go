@@ -3,6 +3,7 @@ package okto
 import (
 	"math/big"
 	"strings"
+	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
@@ -15,7 +16,7 @@ import (
 const ERC20ApproveABI = `[{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"type":"function"}]`
 
 // Function to approve ERC20 token transfer using eth_sendTransaction
-func approveTokenTransfer(
+func ApproveTokenTransfer(
 	authToken string,
 	networkName string,
 	contractAddress string, // The ERC20 token contract address
@@ -56,10 +57,18 @@ func approveTokenTransfer(
 	}
 
 	// poll for success
-	for {
+	// maximum 5 calls with backoff. maximum wait of 30s(arithmatic progression of multiples of 2)
+	for i := 1 ; i <= 5; i++{
+		time.Sleep(time.Duration(i * 2) * time.Second)
 		err = RawTxnStatus(authToken, resData.JobId)
-		if err != nil {
+		if err != nil && errors.Is(err, TXN_IN_PROGRESS){
+			continue
+		} else if err != nil {
 			return errors.Wrap(err, "txn approval was unsuccessful")
+		} else {
+			return nil // success
 		}
 	}
+
+	return errors.New("approval txn failed after max wait duration")
 }
