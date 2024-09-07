@@ -82,3 +82,7 @@ func RawTxn(authToken string, r RawTxPayload) (RawTxnResponseData, error) {
 	}
 	return rawTxnRes.Data, nil
 }
+
+func RawTxnStatus(authToken string, jobId string) error {
+	return nil
+}
