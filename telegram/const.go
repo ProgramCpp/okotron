@@ -35,5 +35,6 @@ const (
 	CMD_LIMIT_ORDER_CMD_QUANTITY     = "/limit-order/quantity"
 	CMD_LIMIT_ORDER_CMD_PRICE        = "/limit-order/price"
 
-	CMD_COPY_TRADE_CMD_ADDRESS = "/copy-trade/address"
+	CMD_COPY_TRADE_CMD_ORDER_OR_LIST = "/copy-trade/order-or-list"
+	CMD_COPY_TRADE_CMD_ADDRESS       = "/copy-trade/address"
 )

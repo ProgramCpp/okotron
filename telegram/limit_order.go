@@ -85,7 +85,7 @@ func LimitOrderBuyOrSellInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 
 	if buyOrSell == "list" {
 		// todo: handle error
-		orders, _ := List(update.FromChat().ID)
+		orders, _ := ListLimitOrders(update.FromChat().ID)
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, orders))
 		return
 	}
@@ -378,7 +378,7 @@ func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "limit order success"))
 }
 
-func List(id int64) (string, error) {
+func ListLimitOrders(id int64) (string, error) {
 	loKey := fmt.Sprintf(db.AUDIT_LIMIT_ORDER_KEY, id)
 	ordersStr, err := db.RedisClient().LRange(context.Background(), loKey, 0, -1).Result()
 	if err != nil && !errors.Is(err, redis.Nil) {

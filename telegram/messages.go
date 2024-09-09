@@ -113,6 +113,10 @@ func Run() {
 			} else if subCommand == CMD_LIMIT_ORDER_CMD_PRICE {
 				go LimitOrderPriceInput(bot, update, isBack)
 			}
+
+			if subCommand == CMD_COPY_TRADE_CMD_ORDER_OR_LIST {
+				go CopyTradeInputOrderOrListInput(bot, update)
+			}
 		}
 	}
 }

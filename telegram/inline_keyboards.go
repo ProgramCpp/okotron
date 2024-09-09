@@ -6,7 +6,7 @@ import (
 )
 
 func BuyOrSellKeyboard() tgbotapi.InlineKeyboardMarkup {
-	tokenKeyboard := tgbotapi.NewInlineKeyboardMarkup(
+	buySellKeyboard := tgbotapi.NewInlineKeyboardMarkup(
 		tgbotapi.NewInlineKeyboardRow(
 			tgbotapi.NewInlineKeyboardButtonData("buy", "buy"),
 			tgbotapi.NewInlineKeyboardButtonData("sell", "sell"),
@@ -14,7 +14,18 @@ func BuyOrSellKeyboard() tgbotapi.InlineKeyboardMarkup {
 		),
 	)
 
-	return tokenKeyboard
+	return buySellKeyboard
+}
+
+func CopyOrderKeyboard() tgbotapi.InlineKeyboardMarkup {
+	copyKeyboard := tgbotapi.NewInlineKeyboardMarkup(
+		tgbotapi.NewInlineKeyboardRow(
+			tgbotapi.NewInlineKeyboardButtonData("order", "order"),
+			tgbotapi.NewInlineKeyboardButtonData("list", "list"),
+		),
+	)
+
+	return copyKeyboard
 }
 
 func tokenKeyboard(back bool) tgbotapi.InlineKeyboardMarkup {
