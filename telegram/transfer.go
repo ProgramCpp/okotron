@@ -186,9 +186,9 @@ func TransferQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack 
 }
 
 func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
-	requestId := update.CallbackQuery.Message.MessageID
+	id := update.CallbackQuery.Message.MessageID
 	chatId := update.FromChat().ID
-	requestKey := fmt.Sprintf(db.REQUEST_KEY, requestId)
+	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
 
 	res := db.RedisClient().HGetAll(context.Background(), requestKey)
 	if res.Err() != nil {
@@ -221,11 +221,15 @@ func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		return
 	}
 
-	bot.Send(tgbotapi.NewMessage(
-		update.FromChat().ID,
-		fmt.Sprintf("done! transfer %s tokens from %s:%s to %s",
-			r.Quantity, r.FromNetwork, r.FromToken, r.Address),
-	))
+	bot.Send(tgbotapi.EditMessageTextConfig{
+		BaseEdit: tgbotapi.BaseEdit{
+			ChatID: chatId,
+			MessageID: id,
+			ReplyMarkup: nil,
+		},
+		Text: fmt.Sprintf("done! transfer %s tokens from %s:%s to %s",
+		r.Quantity, r.FromNetwork, r.FromToken, r.Address),
+	})
 }
 
 func Transfer(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
