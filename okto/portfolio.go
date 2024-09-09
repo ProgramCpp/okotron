@@ -22,7 +22,7 @@ type PortfolioTokenInfo struct {
 
 func (t PortfolioTokenInfo) String() string {
 	// denominate amount in inr, as returned by okto. TODO: convert it to usd?
-	return fmt.Sprintf("token: %s. Network: %s. Quantity: %s. amount: %sINR.",
+	return fmt.Sprintf("Token: %s. Network: %s. Quantity: %s. Amount: %sINR.",
 		t.TokenName, t.NetworkName, t.Quantity, t.AmountInInr)
 }
 

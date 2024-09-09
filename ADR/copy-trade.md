@@ -33,6 +33,7 @@ portfolio
 ### Future work
 - list created copy orders
 - cancel copying trades
+- unified copy trades across networks? user has to create separate copy trades for each network, by their network address
 
 ### References
 - https://core.telegram.org/api

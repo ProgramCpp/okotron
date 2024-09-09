@@ -108,7 +108,7 @@ func authenticate(bot *tgbotapi.BotAPI, update tgbotapi.Update, googleToken goog
 
 	// display wallets for users to fund them
 	for _, w := range wallets {
-		reply += fmt.Sprintf("network: %s \n wallet address: %s\n\n", w.NetworkName, w.Address)
+		reply += fmt.Sprintf("Network: %s \n Wallet address: %s\n\n", w.NetworkName, w.Address)
 	}
 
 	Send(bot, update, reply)
