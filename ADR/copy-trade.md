@@ -30,6 +30,10 @@ portfolio
     - for milestone 1, user will be able to enter another user's telegram name manually to copy her trades
     - for milestone 2, build a user portfolio and user can select another user to copy trade
 
+### Future work
+- list created copy orders
+- cancel copying trades
+
 ### References
 - https://core.telegram.org/api
 - https://core.telegram.org/method/contacts.resolveUsername

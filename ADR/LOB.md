@@ -44,7 +44,9 @@ in a conventional limit order, lets say stocks, there is only one account. in th
 
 ### Future Work
 - performance improvements: should you have a separate map for each to-token/ from-token. improve this as volume grows
+- list created limit orders
 - execute limit order with slippage
+- expire limit orders with user input
 
 ### References
 - https://gist.github.com/halfelf/db1ae032dc34278968f8bf31ee999a25

@@ -58,7 +58,13 @@ func SwapTokens(chatId int64, r SwapRequest) error {
 	log.Println(transactionPayload)
 
 	if fromTokAddr != okto.NATIVE_TOKEN_ADDR {
-		err = okto.ApproveTokenTransfer(authToken, r.FromNetwork, fromTokAddr, gjson.Get(transactionPayload, "to").String(), big.NewInt(int64(qty)), addr)
+		err = okto.ApproveTokenTransfer(
+			authToken, 
+			r.FromNetwork, 
+			fromTokAddr, 
+			gjson.Get(transactionPayload, "to").String(), 
+			big.NewInt(int64(qty)), 
+			addr)
 		if err != nil {
 			return errors.Wrap(err, "failed to approve transaction")
 		}
