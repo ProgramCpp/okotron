@@ -22,6 +22,9 @@ const (
 	// limit orders. the value is a list of order objects at a given price
 	LIMIT_ORDER_KEY = "limit_order_for_price_%s"
 	COPY_ORDER_KEY  = "copy_order_for_address_%s"
+
+	// user audit
+	AUDIT_LIMIT_ORDER_KEY = "audit_limit_order_%d"
 )
 
 // TODO: move this to main function with dependency injection
