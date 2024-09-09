@@ -7,7 +7,9 @@ import (
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/pkg/errors"
 	"github.com/programcpp/okotron/db"
+	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 )
 
@@ -18,7 +20,7 @@ func CopyTradeInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 			// TODO: consolidate all telegram send messages
 			ReplyMarkup: CopyOrderKeyboard(),
 		},
-		Text: "",
+		Text: "order?",
 	})
 	subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, resp.MessageID)
 	err := db.RedisClient().Set(context.Background(), subcommandKey, CMD_COPY_TRADE_CMD_ORDER_OR_LIST,
@@ -87,6 +89,19 @@ func CopyTradeCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 func ListCopyOrders(id int64) (string, error) {
+	coKey := fmt.Sprintf(db.AUDIT_COPY_ORDER_KEY, id)
+	ordersStr, err := db.RedisClient().LRange(context.Background(), coKey, 0, -1).Result()
+	if err != nil && !errors.Is(err, redis.Nil) {
+		return "", errors.Wrap(err, "error fetching copy orders from redis")
+	} else if errors.Is(err, redis.Nil) {
+		return "no orders found!", nil
+	}
 
-	return "", nil
+	orders := ""
+
+	for _, os := range ordersStr {
+		orders += os + "\n"
+	}
+
+	return orders, nil
 }

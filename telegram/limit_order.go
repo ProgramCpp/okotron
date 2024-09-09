@@ -384,7 +384,6 @@ func ListLimitOrders(id int64) (string, error) {
 	if err != nil && !errors.Is(err, redis.Nil) {
 		return "", errors.Wrap(err, "error fetching limit orders from redis")
 	} else if errors.Is(err, redis.Nil) {
-		// if no orders at this price, move to the next token price
 		return "no orders found!", nil
 	}
 
