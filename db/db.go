@@ -25,6 +25,7 @@ const (
 
 	// user audit
 	AUDIT_LIMIT_ORDER_KEY = "audit_limit_order_%d"
+	AUDIT_COPY_ORDER_KEY  = "audit_copy_order_%d"
 )
 
 // TODO: move this to main function with dependency injection

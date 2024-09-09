@@ -79,6 +79,11 @@ func CopyTradeCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	copyOrderKey := fmt.Sprintf(db.COPY_ORDER_KEY, address)
 	// TODO: handle error
 	db.RedisClient().RPush(context.Background(), copyOrderKey, fmt.Sprintf("%d", update.FromChat().ID))
+
+	auditCopyOrderKey := fmt.Sprintf(db.AUDIT_COPY_ORDER_KEY, update.FromChat().ID)
+	// TODO: handle error
+	db.RedisClient().RPush(context.Background(), auditCopyOrderKey, address)
+
 }
 
 func ListCopyOrders(id int64) (string, error) {
