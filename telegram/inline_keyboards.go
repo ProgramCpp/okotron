@@ -21,6 +21,7 @@ func CopyOrderKeyboard() tgbotapi.InlineKeyboardMarkup {
 	copyKeyboard := tgbotapi.NewInlineKeyboardMarkup(
 		tgbotapi.NewInlineKeyboardRow(
 			tgbotapi.NewInlineKeyboardButtonData("order", "order"),
+			tgbotapi.NewInlineKeyboardButtonData("cancel", "cancel"),
 			tgbotapi.NewInlineKeyboardButtonData("list", "list"),
 		),
 	)
