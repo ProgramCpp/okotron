@@ -19,10 +19,34 @@ type TransferRequestInput struct {
 	FromToken   string `json:"from_token" redis:"/transfer/from-token"`
 	FromNetwork string `json:"from_network" redis:"/transfer/from-network"`
 	Quantity    string `json:"quantity" redis:"/transfer/quantity"`
-	Address     string `json:"quantity" redis:"/transfer/address"`
+	Address     string `json:"address" redis:"/transfer/address"`
 }
 
 func TransferInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+	// TODO: handle error
+	resp, _ := bot.Send(tgbotapi.MessageConfig{
+		BaseChat: tgbotapi.BaseChat{
+			ChatID: update.FromChat().ID,
+			ReplyMarkup: tgbotapi.ForceReply{
+				ForceReply: true,
+			},
+		},
+		Text: "enter to-address:",
+	})
+
+	subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, resp.MessageID)
+	err := db.RedisClient().Set(context.Background(), subcommandKey, CMD_TRANSFER_CMD_ADDRESS,
+		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
+	if err != nil {
+		log.Printf("error encountered when saving message key from-token command. %s", err.Error())
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, resp.MessageID, "something went wrong. try again."))
+	}
+}
+
+func TransferAddressInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
+	id := update.Message.ReplyToMessage.MessageID
+	address := update.Message.Text
+
 	// show keyboard for the next command
 	// TODO: handle error
 	resp, _ := bot.Send(tgbotapi.MessageConfig{
@@ -34,12 +58,22 @@ func TransferInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		Text: "select the token to transfer:",
 	})
 
-	subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, resp.MessageID)
+	id = resp.MessageID
+
+	subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, id)
 	err := db.RedisClient().Set(context.Background(), subcommandKey, CMD_TRANSFER_CMD_FROM_TOKEN,
 		time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
 	if err != nil {
 		log.Printf("error encountered when saving message key from-token command. %s", err.Error())
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, resp.MessageID, "something went wrong. try again."))
+	}
+
+	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
+	err = db.RedisClient().HSet(context.Background(), requestKey, CMD_TRANSFER_CMD_ADDRESS, address).Err()
+	if err != nil {
+		log.Printf("error encountered when saving request payload while saving address. %s", err.Error())
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
+		return
 	}
 }
 
@@ -121,25 +155,7 @@ func TransferQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack 
 	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
 
 	if strings.Contains(update.CallbackQuery.Data, "enter") {
-		id := update.CallbackQuery.Message.MessageID
-
-		// TODO: handle error
-		resp, _ := bot.Send(tgbotapi.EditMessageTextConfig{
-			BaseEdit: tgbotapi.BaseEdit{
-				ChatID:      update.FromChat().ID,
-				MessageID:   update.CallbackQuery.Message.MessageID,
-				ReplyMarkup: nil, // TODO: how to force reply?
-			},
-			Text: "enter to-address:",
-		})
-
-		subcommandKey := fmt.Sprintf(db.SUB_COMMAND_KEY, resp.MessageID)
-		err := db.RedisClient().Set(context.Background(), subcommandKey, CMD_TRANSFER_CMD_ADDRESS,
-			time.Duration(viper.GetInt("REDIS_CMD_EXPIRY_IN_SEC"))*time.Second).Err()
-		if err != nil {
-			log.Printf("error encountered when saving transfer message key address command. %s", err.Error())
-			bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
-		}
+		TransferCallback(bot, update)
 		return
 	}
 
@@ -169,23 +185,8 @@ func TransferQuantityInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack 
 	// requestKey is no more accessed. will be expired by redis
 }
 
-func TransferAddressInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBack bool) {
-	id := update.Message.ReplyToMessage.MessageID
-	address := update.Message.Text
-
-	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
-	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_TRANSFER_CMD_ADDRESS, address).Err()
-	if err != nil {
-		log.Printf("error encountered when saving request payload while saving address. %s", err.Error())
-		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "something went wrong. try again."))
-		return
-	}
-
-	TransferCallback(bot, update)
-}
-
 func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
-	requestId := update.Message.ReplyToMessage.MessageID
+	requestId := update.CallbackQuery.Message.MessageID
 	chatId := update.FromChat().ID
 	requestKey := fmt.Sprintf(db.REQUEST_KEY, requestId)
 
