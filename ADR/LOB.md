@@ -46,6 +46,8 @@ in a conventional limit order, lets say stocks, there is only one account. in th
 - performance improvements: should you have a separate map for each to-token/ from-token. improve this as volume grows
 - list created limit orders
 - execute limit order with slippage
+- execute limit order at a minimum of limit price
+
 - expire limit orders with user input
 
 ### References

@@ -125,7 +125,7 @@ func processOrder(o LimitOrderRequest, prices cmc.PricesDataInTokens) error {
 		return errors.Wrap(err, "error swapping tokens in limit order")
 	}
 
-	addr, err := okto.GetAddress(o.ChatID,o.FromNetwork)
+	addr, err := okto.GetAddress(o.ChatID, o.FromNetwork)
 	if err != nil {
 		log.Printf("error fethching addresses. %s", err.Error())
 		// not affecting this transaction for copy trade failues. continue and monitor

@@ -10,6 +10,7 @@ import (
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/pkg/errors"
 	"github.com/programcpp/okotron/db"
 	"github.com/programcpp/okotron/limit_order"
 	"github.com/redis/go-redis/v9"
@@ -29,10 +30,20 @@ type LimitOrderRequestInput struct {
 	Price       string `json:"price" redis:"/limit-order/price"`
 }
 
-func (l LimitOrderRequestInput) MarshalBinary() (data []byte, err error) {
+func (i LimitOrderRequestInput) MarshalBinary() (data []byte, err error) {
 	buf := bytes.Buffer{}
-	e := json.NewEncoder(&buf).Encode(l)
+	e := json.NewEncoder(&buf).Encode(i)
 	return buf.Bytes(), e
+}
+
+func (i LimitOrderRequestInput) ToJson() (string, error) {
+	buf := bytes.Buffer{}
+	e := json.NewEncoder(&buf).Encode(i)
+	return buf.String(), e
+}
+
+func (i *LimitOrderRequestInput) FromJson(v string) error {
+	return json.NewDecoder(strings.NewReader(v)).Decode(&i)
 }
 
 func LimitOrderInput(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
@@ -68,8 +79,16 @@ func LimitOrderBuyOrSellInput(bot *tgbotapi.BotAPI, update tgbotapi.Update, isBa
 		LimitOrderInput(bot, update)
 		return
 	}
+
 	id := update.CallbackQuery.Message.MessageID
 	buyOrSell := update.CallbackQuery.Data
+
+	if buyOrSell == "list" {
+		// todo: handle error
+		orders, _ := List(update.FromChat().ID)
+		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, orders))
+		return
+	}
 
 	requestKey := fmt.Sprintf(db.REQUEST_KEY, id)
 	err := db.RedisClient().HSet(context.Background(), requestKey, CMD_LIMIT_ORDER_CMD_BUY_OR_SELL, buyOrSell).Err()
@@ -357,4 +376,26 @@ func LimitOrderCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	// TODO: handle error
 	bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, id, "limit order success"))
+}
+
+func List(id int64) (string, error) {
+	loKey := fmt.Sprintf(db.AUDIT_LIMIT_ORDER_KEY, id)
+	ordersStr, err := db.RedisClient().LRange(context.Background(), loKey, 0, -1).Result()
+	if err != nil && !errors.Is(err, redis.Nil) {
+		return "", errors.Wrap(err, "error fetching limit orders from redis")
+	} else if errors.Is(err, redis.Nil) {
+		// if no orders at this price, move to the next token price
+		return "no orders found!", nil
+	}
+
+	orders := ""
+
+	for _, os := range ordersStr {
+		o := LimitOrderRequestInput{}
+		o.FromJson(os)
+		orders += fmt.Sprintf("%s %s tokens from %s:%s to %s:%s at strike price %s \n",
+			o.BuyOrSell, o.Quantity, o.FromNetwork, o.FromToken, o.ToNetwork, o.ToToken, o.Price)
+	}
+
+	return orders, nil
 }

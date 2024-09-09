@@ -10,6 +10,7 @@ func BuyOrSellKeyboard() tgbotapi.InlineKeyboardMarkup {
 		tgbotapi.NewInlineKeyboardRow(
 			tgbotapi.NewInlineKeyboardButtonData("buy", "buy"),
 			tgbotapi.NewInlineKeyboardButtonData("sell", "sell"),
+			tgbotapi.NewInlineKeyboardButtonData("list", "list"),
 		),
 	)
 
