@@ -23,7 +23,7 @@ type RawTxPayload struct {
 }
 
 type RawTxnResponseData struct {
-	JobId string `json:"job_id"`
+	JobId string `json:"jobId"`
 }
 
 // TODO: de-duplicate response struct
@@ -153,12 +153,12 @@ func RawTxnStatus(authToken string, jobId string) error {
 	for _, job := range rawTxnStatusRes.Data.Jobs {
 		if job.Status == "SUCCESS" {
 			return nil
-		} else if job.Status == "" {
+		} else if job.Status == "PUBLISHED" || job.Status == "RUNNING" {
 			return TXN_IN_PROGRESS
 		} else {
 			return TXN_FAILED
 		}
 	}
 
-	return nil
+	return errors.New("no job found!")
 }

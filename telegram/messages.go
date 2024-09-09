@@ -39,7 +39,9 @@ func Run() {
 		if update.Message != nil { // If we got a message
 			command := update.Message.Text
 
-			if command == CMD_LOGIN {
+			if command == "/start" {
+				// ignore command for now!
+			} else if command == CMD_LOGIN {
 				go Login(bot, update)
 			} else if command == CMD_PORTFOLIO {
 				go Portfolio(bot, update)
