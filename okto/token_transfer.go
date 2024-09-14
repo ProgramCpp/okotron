@@ -67,7 +67,10 @@ func TokenTransfer(chatId int64, r TokenTransferRequest) (string, error) {
 		return "", err
 	}
 
-	if res.StatusCode != http.StatusOK {
+	if res.StatusCode == http.StatusUnauthorized {
+		log.Println("okto token transfer http req unauthorized. " + string(resBytes))
+		return "", ERR_UNAUTHORIZED
+	} else if res.StatusCode != http.StatusOK {
 		// TODO: parse error response
 		log.Println("okto transfer http req not OK. " + string(resBytes))
 		return "", errors.New("okto transfer http req not OK")

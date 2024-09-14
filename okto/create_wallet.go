@@ -53,7 +53,10 @@ func CreateWallet(authToken string) ([]Wallet, error) {
 		return nil, err
 	}
 
-	if res.StatusCode != http.StatusOK {
+	if res.StatusCode == http.StatusUnauthorized {
+		log.Println("okto create wallet http req unauthorized. " + string(resBytes))
+		return nil, ERR_UNAUTHORIZED
+	} else if res.StatusCode != http.StatusOK {
 		// TODO: parse error response
 		log.Println("okto create wallet http req not OK. " + string(resBytes))
 		return nil, errors.New("okto create wallet http req not OK")

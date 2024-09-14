@@ -58,7 +58,10 @@ func OrderHistory(authToken string) ([]Job, error) {
 		return nil, err
 	}
 
-	if res.StatusCode != http.StatusOK {
+	if res.StatusCode == http.StatusUnauthorized {
+		log.Println("okto history http req unauthorized. " + string(resBytes))
+		return nil, ERR_UNAUTHORIZED
+	} else if res.StatusCode != http.StatusOK {
 		// TODO: parse error response
 		log.Println("okto order history http req not OK. " + string(resBytes))
 		return nil, errors.New("okto order history http req not OK")

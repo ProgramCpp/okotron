@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"strings"
@@ -255,7 +256,11 @@ func SwapCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		ToNetwork:   r.ToNetwork,
 		Quantity:    r.Quantity,
 	})
-	if err != nil {
+	if err != nil && errors.Is(err, okto.ERR_UNAUTHORIZED){
+		log.Printf("error executing swap request. " + err.Error())
+		Send(bot, update, "unauthorized. login and try again.")
+		return
+	} else if err != nil {
 		log.Printf("error executing swap request. %s", err.Error())
 		bot.Send(tgbotapi.NewEditMessageText(update.FromChat().ID, requestId, "something went wrong. try again."))
 		return

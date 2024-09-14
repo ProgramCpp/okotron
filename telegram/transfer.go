@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"strings"
@@ -215,7 +216,11 @@ func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		Quantity:         r.Quantity,
 		RecipientAddress: r.Address,
 	})
-	if err != nil {
+	if err != nil && errors.Is(err, okto.ERR_UNAUTHORIZED) {
+		log.Printf("error executing transfer request. " + err.Error())
+		Send(bot, update, "unauthorized. login and try again.")
+		return
+	} else if err != nil {
 		log.Printf("error executing transfer request. %s", err.Error())
 		bot.Send(tgbotapi.NewMessage(update.FromChat().ID, "something went wrong. try again."))
 		return
@@ -223,12 +228,12 @@ func TransferCallback(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	bot.Send(tgbotapi.EditMessageTextConfig{
 		BaseEdit: tgbotapi.BaseEdit{
-			ChatID: chatId,
-			MessageID: id,
+			ChatID:      chatId,
+			MessageID:   id,
 			ReplyMarkup: nil,
 		},
 		Text: fmt.Sprintf("done! transfer %s tokens from %s:%s to %s",
-		r.Quantity, r.FromNetwork, r.FromToken, r.Address),
+			r.Quantity, r.FromNetwork, r.FromToken, r.Address),
 	})
 }
 

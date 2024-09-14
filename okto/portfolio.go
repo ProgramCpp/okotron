@@ -59,7 +59,10 @@ func Portfolio(authToken string) ([]PortfolioTokenInfo, error) {
 		return nil, err
 	}
 
-	if res.StatusCode != http.StatusOK {
+	if res.StatusCode == http.StatusUnauthorized {
+		log.Println("okto portfolio http req unauthorized. " + string(resBytes))
+		return nil, ERR_UNAUTHORIZED
+	} else if res.StatusCode != http.StatusOK {
 		// TODO: parse error response
 		log.Println("okto portfolio http req not OK. " + string(resBytes))
 		return nil, errors.New("okto portfolio http req not OK")

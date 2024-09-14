@@ -63,7 +63,10 @@ func RawTxn(authToken string, r RawTxPayload) (RawTxnResponseData, error) {
 		return RawTxnResponseData{}, err
 	}
 
-	if res.StatusCode != http.StatusOK {
+	if res.StatusCode == http.StatusUnauthorized {
+		log.Println("okto raw txn http req unauthorized. " + string(resBytes))
+		return RawTxnResponseData{}, ERR_UNAUTHORIZED
+	} else if res.StatusCode != http.StatusOK {
 		// TODO: parse error response
 		log.Println("okto raw txn http req not OK. " + string(resBytes))
 		return RawTxnResponseData{}, errors.New("okto raw txn http req not OK")
@@ -131,7 +134,10 @@ func RawTxnStatus(authToken string, jobId string) error {
 		return errors.Wrap(err, "")
 	}
 
-	if res.StatusCode != http.StatusOK {
+	if res.StatusCode == http.StatusUnauthorized {
+		log.Println("okto raw txn http req unauthorized. " + string(resBytes))
+		return ERR_UNAUTHORIZED
+	} else if res.StatusCode != http.StatusOK {
 		// TODO: parse error response
 		log.Println("okto portfolio http req not OK. " + string(resBytes))
 		return errors.New("okto transaction status http req not OK")
