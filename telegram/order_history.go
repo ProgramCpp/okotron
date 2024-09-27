@@ -33,5 +33,10 @@ func OrderHistory(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	for _, job := range jobs {
 		reply += job.String() + "\n"
 	}
+
+	if reply == "" {
+		reply = "no activity found!"
+	}
+
 	Send(bot, update, reply)
 }
