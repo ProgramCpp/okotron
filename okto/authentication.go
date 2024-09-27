@@ -31,7 +31,7 @@ func (a AuthToken) MarshalBinary() (data []byte, err error) {
 }
 
 func Authenticate(idToken string) (AuthToken, error) {
-	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v1/authenticate", strings.NewReader(fmt.Sprintf(
+	req, err := http.NewRequest(http.MethodPost, BASE_URL+"/api/v2/authenticate", strings.NewReader(fmt.Sprintf(
 		`
 		{
 		 	"id_token": "%s"
