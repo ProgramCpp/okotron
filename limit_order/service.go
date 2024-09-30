@@ -46,7 +46,7 @@ func (r *LimitOrderRequest) FromJson(v string) error {
 func ProcessOrders() {
 	go func() {
 		for {
-			time.Sleep(15 * 60 * time.Second) // for the free plan, maximum 10K calls per month. poll every 15 minutes. 4 calls per cycle
+			time.Sleep(30 * 60 * time.Second) // for the free plan, maximum 10K calls per month. poll every 15 minutes. 4 calls per cycle
 
 			pricesInTokens, err := cmc.PricesInTokens()
 			if err != nil {
