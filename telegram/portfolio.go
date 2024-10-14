@@ -33,5 +33,11 @@ func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	for _, token := range tokens {
 		reply += token.String() + "\n"
 	}
+
+	if reply == "" {
+		reply = "wallet is empty. fund your wallets.\n"
+		
+	}
+
 	Send(bot, update, reply)
 }
