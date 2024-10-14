@@ -36,7 +36,13 @@ func Portfolio(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	if reply == "" {
 		reply = "wallet is empty. fund your wallets.\n"
-		
+		wallets, err := okto.Wallets(authToken)
+		// if theres an error, display a plain message to user
+		if err == nil {
+			for _, w := range wallets {
+				reply += w.Print()
+			}
+		}
 	}
 
 	Send(bot, update, reply)

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -14,6 +15,10 @@ type Wallet struct {
 	NetworkName string `json:"network_name"`
 	Address     string `json:"address"`
 	Success     bool   `json:"success"`
+}
+
+func (w Wallet)Print() string {
+	return fmt.Sprintf("%s: %s \n", w.NetworkName, w.Address)
 }
 
 type WalletsData struct {
