@@ -83,14 +83,15 @@ func CreateWallet(authToken string) ([]Wallet, error) {
 }
 
 func Wallets(authToken string) ([]Wallet, error) {	
-	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/api/v1/wallet'", nil)
+	req, err := http.NewRequest(http.MethodGet, BASE_URL+"/api/v1/wallet", nil)
 	if err != nil {
 		log.Println("error creating okto get wallets req " + err.Error())
 		return nil, err
 	}
 
-	req.Header.Add("x-api-key", os.Getenv("OKTO_CLIENT_API_KEY"))
-	req.Header.Add("Content-Type", "application/json")
+	// req.Header.Add("x-api-key", os.Getenv("OKTO_CLIENT_API_KEY"))
+	// req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Accept", "*/*")
 	req.Header.Add("Authorization", "Bearer "+authToken)
 
 	res, err := http.DefaultClient.Do(req)
